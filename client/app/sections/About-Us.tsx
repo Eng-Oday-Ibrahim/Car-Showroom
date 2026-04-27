@@ -5,33 +5,58 @@ import { motion } from "framer-motion";
 const timeline = [
   {
     year: "1985",
-    title: "Foundation",
-    desc: "Founded in Samarra, Iraq marking the beginning of our automotive journey.",
+    title: "Samarra Showroom",
+    desc: "Establishment of the showroom in Samarra, Iraq. The beginning of Hussein Ghulam Motors' journey.",
   },
   {
     year: "1999",
-    title: "Baghdad Expansion",
-    desc: "Al-Fakhama Road showroom opened in Baghdad.",
+    title: "Baghdad Branch",
+    desc: "Al-Fakhama Road branch opened in Baghdad, expanding presence in the domestic market.",
   },
   {
-    year: "2004–2007",
-    title: "Regional Expansion",
-    desc: "Expansion into Erbil, Amman Free Zone, and joint free zones with shipping operations.",
+    year: "2004",
+    title: "Erbil Branch",
+    desc: "Opening of the Erbil branch in the Kurdistan Region, strengthening regional presence.",
   },
   {
-    year: "2022–2024",
-    title: "Global Growth",
-    desc: "Dubai branches, Guangzhou office, and Nouakchott showroom established.",
+    year: "2006",
+    title: "Amman Branch",
+    desc: "Launch of the Amman Free Zone branch, marking the first step toward international expansion.",
   },
   {
-    year: "2025",
-    title: "Fleet Scaling",
-    desc: "600+ vehicle rental fleet launched in Dubai.",
+    year: "2007",
+    title: "Syrian–Jordanian Free Zone",
+    desc: "Opening of the branch in the Syrian–Jordanian Free Zone to expand cross-border operations.",
+  },
+  {
+    year: "2007",
+    title: "Al-Ghulam Shipping Company",
+    desc: "Establishment of Al-Ghulam Shipping Company and entry into the logistics services sector.",
+  },
+  {
+    year: "2022",
+    title: "Dubai Branch",
+    desc: "Launch of Hussein Ghulam Motors branch in Dubai, UAE.",
+  },
+  {
+    year: "2023",
+    title: "Square Motors",
+    desc: "Opening of the second UAE branch in Dubai under the name Square Motors.",
+  },
+  {
+    year: "2024",
+    title: "Guangzhou Office",
+    desc: "Opening of the Guangzhou office in China (Fanko), expanding the global supply network.",
+  },
+  {
+    year: "2024",
+    title: "Car Rental Company",
+    desc: "Launch of the Dubai car rental company with a fleet of 600 vehicles.",
   },
   {
     year: "2026",
-    title: "Diversification",
-    desc: "Entry into auto parts market under HG Spare Parts.",
+    title: "HG Spare Parts",
+    desc: "Entry into the spare parts market under the HG Spare Parts brand.",
   },
 ];
 
