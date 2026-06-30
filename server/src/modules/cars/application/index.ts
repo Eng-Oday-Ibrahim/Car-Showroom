@@ -1,0 +1,10 @@
+export { CarService }                from './car.service';
+export { CreateCarUseCase }          from './use-cases/create-car.use-case';
+export { UpdateCarUseCase }          from './use-cases/update-car.use-case';
+export { DeleteCarUseCase }          from './use-cases/delete-car.use-case';
+export { ChangeCarStatusUseCase }    from './use-cases/change-car-status.use-case';
+export { SyncFromDubicarsUseCase }   from './use-cases/sync-dubicars.use-case';
+export type { CreateCarInput }       from './use-cases/create-car.use-case';
+export type { UpdateCarInput }       from './use-cases/update-car.use-case';
+export type { CarStatusAction }      from './use-cases/change-car-status.use-case';
+export type { SyncResult }           from './use-cases/sync-dubicars.use-case';

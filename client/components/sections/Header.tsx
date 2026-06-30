@@ -5,10 +5,10 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const navItems = [
   {name: "Home", link: "/"},
-  { name: "About", link: "#about" },
+  { name: "About", link: "/about" },
   { name: "Services", link: "#services" },
   { name: "Our Cars", link: "/cars" },
-  { name: "Contact", link: "#contact" },
+  { name: "Contact", link: "/contact" },
 ];
 
 export default function Header() {
@@ -27,31 +27,24 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed z-50 transition-all duration-300
-        ${
-          scrolled
-            ? "top-0 left-0 right-0 px-2 bg-white shadow-md border border-neutral-200"
-            : "top-4 left-4 right-4 px-4 rounded bg-white/15 backdrop-blur-md border-none"
-        }`}
+      className={`fixed top-0 left-0 right-0 px-2 z-50 transition-all duration-300 bg-[#050505]/90 backdrop-blur-md`}
     >
-      <div className="container mx-auto py-2 flex items-center justify-between">
+      <div className="container mx-auto py-3 flex items-center justify-between">
 
         {/* Logo */}
         <img
           src="/images/logo.jpg"
           alt="logo"
-          className="h-10 w-10 object-contain rounded"
+          className="h-14 w-14 object-contain rounded"
         />
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex gap-8 text-sm">
+        <nav className="hidden md:flex gap-8 text-md">
           {navItems.map((item, i) => (
             <a
               key={i}
               href={item.link}
-              className={`relative group transition duration-200
-                ${scrolled ? "text-neutral-600 hover:text-neutral-900" : "text-white hover:text-white"}
-              `}
+              className={`relative group transition duration-200 text-white hover:text-gray-100`}
             >
               {item.name}
               <span className="absolute left-0 -bottom-1 h-[1px] w-0 bg-[#C8A24A] transition-all duration-200 group-hover:w-full" />

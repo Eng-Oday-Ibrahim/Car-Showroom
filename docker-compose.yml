@@ -1,0 +1,48 @@
+version: "3.9"
+
+services:
+  client:
+    build:
+      context: ./client
+    container_name: cars-client
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - server
+    env_file:
+      - ./client/.env
+    environment:
+      - NEXT_PUBLIC_API_URL=https://cars.com
+      - INTERNAL_API_URL=http://cars-server:4000
+
+  server:
+    build:
+      context: ./server
+    container_name: cars-server
+    restart: always
+    ports:
+      - "4000:4000"
+    depends_on:
+      - db
+    env_file:
+      - ./server/.env
+    environment:
+      - DATABASE_URL=mongodb://root:${MONGO_PASSWORD}@db:27017/cars?authSource=admin
+      - REDIS_URL=redis://:${REDIS_PASSWORD}@redis:6379
+      - RABBITMQ_URL=amqp://admin:${RABBITMQ_PASSWORD}@rabbitmq:5672
+      - STORAGE_PATH=/server/storage
+    volumes:
+      - /var/www/cars/storage:/server/storage
+  db:
+    image: mongo:7
+    container_name: cars-mongodb
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
