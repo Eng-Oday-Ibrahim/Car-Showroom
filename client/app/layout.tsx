@@ -1,28 +1,27 @@
+﻿import './globals.css';
 import type { Metadata } from 'next';
-import { Navbar }  from '../components/shared/navbar';
+import FooterWrapper from '../components/shared/footer-wrapper';
+import {Navbar} from '@/components/shared/navbar';
+import { I18nProvider } from '@/lib/i18n';
 
 export const metadata: Metadata = {
-  title: 
-    {
-     default: 'معرض السيارات', 
-     template: '%s | معرض السيارات' 
-    },
-  description: 'تصفح أحدث السيارات المتاحة لدينا بأفضل الأسعار في الإمارات',
+  title: {
+    default: 'Hussein Ghulam Motors',
+    template: '%s | Hussein Ghulam Motors',
+  },
+  description: 'Hussein Ghulam Motors is a car dealership that specializes in selling high-quality vehicles. We offer a wide selection of cars, trucks, and SUVs to meet your needs.',
 };
 
 export default function PublicLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
-      <Navbar />
-      <main className="flex-1 container mx-auto px-4 py-10 max-w-7xl">
-        {children}
-      </main>
-      <footer className="border-t border-gray-200 bg-white mt-16">
-        <div className="container mx-auto px-4 py-6 max-w-7xl flex items-center justify-between text-sm text-gray-400">
-          <span>© {new Date().getFullYear()} معرض السيارات. جميع الحقوق محفوظة.</span>
-          <span>مدعوم بـ DubiCars</span>
-        </div>
-      </footer>
-    </div>
+    <html lang="en">
+      <body className="min-h-screen bg-gray-50 flex flex-col">
+        <I18nProvider>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <FooterWrapper />
+        </I18nProvider>
+      </body>
+    </html>
   );
 }

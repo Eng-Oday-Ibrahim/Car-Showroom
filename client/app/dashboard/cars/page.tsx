@@ -13,10 +13,13 @@ import {
   SelectTrigger, SelectValue,
 } from '../../../components/ui/select';
 import type { Car, CarFilters } from '../../../types/car.types';
+import { Plus } from 'lucide-react';
+import { useI18n } from '@/lib/i18n';
 
 const PER_PAGE = 20;
 
 export default function DashboardCarsPage() {
+  const { t } = useI18n();
   const [cars,       setCars]       = useState<Car[]>([]);
   const [total,      setTotal]      = useState(0);
   const [totalPages, setTotalPages] = useState(1);
@@ -58,24 +61,24 @@ export default function DashboardCarsPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">السيارات</h1>
+          <h1 className="text-2xl font-bold text-gray-900">{t('dashboardCars.title')}</h1>
           <p className="text-sm text-gray-400 mt-0.5">
-            {loading ? '...' : `${total.toLocaleString('ar')} سيارة`}
+            {loading ? '...' : `${total.toLocaleString('en')} ${t('dashboardCars.carsLabel')}`}
           </p>
         </div>
         <Link href="/dashboard/cars/new">
-          <Button>➕ إضافة سيارة</Button>
+          <Button>{t('dashboardCars.createCar')} <Plus /></Button>
         </Link>
       </div>
 
       {/* Filters bar */}
-      <div className="bg-white border border-gray-200 rounded-2xl p-4">
+      <div className="bg-white border border-gray-200 rounded p-4">
         <div className="flex flex-wrap gap-3 items-end">
 
           <div className="space-y-1">
-            <p className="text-xs text-gray-400">الماركة</p>
+            <p className="text-xs text-gray-400">{t('dashboardCars.filters.make')}</p>
             <Input
-              placeholder="مثال: Toyota"
+              placeholder={t('dashboardCars.filters.makePlaceholder')}
               className="w-36 h-9 text-sm"
               value={(filters.make as string) ?? ''}
               onChange={e => setFilter('make', e.target.value)}
@@ -83,9 +86,9 @@ export default function DashboardCarsPage() {
           </div>
 
           <div className="space-y-1">
-            <p className="text-xs text-gray-400">الموديل</p>
+            <p className="text-xs text-gray-400">{t('dashboardCars.filters.model')}</p>
             <Input
-              placeholder="مثال: Camry"
+              placeholder={t('dashboardCars.filters.modelPlaceholder')}
               className="w-36 h-9 text-sm"
               value={(filters.model as string) ?? ''}
               onChange={e => setFilter('model', e.target.value)}
@@ -93,37 +96,37 @@ export default function DashboardCarsPage() {
           </div>
 
           <div className="space-y-1">
-            <p className="text-xs text-gray-400">الحالة</p>
+            <p className="text-xs text-gray-400">{t('dashboardCars.filters.status')}</p>
             <Select
               value={(filters.status as string) ?? 'all'}
               onValueChange={v => setFilter('status', v)}
             >
               <SelectTrigger className="w-36 h-9 text-sm">
-                <SelectValue placeholder="كل الحالات" />
+                <SelectValue placeholder={t('dashboardCars.filters.allStatuses')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">كل الحالات</SelectItem>
-                <SelectItem value="active">✅ نشط</SelectItem>
-                <SelectItem value="paused">⏸️ موقوف</SelectItem>
-                <SelectItem value="sold">🏷️ مباع</SelectItem>
-                <SelectItem value="deleted">🗑️ محذوف</SelectItem>
+                <SelectItem value="all">{t('dashboardCars.filters.allStatuses')}</SelectItem>
+                <SelectItem value="active">{t('dashboardCars.filters.statusActive')}</SelectItem>
+                <SelectItem value="paused">{t('dashboardCars.filters.statusPaused')}</SelectItem>
+                <SelectItem value="sold">{t('dashboardCars.filters.statusSold')}</SelectItem>
+                <SelectItem value="deleted">{t('dashboardCars.filters.statusDeleted')}</SelectItem>
               </SelectContent>
             </Select>
           </div>
 
           <div className="space-y-1">
-            <p className="text-xs text-gray-400">المصدر</p>
+            <p className="text-xs text-gray-400">{t('dashboardCars.filters.source')}</p>
             <Select
               value={(filters.source as string) ?? 'all'}
               onValueChange={v => setFilter('source', v)}
             >
               <SelectTrigger className="w-36 h-9 text-sm">
-                <SelectValue placeholder="كل المصادر" />
+                <SelectValue placeholder={t('dashboardCars.filters.allSources')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">كل المصادر</SelectItem>
-                <SelectItem value="local">🏠 محلي</SelectItem>
-                <SelectItem value="dubicars">🔗 دبي كار</SelectItem>
+                <SelectItem value="all">{t('dashboardCars.filters.allSources')}</SelectItem>
+                <SelectItem value="local">{t('dashboardCars.filters.sourceLocal')}</SelectItem>
+                <SelectItem value="dubicars">{t('dashboardCars.filters.sourceDubicars')}</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -135,7 +138,7 @@ export default function DashboardCarsPage() {
               className="h-9 text-gray-400 hover:text-gray-700"
               onClick={resetFilters}
             >
-              مسح الفلاتر ✕
+              {t('dashboardCars.filters.clearFilters')} ✕
             </Button>
           )}
 

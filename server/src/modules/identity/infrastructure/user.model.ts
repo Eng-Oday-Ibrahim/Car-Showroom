@@ -7,6 +7,7 @@ export interface IUserDocument extends Document {
   name: string;
   role: UserRoleType;
   isActive: boolean;
+  favoriteCarIds: string[];
   createdAt: Date;
   updatedAt: Date;
 }
@@ -41,6 +42,10 @@ const userSchema = new Schema<IUserDocument>(
       type: Boolean,
       default: true,
       index: true,
+    },
+    favoriteCarIds: {
+      type: [String],
+      default: [],
     },
   },
   {

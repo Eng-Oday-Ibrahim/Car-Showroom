@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { User } from "lucide-react";
 
 const founder = {
   name: "Hussein Ghulam",
@@ -55,15 +56,10 @@ function Person({ p, level = "staff" }: any) {
       className="text-center group"
     >
       <div
-        className={`relative mx-auto ${size} rounded overflow-hidden border border-[#C8A24A] shadow-sm group-hover:shadow-md transition duration-200`}
+        className={`relative bg-gray-50 p-4 mx-auto ${size} rounded-full flex items-center justify-center overflow-hidden border-0.5 border-[#C8A24A] group-hover:bg-gray-100 transition duration-200`}
       >
-        <img
-          src={p.img}
-          className="w-full h-full object-cover"
-        />
+        <User className="w-full h-full text-neutral-900"/>
 
-        {/* premium gold ring */}
-        <div className="absolute inset-0 rounded border border-[#C8A24A]/40 group-hover:border-[#C8A24A] transition" />
       </div>
 
       <p className="mt-4 text-neutral-900 text-sm tracking-wide">
@@ -77,7 +73,7 @@ function Person({ p, level = "staff" }: any) {
   );
 }
 
-export default function Team() {
+export default function OurTeam() {
   return (
    <section className="container mx-auto bg-white py-32">
   <div className="px-6">
@@ -105,9 +101,6 @@ export default function Team() {
             <Person key={i} p={p} level="board" />
           ))}
         </div>
-
-        {/* horizontal connector */}
-        <div className="absolute top-[40px] left-1/2 -translate-x-1/2 w-[260px] h-[2px] bg-[#C8A24A]/60" />
 
         {/* vertical line */}
         <div className="w-[2px] h-16 bg-gradient-to-b from-[#C8A24A] to-transparent mx-auto mt-10" />

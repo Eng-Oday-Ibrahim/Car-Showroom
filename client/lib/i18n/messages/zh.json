@@ -1,0 +1,514 @@
+{
+  "navbar": {
+    "home": "首页",
+    "about": "关于我们",
+    "cars": "我们的车辆",
+    "contact": "联系我们",
+    "login": "登录",
+    "profile": "个人资料",
+    "language": "语言"
+  },
+  "footer": {
+    "contactTitle": "联系我们",
+    "contactText": "我们随时准备为您服务，并在汽车领域提供最佳解决方案。如需更多信息或商务合作，请与我们联系。",
+    "quickLinks": "快速链接",
+    "ourBrands": "我们的品牌",
+    "connectionTitle": "联系方式",
+    "emailLabel": "电子邮箱",
+    "phoneLabel": "电话",
+    "locationLabel": "位置",
+    "privacy": "隐私政策",
+    "terms": "条款",
+    "copyright": "© {year} Hussein Ghulam Motors。保留所有权利。"
+  },
+  "hero": {
+    "tagline": "卓越的汽车品质",
+    "title": "全球汽车贸易与高端汽车解决方案",
+    "description": "进出口、物流、租赁及展厅运营。",
+    "carsButton": "查看车辆",
+    "aboutButton": "关于我们"
+  },
+  "cta": {
+    "ready": "准备好开始了吗",
+    "headline": "打造您的汽车体验",
+    "headlineHighlight": "以信心与精准为基础",
+    "description": "从汽车贸易到物流、租赁及展厅运营——我们提供为规模化发展而设计的端到端解决方案。",
+    "primary": "立即开始",
+    "secondary": "联系我们"
+  },
+  "about": {
+    "title": "关于我们",
+    "timeline": {
+      "samarra": {
+        "title": "萨迈拉展厅",
+        "desc": "在伊拉克萨迈拉建立展厅，Hussein Ghulam Motors 旅程的起点。"
+      },
+      "baghdad": {
+        "title": "巴格达分部",
+        "desc": "在巴格达开设 Al-Fakhama 路分部，扩大国内市场的业务覆盖。"
+      },
+      "erbil": {
+        "title": "埃尔比勒分部",
+        "desc": "在库尔德斯坦地区开设埃尔比勒分部，加强区域影响力。"
+      },
+      "amman": {
+        "title": "安曼分部",
+        "desc": "启动安曼自由区分部，迈出国际扩张的第一步。"
+      },
+      "syrianJordanian": {
+        "title": "叙约自由区",
+        "desc": "在叙约自由区开设分部，以扩大跨境业务。"
+      },
+      "shipping": {
+        "title": "Al-Ghulam 航运公司",
+        "desc": "成立 Al-Ghulam 航运公司，进军物流服务领域。"
+      },
+      "dubai": {
+        "title": "迪拜分部",
+        "desc": "在阿联酋迪拜启动 Hussein Ghulam Motors 分部。"
+      },
+      "squareMotors": {
+        "title": "Square Motors",
+        "desc": "在迪拜开设阿联酋第二家分部，命名为 Square Motors。"
+      },
+      "guangzhou": {
+        "title": "广州办事处",
+        "desc": "在中国广州（Fanko）开设办事处，扩大全球供应网络。"
+      },
+      "rental": {
+        "title": "汽车租赁公司",
+        "desc": "在迪拜启动汽车租赁公司，拥有 600 辆车的车队。"
+      },
+      "spareParts": {
+        "title": "HG 备件",
+        "desc": "以 HG Spare Parts 品牌进入备件市场。"
+      }
+    }
+  },
+  "brands": {
+    "tagline": "汽车合作伙伴",
+    "title": "我们的品牌",
+    "names": {
+      "tesla": "特斯拉",
+      "bmw": "宝马",
+      "audi": "奥迪",
+      "volkswagen": "大众",
+      "toyota": "丰田",
+      "honda": "本田",
+      "hyundai": "现代",
+      "nissan": "日产",
+      "ford": "福特",
+      "chevrolet": "雪佛兰",
+      "porsche": "保时捷",
+      "ferrari": "法拉利",
+      "lamborghini": "兰博基尼",
+      "maserati": "玛莎拉蒂",
+      "bugatti": "布加迪",
+      "peugeot": "标致",
+      "tata": "塔塔"
+    }
+  },
+  "markets": {
+    "tagline": "全球布局",
+    "title": "我们的市场",
+    "description": "我们通过值得信赖的区域网络，服务于非洲、南美、亚洲和欧洲等多元化汽车市场。",
+    "regions": {
+      "africa": "非洲",
+      "southAmerica": "南美洲",
+      "asia": "亚洲",
+      "europe": "欧洲"
+    },
+    "countries": {
+      "benin": "贝宁",
+      "nigeria": "尼日利亚",
+      "burkinaFaso": "布基纳法索",
+      "ghana": "加纳",
+      "gabon": "加蓬",
+      "ivoryCoast": "科特迪瓦",
+      "drCongo": "刚果民主共和国",
+      "guinea": "几内亚",
+      "mali": "马里",
+      "rwanda": "卢旺达",
+      "algeria": "阿尔及利亚",
+      "tunisia": "突尼斯",
+      "costaRica": "哥斯达黎加",
+      "venezuela": "委内瑞拉",
+      "chile": "智利",
+      "philippines": "菲律宾",
+      "cambodia": "柬埔寨",
+      "kazakhstan": "哈萨克斯坦",
+      "azerbaijan": "阿塞拜疆",
+      "russia": "俄罗斯",
+      "armenia": "亚美尼亚",
+      "turkmenistan": "土库曼斯坦",
+      "tajikistan": "塔吉克斯坦",
+      "uzbekistan": "乌兹别克斯坦",
+      "germany": "德国",
+      "belgium": "比利时",
+      "georgia": "格鲁吉亚"
+    }
+  },
+  "presence": {
+    "tagline": "全球网络",
+    "title": "我们的业务网点",
+    "description": "我们的实体网点连接了中东、北非及国际贸易区的主要汽车枢纽。",
+    "countries": {
+      "iraq": "伊拉克",
+      "syria": "叙利亚",
+      "uae": "阿联酋",
+      "jordan": "约旦",
+      "mauritania": "毛里塔尼亚"
+    },
+    "locations": {
+      "erbil": "埃尔比勒",
+      "baghdad": "巴格达",
+      "salahAlDin": "萨拉赫丁",
+      "jointFreeZone": "联合自由区",
+      "dubai": "迪拜",
+      "zarqaFreeZone": "扎尔卡自由区",
+      "nouakchott": "努瓦克肖特"
+    }
+  },
+  "services": {
+    "tagline": "我们提供的服务",
+    "title": "我们的服务",
+    "description": "我们的业务覆盖整个汽车生态系统——将贸易、物流、租赁运营及全球展厅管理整合为统一系统。",
+    "note": "专为精准、规模化及长期运营信任而打造。",
+    "items": {
+      "trading": "汽车贸易、进出口",
+      "shipping": "运输与物流服务",
+      "rental": "全面车队的汽车租赁",
+      "parts": "正品汽车配件供应",
+      "showrooms": "国际展厅的管理与运营"
+    }
+  },
+  "contactPage": {
+    "header": "联系我们",
+    "description": "我们随时准备为您服务，并在汽车领域提供最佳解决方案。如有咨询或商务合作意向，请与我们联系。",
+    "detailsTitle": "详细信息",
+    "chatTitle": "在线咨询",
+    "followTitle": "关注我们",
+    "whatsapp": "WhatsApp"
+  },
+  "privacyPage": {
+    "title": "隐私政策",
+    "updated": "最近更新时间：{date}",
+    "section1Title": "1. 我们收集的信息",
+    "section1Body": "当您使用本网站时——例如通过提交咨询表单或通过 WhatsApp 与我们联系——我们可能会收集您的姓名、电子邮箱、电话号码以及您提供的任何留言内容。",
+    "section2Title": "2. 我们如何使用您的信息",
+    "section2Body": "我们使用您提供的信息来回复咨询、分享车辆详情并改进我们的服务。我们不会将您的个人信息出售给第三方。",
+    "section3Title": "3. Cookie",
+    "section3Body": "本网站可能使用 Cookie 来改善浏览体验、记住偏好设置并了解访客的使用方式。您可以随时通过浏览器设置禁用 Cookie。",
+    "section4Title": "4. 第三方服务",
+    "section4Body": "我们可能使用可信的第三方服务（如分析或托管服务提供商）代表我们处理数据。这些提供商仅被允许使用您的数据来为我们提供服务。",
+    "section5Title": "5. 数据安全",
+    "section5Body": "我们采取合理的技术和组织措施，以保护您的信息不被未经授权的访问、更改或披露。但是，通过互联网传输的任何方法都无法做到绝对安全。",
+    "section6Title": "6. 您的权利",
+    "section6Body": "您可以随时通过下方提供的联系方式，要求访问、更正或删除您的个人信息。",
+    "section7Title": "7. 本政策的变更",
+    "section7Body": "我们可能会不时更新本隐私政策。任何变更都将发布在本页面上，并附有更新后的“最近更新”日期。",
+    "footerText": "对本政策有疑问？请通过 {email} 与我们联系"
+  },
+  "termsPage": {
+    "title": "条款与条件",
+    "updated": "最近更新时间：{date}",
+    "section1Title": "1. 条款的接受",
+    "section1Body": "访问或使用本网站即表示您同意遵守本条款与条件。如果您不同意本条款的任何部分，请勿使用本网站。",
+    "section2Title": "2. 车辆信息",
+    "section2Body": "我们尽力确保本网站上显示的车辆详情、规格、里程和价格准确且为最新信息。但是，信息可能会在未经通知的情况下更改，我们不保证所有信息均无误。在做出购买决定前，请与我们联系以确认详情。",
+    "section3Title": "3. 价格",
+    "section3Body": "除非另有说明，所有价格均以阿联酋迪拉姆列示，且可能在未经事先通知的情况下更改。除非明确说明，价格不包括注册、保险或其他适用费用。",
+    "section4Title": "4. 网站使用",
+    "section4Body": "您同意仅将本网站用于合法目的，并且不会以侵犯任何第三方权利或限制、妨碍其使用及享用本网站的方式使用本网站。",
+    "section5Title": "5. 知识产权",
+    "section5Body": "本网站上的所有内容——包括文本、图片、标志和设计——除非另有说明，均归 Hussein Ghulam Motors 所有，未经事先书面同意不得转载。",
+    "section6Title": "6. 责任限制",
+    "section6Body": "对于因使用本网站或依赖其中所含任何信息而产生的任何间接、附带或后果性损害，Hussein Ghulam Motors 概不负责。",
+    "section7Title": "7. 适用法律",
+    "section7Body": "本条款受阿拉伯联合酋长国法律管辖并据其解释，任何争议均应受迪拜法院的专属管辖。",
+    "section8Title": "8. 本条款的变更",
+    "section8Body": "我们可能会不时更新本条款与条件。变更发布后继续使用本网站即视为接受修订后的条款。",
+    "footerText": "对这些条款有疑问？请通过 {email} 与我们联系"
+  },
+  "auth": {
+    "loginTitle": "登录",
+    "loginHelp": "使用演示管理员账户，或使用在注册页面创建的账户登录。",
+    "emailPlaceholder": "电子邮箱",
+    "passwordPlaceholder": "密码",
+    "signingIn": "正在登录…",
+    "createAccountText": "首次使用？",
+    "createAccountLink": "创建账户"
+  },
+  "common": {
+    "filterResults": "筛选结果",
+    "showingResults": "显示 {total} 辆车中的 {count} 辆",
+    "noCarsMatch": "没有符合您搜索条件的车辆",
+    "tryFilters": "请尝试更改或清除筛选条件",
+    "showAllCars": "显示所有车辆",
+    "removeFilters": "移除筛选"
+  },
+  "registerPage": {
+    "title": "创建账户",
+    "description": "注册以保存您喜欢的车辆并管理您的个人资料。",
+    "namePlaceholder": "全名",
+    "emailPlaceholder": "电子邮箱",
+    "passwordPlaceholder": "密码",
+    "errorMissingFields": "请填写所有字段。",
+    "errorCreateAccount": "无法创建账户",
+    "creatingAccount": "正在创建账户…",
+    "createButton": "创建账户",
+    "alreadyHaveAccount": "已有账户？",
+    "signIn": "登录"
+  },
+  "profile": {
+    "roleAdmin": "管理员",
+    "roleCustomer": "客户",
+    "logout": "退出登录",
+    "accountTitle": "账户",
+    "savedCars": "已保存的车辆",
+    "savedCount": "已保存"
+  },
+  "profileSaved": {
+    "backToProfile": "返回个人资料",
+    "title": "已保存的车辆",
+    "description": "您收藏的房源信息存储于此，便于快速访问。",
+    "loading": "正在加载已保存的车辆…",
+    "emptyTitle": "暂无已保存的车辆",
+    "emptyDescription": "访问任意车辆页面并保存，即可在此处显示。",
+    "browseCars": "浏览车辆"
+  },
+  "dashboard": {
+    "title": "控制面板",
+    "description": "展厅业绩概览",
+    "quickActionsTitle": "快捷操作",
+    "recentlyAdded": "最近添加",
+    "viewAll": "查看全部",
+    "stats": {
+      "totalCars": "车辆总数",
+      "active": "在售",
+      "paused": "已暂停",
+      "sold": "已售出",
+      "fromDubicars": "来自 Dubicars",
+      "local": "本地"
+    },
+    "quickActions": {
+      "addCar": "添加车辆",
+      "addCarDesc": "添加新的本地车辆信息",
+      "manageCars": "管理车辆",
+      "manageCarsDesc": "查看和编辑所有车辆"
+    }
+  },
+  "dashboardCars": {
+    "title": "车辆",
+    "carsLabel": "辆车",
+    "createCar": "创建车辆",
+    "filters": {
+      "make": "品牌",
+      "makePlaceholder": "例如：Toyota",
+      "model": "型号",
+      "modelPlaceholder": "例如：Camry",
+      "status": "状态",
+      "allStatuses": "所有状态",
+      "statusActive": "在售",
+      "statusPaused": "已暂停",
+      "statusSold": "已售出",
+      "statusDeleted": "已删除",
+      "source": "来源",
+      "allSources": "所有来源",
+      "sourceLocal": "本地",
+      "sourceDubicars": "DubiCars",
+      "clearFilters": "清除筛选"
+    },
+    "breadcrumb": {
+      "dashboard": "控制面板",
+      "cars": "车辆"
+    },
+    "newCarTitle": "创建新车辆",
+    "newCarDescription": "该车辆信息仅保存在您的网站上",
+    "back": "返回",
+    "viewOnSite": "在网站上查看",
+    "backToList": "返回列表",
+    "editTitle": "编辑车辆",
+    "dubicarsNoticeTitle": "此车辆来自 DubiCars",
+    "dubicarsNoticeMessage": "DubiCars 的车辆无法手动编辑。您在 DubiCars 账户上的任何更改都将在下次同步时自动反映。",
+    "statusActiveVisible": "在售 — 访客可见",
+    "statusPausedHidden": "已暂停 — 对访客隐藏",
+    "statusSold": "已售出",
+    "statusDeleted": "已删除"
+  },
+  "dashboardUsers": {
+    "title": "用户",
+    "loadingTitle": "正在加载用户…",
+    "usersFound": "位用户",
+    "refresh": "刷新",
+    "backToDashboard": "返回控制面板",
+    "table": {
+      "name": "姓名",
+      "email": "电子邮箱",
+      "role": "角色",
+      "status": "状态"
+    },
+    "roleAdmin": "管理员",
+    "roleUser": "用户",
+    "statusActive": "活跃",
+    "statusInactive": "未激活",
+    "errorSignInAgain": "请重新登录。",
+    "errorLoadUsers": "无法加载用户"
+  },
+  "sidebar": {
+    "dashboard": "控制面板",
+    "cars": "车辆",
+    "addCar": "添加车辆",
+    "headerTitle": "汽车展廊",
+    "headerSubtitle": "控制面板"
+  },
+  "team": {
+    "title": "组织架构"
+  },
+  "carForm": {
+    "steps": {
+      "basic": "基本信息",
+      "specs": "规格参数",
+      "warranty": "质保",
+      "description": "描述",
+      "images": "照片"
+    },
+    "errorMakeModelRequired": "继续前需填写品牌和型号",
+    "errorMakeRequired": "品牌为必填项",
+    "errorModelRequired": "型号为必填项",
+    "errorYearRange": "年份必须在 1900 至 2100 之间",
+    "errorPricePositive": "价格必须大于 0",
+    "errorImageUploadFailed": "图片上传失败",
+    "errorSubmit": "发生错误",
+    "basic": {
+      "make": "品牌 *",
+      "model": "型号 *",
+      "year": "年份 *",
+      "trim": "配置 / 级别",
+      "price": "价格（迪拉姆）*",
+      "kmDriven": "行驶公里数",
+      "makePlaceholder": "Toyota",
+      "modelPlaceholder": "Land Cruiser",
+      "trimPlaceholder": "VXR",
+      "pricePlaceholder": "输入价格（迪拉姆）",
+      "kmPlaceholder": "全新车辆请输入 0"
+    },
+    "specs": {
+      "color": "颜色",
+      "bodyType": "车身类型",
+      "fuelType": "燃料类型",
+      "transmission": "变速箱",
+      "regionalSpecs": "地区规格",
+      "steeringSide": "方向盘位置",
+      "features": "配置特点",
+      "featuresHelp": "多个特点请用逗号分隔。",
+      "selectPlaceholder": "请选择..."
+    },
+    "fuel": {
+      "petrol": "汽油",
+      "diesel": "柴油",
+      "electric": "电动",
+      "hybrid": "混合动力"
+    },
+    "transmission": {
+      "automatic": "自动挡",
+      "manual": "手动挡"
+    },
+    "steering": {
+      "left": "左驾",
+      "right": "右驾"
+    },
+    "warranty": {
+      "available": "提供质保",
+      "duration": "质保期限",
+      "durationPlaceholder": "12 个月"
+    },
+    "description": {
+      "arabic": "描述（阿拉伯语）",
+      "english": "描述（英语）",
+      "arabicPlaceholder": "车辆的阿拉伯语描述...",
+      "englishPlaceholder": "车辆的英语描述..."
+    },
+    "images": {
+      "uploadPrompt": "点击上传照片",
+      "uploading": "正在上传图片…",
+      "accept": "支持 JPG、PNG、WEBP 或 GIF — 每张最大 10 MB",
+      "noImages": "暂无图片 — 建议至少上传 4 张照片"
+    },
+    "actions": {
+      "cancel": "取消",
+      "back": "返回",
+      "next": "下一步",
+      "uploading": "正在上传...",
+      "saving": "正在保存...",
+      "saveChanges": "保存更改",
+      "addCar": "添加车辆"
+    }
+  },
+  "carsTable": {
+    "noCarsFound": "未找到车辆",
+    "addOrSync": "添加新车辆或同步数据",
+    "images": "图片",
+    "cars": "车辆",
+    "year": "年份",
+    "price": "价格",
+    "kilometers": "公里数",
+    "source": "来源",
+    "status": "状态",
+    "actions": "操作",
+    "noImage": "无图片",
+    "viewOnSite": "在网站上查看",
+    "edit": "编辑",
+    "activate": "激活",
+    "pause": "暂停",
+    "markAsSold": "标记为已售出",
+    "delete": "删除",
+    "deleteConfirmTitle": "确认删除",
+    "deleteConfirmDescription": "您确定要删除此车辆吗？此操作无法撤销。",
+    "cancel": "取消",
+    "deleteButton": "删除",
+    "dubicarsCannotModify": "此车辆来自 DubiCars，无法修改。"
+  },
+  "faq": {
+    "title": "常见问题",
+    "answerLabel": "答案",
+    "items": {
+      "shipping": {
+        "question": "你们提供国际汽车运输服务吗？",
+        "answer": "是的。我们负责全面的进出口业务，包括单证处理、物流以及全球交付协调。"
+      },
+      "rentals": {
+        "question": "我可以短期租用豪华车吗？",
+        "answer": "可以。我们的车队包括豪华车、跑车及经济型车辆，租期灵活可选。"
+      },
+      "parts": {
+        "question": "你们提供正品备件吗？",
+        "answer": "我们只从经过认证的全球供应商和制造商处采购经过验证的原厂备件。"
+      },
+      "showrooms": {
+        "question": "你们管理国际展厅吗？",
+        "answer": "是的。我们运营完整的展厅系统，包括销售、物流和运营管理。"
+      }
+    }
+  },
+  "dashboardHome": {
+    "title": "控制面板",
+    "description": "管理您的车辆库存",
+    "syncCars": "同步车辆",
+    "syncing": "正在同步...",
+    "createCar": "创建车辆",
+    "manageCars": "管理车辆",
+    "manageCarsDescription": "管理您的车辆库存",
+    "manageUsers": "管理用户",
+    "manageUsersDescription": "管理用户账户与权限",
+    "errorLoad": "无法加载控制面板统计数据",
+    "errorSync": "无法同步车辆",
+    "stats": {
+      "totalCars": "车辆总数",
+      "activeCars": "在售车辆",
+      "pausedCars": "已暂停车辆",
+      "soldCars": "已售出车辆",
+      "deletedCars": "已删除车辆"
+    }
+  }
+}

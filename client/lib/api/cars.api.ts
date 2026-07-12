@@ -8,7 +8,28 @@ import type {
   UpdateCarInput,
 } from '../../types/car.types';
 
-const BASE_URL = process.env['NEXT_PUBLIC_API_URL'] ?? 'http://localhost:5000/api';
+// Resolve base URLs for both server-side and browser usage.
+// - `NEXT_PUBLIC_API_URL` is used by browser bundles (should include `/api`).
+// - `INTERNAL_API_URL` is used when code runs server-side (inside Docker) to reach the server container.
+const clientEnv = process.env['NEXT_PUBLIC_API_URL']; // expected like 'http://localhost:4000/api'
+const internalEnv = process.env['NEXT_PUBLIC_INTERNAL_API_URL']; // expected like 'http://cars-server:4000'
+
+const stripTrailing = (u?: string) => (u ? u.replace(/\/+$/, '') : undefined);
+
+const clientBase = stripTrailing(clientEnv);
+const internalBase = stripTrailing(internalEnv);
+
+let BASE_URL: string;
+if (typeof window === 'undefined') {
+  // Server-side (SSR): prefer internal host so container can reach the server by service name.
+  const base = internalBase ?? (clientBase ? clientBase.replace(/\/api$/, '') : 'http://localhost:4000');
+  BASE_URL = base.endsWith('/api') ? base : `${base}/api`;
+} else {
+  // Browser: prefer NEXT_PUBLIC_API_URL; otherwise use the current page origin.
+  const origin = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000';
+  const base = clientBase ?? `${origin}/api`;
+  BASE_URL = base.endsWith('/api') ? base : `${base}/api`;
+}
 
 // ── Base fetch wrapper ────────────────────────────────────
 
@@ -21,10 +42,43 @@ async function apiFetch<T>(
     ...options,
   });
 
-  const json = await res.json() as { success: boolean; message?: string } & T;
+  const json = await res.json() as {
+    success: boolean;
+    message?: string;
+    errors?: Array<{ field: string; message: string }>;
+  } & T;
 
   if (!res.ok || !json.success) {
-    throw new Error(json.message ?? `API error ${res.status}`);
+    // Include validation errors if present
+    const errorDetails = json.errors
+      ? '\n' + json.errors.map(e => `${e.field}: ${e.message}`).join('\n')
+      : '';
+    throw new Error((json.message ?? `API error ${res.status}`) + errorDetails);
+  }
+
+  return json;
+}
+
+async function uploadFetch<T>(
+  path: string,
+  formData: FormData,
+): Promise<T> {
+  const res = await fetch(`${BASE_URL}${path}`, {
+    method: 'POST',
+    body:   formData,
+  });
+
+  const json = await res.json() as {
+    success: boolean;
+    message?: string;
+    errors?: Array<{ field: string; message: string }>;
+  } & T;
+
+  if (!res.ok || !json.success) {
+    const errorDetails = json.errors
+      ? '\n' + json.errors.map(e => `${e.field}: ${e.message}`).join('\n')
+      : '';
+    throw new Error((json.message ?? `API error ${res.status}`) + errorDetails);
   }
 
   return json;
@@ -67,6 +121,12 @@ export const carsApi = {
       method: 'POST',
       body:   JSON.stringify(data),
     });
+  },
+
+  uploadImages(files: File[]): Promise<{ data: Array<{ filename: string; url: string }> }> {
+    const formData = new FormData();
+    files.forEach(file => formData.append('images', file));
+    return uploadFetch<{ data: Array<{ filename: string; url: string }> }>('/uploads/images', formData);
   },
 
   // update a car's details

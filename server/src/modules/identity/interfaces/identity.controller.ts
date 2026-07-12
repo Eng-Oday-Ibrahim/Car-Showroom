@@ -45,6 +45,16 @@ export const requireAdmin = (req: AuthRequest, res: Response, next: NextFunction
 export function createIdentityRouter(identityService: IdentityService): Router {
   const router = Router();
 
+  const serializeUsers = (result: {
+    data: Array<{ toPublic(): unknown }>;
+    total: number;
+    page: number;
+    perPage: number;
+  }) => ({
+    ...result,
+    data: result.data.map(user => user.toPublic()),
+  });
+
   /**
    * POST /auth/register
    * Register a new user
@@ -88,6 +98,41 @@ export function createIdentityRouter(identityService: IdentityService): Router {
   });
 
   /**
+   * GET /auth/me/favorites
+   * Get the current user's saved car IDs
+   */
+  router.get('/me/favorites', verifyToken, async (req: AuthRequest, res: Response, next: NextFunction) => {
+    try {
+      if (!req.user?.userId) {
+        return res.status(401).json({ success: false, message: 'Unauthorized' });
+      }
+
+      const favoriteCarIds = await identityService.getFavoriteCarIds(req.user.userId);
+      res.json({ success: true, data: { favoriteCarIds } });
+    } catch (err) {
+      next(err);
+    }
+  });
+
+  /**
+   * PATCH /auth/favorites/:carId
+   * Toggle a car as saved/unsaved for the current user
+   */
+  router.patch('/favorites/:carId', verifyToken, async (req: AuthRequest, res: Response, next: NextFunction) => {
+    try {
+      if (!req.user?.userId) {
+        return res.status(401).json({ success: false, message: 'Unauthorized' });
+      }
+
+      const carId = Array.isArray(req.params.carId) ? req.params.carId[0] : req.params.carId;
+      const result = await identityService.toggleFavoriteCar(req.user.userId, carId);
+      res.json({ success: true, data: result });
+    } catch (err) {
+      next(err);
+    }
+  });
+
+  /**
    * ── ADMIN ROUTES ──────────────────────────────────────
    */
 
@@ -102,7 +147,7 @@ export function createIdentityRouter(identityService: IdentityService): Router {
         { role: query.role, isActive: query.isActive },
         { page: query.page, perPage: query.perPage }
       );
-      res.json({ success: true, ...result });
+      res.json({ success: true, ...serializeUsers(result) });
     } catch (err) {
       next(err);
     }

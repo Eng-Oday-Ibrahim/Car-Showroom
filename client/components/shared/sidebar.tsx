@@ -3,24 +3,26 @@
 import Link     from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn }   from '../../lib/utils';
+import { Layout, Plus, Car } from 'lucide-react';
+import { useI18n } from '@/lib/i18n';
 
 const links = [
-  { href: '/dashboard',           label: 'الرئيسية',   icon: '📊' },
-  { href: '/dashboard/cars',      label: 'السيارات',   icon: '🚗' },
-  { href: '/dashboard/cars/new',  label: 'إضافة سيارة', icon: '➕' },
-  { href: '/dashboard/sync',      label: 'مزامنة دبي كار', icon: '🔄' },
+  { href: '/dashboard',           label: 'Dashboard',   icon: Layout, labelKey: 'sidebar.dashboard' },
+  { href: '/dashboard/cars',      label: 'Cars',   icon: Car,      labelKey: 'sidebar.cars' },
+  { href: '/dashboard/cars/new',  label: 'Add Car', icon: Plus,     labelKey: 'sidebar.addCar' },
 ];
 
 export function Sidebar() {
   const pathname = usePathname();
+  const { t } = useI18n();
 
   return (
     <aside className="w-56 shrink-0 border-l border-gray-200 bg-white min-h-screen">
       <div className="p-4 border-b border-gray-100">
         <Link href="/" className="flex items-center gap-2">
-          <span className="text-lg font-bold text-gray-900">🚗 المعرض</span>
+          <span className="text-lg font-bold text-gray-900"> Cars Gallery</span>
         </Link>
-        <p className="text-xs text-gray-400 mt-1">لوحة التحكم</p>
+        <p className="text-xs text-gray-400 mt-1">{t('sidebar.headerSubtitle')}</p>
       </div>
 
       <nav className="p-3 space-y-1">
@@ -40,8 +42,8 @@ export function Sidebar() {
                   : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
               )}
             >
-              <span>{link.icon}</span>
-              <span>{link.label}</span>
+              {<link.icon className="h-4 w-4" />}
+              <span>{t(link.labelKey)}</span>
             </Link>
           );
         })}

@@ -246,8 +246,9 @@ export class Car {
     }
     if (Number(props.year) < 1900 || Number(props.year) > 2100)
       throw new Error('سنة الصنع يجب أن تكون بين 1900 و 2100');
-    if (Number(props.price) < 0)
-      throw new Error('السعر لا يمكن أن يكون سالباً');
+    const numPrice = Number(props.price);
+    if (isNaN(numPrice) || numPrice < 0)
+      throw new Error('السعر يجب أن يكون رقم موجب');
   }
 
   #copyWith(changes: Partial<CarProps>): Car {

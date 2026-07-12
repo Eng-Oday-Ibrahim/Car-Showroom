@@ -9,16 +9,18 @@ export function cn(...inputs: ClassValue[]) {
 
 // ── Formatters ────────────────────────────────────────────
 
-export function formatPrice(price: number): string {
+export function formatPrice(price: number | undefined | null): string {
+  if (price == null || isNaN(price)) return 'N/A';
   return new Intl.NumberFormat('en-AE', {
     style:    'currency',
-    currency: 'AED',
     maximumFractionDigits: 0,
+    currency: 'AED',
   }).format(price);
 }
 
-export function formatKm(km: number): string {
-  return km === 0 ? 'Brand New' : `${new Intl.NumberFormat('en').format(km)} km`;
+export function formatKm(km: number | undefined | null): string {
+  if (km == null || isNaN(km)) return 'N/A';
+  return `${new Intl.NumberFormat('en').format(km)} km`;
 }
 
 export function formatDate(date: string): string {
@@ -32,10 +34,10 @@ export function formatDate(date: string): string {
 // ── Status helpers ────────────────────────────────────────
 
 export const STATUS_LABELS: Record<CarStatus, string> = {
-  active:  'نشط',
-  paused:  'موقوف',
-  sold:    'مباع',
-  deleted: 'محذوف',
+  active:  'Active',
+  paused:  'Paused',
+  sold:    'Sold',
+  deleted: 'Deleted',
 };
 
 export const STATUS_COLORS: Record<CarStatus, string> = {
@@ -46,8 +48,8 @@ export const STATUS_COLORS: Record<CarStatus, string> = {
 };
 
 export const SOURCE_LABELS: Record<CarSource, string> = {
-  local:    'محلي',
-  dubicars: 'دبي كار',
+  local:    'local',
+  dubicars: 'dubicars',
 };
 
 export const SOURCE_COLORS: Record<CarSource, string> = {

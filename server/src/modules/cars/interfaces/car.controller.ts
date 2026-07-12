@@ -11,6 +11,17 @@ import {
 export function createCarRouter(carService: CarService): Router {
   const router = Router();
 
+  const serializeList = <T extends { toObject(): unknown }>(result: {
+    data: T[];
+    total: number;
+    page: number;
+    perPage: number;
+    totalPages: number;
+  }) => ({
+    ...result,
+    data: result.data.map(car => car.toObject()),
+  });
+
   // ── Public routes (واجهة الموقع) ─────────────────────
 
   /**
@@ -24,7 +35,7 @@ export function createCarRouter(carService: CarService): Router {
         { ...dto, status: 'active' },
         { page: dto.page, perPage: dto.perPage }
       );
-      res.json({ success: true, ...result });
+      res.json({ success: true, ...serializeList(result) });
     } catch (err) { next(err); }
   });
 
@@ -51,11 +62,12 @@ export function createCarRouter(carService: CarService): Router {
     try {
       const dto    = req.query as unknown as ReturnType<typeof listCarsSchema.parse>;
       const result = await carService.list(
-        { status: dto.status, source: dto.source, make: dto.make, model: dto.model,
-          minPrice: dto.minPrice, maxPrice: dto.maxPrice, minYear: dto.minYear, maxYear: dto.maxYear },
+        { status: dto.status, source: dto.source, sort: dto.sort, make: dto.make, model: dto.model,
+          minPrice: dto.minPrice, maxPrice: dto.maxPrice, minYear: dto.minYear, maxYear: dto.maxYear,
+          minKm: dto.minKm, maxKm: dto.maxKm },
         { page: dto.page, perPage: dto.perPage }
       );
-      res.json({ success: true, ...result });
+      res.json({ success: true, ...serializeList(result) });
     } catch (err) { next(err); }
   });
 

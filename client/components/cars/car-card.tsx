@@ -1,9 +1,10 @@
 'use client';
 
-import Image       from 'next/image';
 import Link        from 'next/link';
 import type { Car } from '../../types/car.types';
 import { formatPrice, formatKm } from '../../lib/utils';
+import { CarImage } from './car-image';
+import { SaveCarButton } from './save-car-button';
 
 interface CarCardProps {
   car: Car;
@@ -14,19 +15,18 @@ export function CarCard({ car }: CarCardProps) {
 
   return (
     <Link href={`/cars/${car.id}`} className="group block">
-      <div className="rounded-2xl overflow-hidden border border-gray-200 bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
+      <div className="overflow-hidden border border-gray-100 bg-white transition-shadow duration-200">
 
         {/* Image */}
         <div className="relative h-52 w-full bg-gray-100">
-          <Image
+          <CarImage
             src={thumbnail}
             alt={`${car.make} ${car.model}`}
-            fill
             className="object-cover group-hover:scale-105 transition-transform duration-300"
           />
           {car.kmDriven === 0 && (
-            <span className="absolute top-3 right-3 bg-green-500 text-white text-xs font-semibold px-2 py-1 rounded-full">
-              جديد
+            <span className="absolute top-3 right-3 bg-[#C8A24A] text-white text-xs font-semibold px-2 py-1">
+              New
             </span>
           )}
         </div>
@@ -39,6 +39,12 @@ export function CarCard({ car }: CarCardProps) {
             </h3>
             <span className="text-sm text-gray-500 shrink-0">{car.year}</span>
           </div>
+          <div className="flex items-center justify-between">
+            <p className="text-xl font-bold text-primary">
+              {formatPrice(car.price)}
+            </p>
+            <SaveCarButton carId={car.id} />
+          </div>
 
           {/* Specs row */}
           <div className="flex items-center gap-3 text-sm text-gray-500">
@@ -49,10 +55,6 @@ export function CarCard({ car }: CarCardProps) {
             <span>{formatKm(car.kmDriven)}</span>
           </div>
 
-          {/* Price */}
-          <p className="text-xl font-bold text-primary">
-            {formatPrice(car.price)}
-          </p>
         </div>
       </div>
     </Link>

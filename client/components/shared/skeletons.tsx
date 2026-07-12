@@ -7,7 +7,7 @@ interface SkeletonProps {
 
 export function Skeleton({ className, style }: SkeletonProps) {
   return (
-    <div className={cn('animate-pulse rounded-md bg-gray-200', className)} style={style} />
+    <div className={cn('animate-pulse rounded bg-gray-200', className)} style={style} />
   );
 }
 
@@ -15,7 +15,7 @@ export function Skeleton({ className, style }: SkeletonProps) {
 
 export function CarCardSkeleton() {
   return (
-    <div className="rounded-2xl overflow-hidden border border-gray-200 bg-white">
+    <div className="rounded overflow-hidden border border-gray-200 bg-white">
       <Skeleton className="h-52 w-full rounded-none" />
       <div className="p-4 space-y-3">
         <Skeleton className="h-5 w-3/4" />
@@ -42,7 +42,7 @@ export function CarsGridSkeleton({ count = 8 }: { count?: number }) {
 
 export function TableSkeleton({ rows = 8 }: { rows?: number }) {
   return (
-    <div className="rounded-xl border border-gray-200 overflow-hidden">
+    <div className="rounded border border-gray-200 overflow-hidden">
       <div className="bg-gray-50 px-4 py-3 flex gap-4">
         {[140, 60, 100, 90, 80, 80].map((w, i) => (
           <Skeleton key={i} className="h-4" style={{ width: w }} />
@@ -51,7 +51,7 @@ export function TableSkeleton({ rows = 8 }: { rows?: number }) {
       <div className="divide-y divide-gray-100 bg-white">
         {Array.from({ length: rows }).map((_, i) => (
           <div key={i} className="px-4 py-3 flex gap-4 items-center">
-            <Skeleton className="h-10 w-14 rounded-lg shrink-0" />
+            <Skeleton className="h-10 w-14 rounded shrink-0" />
             <div className="space-y-1.5 flex-1">
               <Skeleton className="h-4 w-32" />
               <Skeleton className="h-3 w-20" />
@@ -75,11 +75,11 @@ export function CarDetailSkeleton() {
   return (
     <div className="max-w-5xl mx-auto space-y-8">
       <div className="grid grid-cols-4 gap-2">
-        <Skeleton className="col-span-3 h-80 rounded-2xl" />
+        <Skeleton className="col-span-3 h-80 rounded" />
         <div className="flex flex-col gap-2">
-          <Skeleton className="flex-1 rounded-xl" />
-          <Skeleton className="flex-1 rounded-xl" />
-          <Skeleton className="flex-1 rounded-xl" />
+          <Skeleton className="flex-1 rounded" />
+          <Skeleton className="flex-1 rounded" />
+          <Skeleton className="flex-1 rounded" />
         </div>
       </div>
       <div className="grid grid-cols-3 gap-8">
@@ -87,10 +87,10 @@ export function CarDetailSkeleton() {
           <Skeleton className="h-8 w-64" />
           <Skeleton className="h-4 w-24" />
           <div className="grid grid-cols-2 gap-3">
-            {Array.from({ length: 10 }).map((_, i) => <Skeleton key={i} className="h-16 rounded-lg" />)}
+            {Array.from({ length: 10 }).map((_, i) => <Skeleton key={i} className="h-16 rounded" />)}
           </div>
         </div>
-        <Skeleton className="h-64 rounded-2xl" />
+        <Skeleton className="h-64 rounded" />
       </div>
     </div>
   );
@@ -102,7 +102,7 @@ export function StatsSkeleton() {
   return (
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
       {Array.from({ length: 4 }).map((_, i) => (
-        <Skeleton key={i} className="h-28 rounded-2xl" />
+        <Skeleton key={i} className="h-28 rounded" />
       ))}
     </div>
   );

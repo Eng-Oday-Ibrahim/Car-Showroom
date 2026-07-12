@@ -1,0 +1,514 @@
+{
+  "navbar": {
+    "home": "Accueil",
+    "about": "À propos",
+    "cars": "Nos véhicules",
+    "contact": "Contact",
+    "login": "Connexion",
+    "profile": "Profil",
+    "language": "Langue"
+  },
+  "footer": {
+    "contactTitle": "Contactez-nous",
+    "contactText": "Nous sommes toujours prêts à vous servir et à offrir les meilleures solutions dans le monde de l'automobile. Contactez-nous pour plus d'informations ou pour un partenariat commercial.",
+    "quickLinks": "Liens rapides",
+    "ourBrands": "Nos marques",
+    "connectionTitle": "Contact",
+    "emailLabel": "E-mail",
+    "phoneLabel": "Téléphone",
+    "locationLabel": "Emplacement",
+    "privacy": "Confidentialité",
+    "terms": "Conditions",
+    "copyright": "© {year} Hussein Ghulam Motors. Tous droits réservés."
+  },
+  "hero": {
+    "tagline": "L'excellence automobile",
+    "title": "Commerce automobile mondial et solutions automobiles haut de gamme",
+    "description": "Import, export, logistique, location et gestion de salles d'exposition.",
+    "carsButton": "NOS VÉHICULES",
+    "aboutButton": "À PROPOS"
+  },
+  "cta": {
+    "ready": "Prêt à commencer",
+    "headline": "Construisez votre expérience automobile",
+    "headlineHighlight": "avec confiance et précision",
+    "description": "Du commerce automobile à la logistique, en passant par la location et la gestion de salles d'exposition — nous proposons des solutions de bout en bout conçues pour évoluer à grande échelle.",
+    "primary": "Commencer",
+    "secondary": "Contactez-nous"
+  },
+  "about": {
+    "title": "À propos de nous",
+    "timeline": {
+      "samarra": {
+        "title": "Salle d'exposition de Samarra",
+        "desc": "Création de la salle d'exposition à Samarra, en Irak. Le début de l'aventure Hussein Ghulam Motors."
+      },
+      "baghdad": {
+        "title": "Agence de Bagdad",
+        "desc": "Ouverture de l'agence de la route Al-Fakhama à Bagdad, renforçant la présence sur le marché national."
+      },
+      "erbil": {
+        "title": "Agence d'Erbil",
+        "desc": "Ouverture de l'agence d'Erbil dans la région du Kurdistan, renforçant la présence régionale."
+      },
+      "amman": {
+        "title": "Agence d'Amman",
+        "desc": "Lancement de l'agence de la zone franche d'Amman, première étape vers l'expansion internationale."
+      },
+      "syrianJordanian": {
+        "title": "Zone franche syro-jordanienne",
+        "desc": "Ouverture d'une agence dans la zone franche syro-jordanienne pour étendre les opérations transfrontalières."
+      },
+      "shipping": {
+        "title": "Al-Ghulam Shipping Company",
+        "desc": "Création de la société Al-Ghulam Shipping et entrée dans le secteur des services logistiques."
+      },
+      "dubai": {
+        "title": "Agence de Dubaï",
+        "desc": "Lancement de l'agence Hussein Ghulam Motors à Dubaï, aux Émirats arabes unis."
+      },
+      "squareMotors": {
+        "title": "Square Motors",
+        "desc": "Ouverture de la deuxième agence aux Émirats, à Dubaï, sous le nom de Square Motors."
+      },
+      "guangzhou": {
+        "title": "Bureau de Guangzhou",
+        "desc": "Ouverture du bureau de Guangzhou en Chine (Fanko), élargissant le réseau d'approvisionnement mondial."
+      },
+      "rental": {
+        "title": "Société de location de voitures",
+        "desc": "Lancement de la société de location de voitures à Dubaï avec une flotte de 600 véhicules."
+      },
+      "spareParts": {
+        "title": "HG Spare Parts",
+        "desc": "Entrée sur le marché des pièces détachées sous la marque HG Spare Parts."
+      }
+    }
+  },
+  "brands": {
+    "tagline": "Partenaires automobiles",
+    "title": "Nos marques",
+    "names": {
+      "tesla": "Tesla",
+      "bmw": "BMW",
+      "audi": "Audi",
+      "volkswagen": "Volkswagen",
+      "toyota": "Toyota",
+      "honda": "Honda",
+      "hyundai": "Hyundai",
+      "nissan": "Nissan",
+      "ford": "Ford",
+      "chevrolet": "Chevrolet",
+      "porsche": "Porsche",
+      "ferrari": "Ferrari",
+      "lamborghini": "Lamborghini",
+      "maserati": "Maserati",
+      "bugatti": "Bugatti",
+      "peugeot": "Peugeot",
+      "tata": "Tata"
+    }
+  },
+  "markets": {
+    "tagline": "Présence mondiale",
+    "title": "Nos marchés",
+    "description": "Nous servons divers marchés automobiles en Afrique, en Amérique du Sud, en Asie et en Europe grâce à des réseaux régionaux de confiance.",
+    "regions": {
+      "africa": "Afrique",
+      "southAmerica": "Amérique du Sud",
+      "asia": "Asie",
+      "europe": "Europe"
+    },
+    "countries": {
+      "benin": "Bénin",
+      "nigeria": "Nigeria",
+      "burkinaFaso": "Burkina Faso",
+      "ghana": "Ghana",
+      "gabon": "Gabon",
+      "ivoryCoast": "Côte d'Ivoire",
+      "drCongo": "RD Congo",
+      "guinea": "Guinée",
+      "mali": "Mali",
+      "rwanda": "Rwanda",
+      "algeria": "Algérie",
+      "tunisia": "Tunisie",
+      "costaRica": "Costa Rica",
+      "venezuela": "Venezuela",
+      "chile": "Chili",
+      "philippines": "Philippines",
+      "cambodia": "Cambodge",
+      "kazakhstan": "Kazakhstan",
+      "azerbaijan": "Azerbaïdjan",
+      "russia": "Russie",
+      "armenia": "Arménie",
+      "turkmenistan": "Turkménistan",
+      "tajikistan": "Tadjikistan",
+      "uzbekistan": "Ouzbékistan",
+      "germany": "Allemagne",
+      "belgium": "Belgique",
+      "georgia": "Géorgie"
+    }
+  },
+  "presence": {
+    "tagline": "Réseau mondial",
+    "title": "Notre présence",
+    "description": "Notre présence physique relie les principaux pôles automobiles du Moyen-Orient, de l'Afrique du Nord et des zones de commerce international.",
+    "countries": {
+      "iraq": "Irak",
+      "syria": "Syrie",
+      "uae": "Émirats arabes unis",
+      "jordan": "Jordanie",
+      "mauritania": "Mauritanie"
+    },
+    "locations": {
+      "erbil": "Erbil",
+      "baghdad": "Bagdad",
+      "salahAlDin": "Salah al-Din",
+      "jointFreeZone": "Zone franche conjointe",
+      "dubai": "Dubaï",
+      "zarqaFreeZone": "Zarqa - Zone franche",
+      "nouakchott": "Nouakchott"
+    }
+  },
+  "services": {
+    "tagline": "Ce que nous proposons",
+    "title": "Nos services",
+    "description": "Nous intervenons sur l'ensemble de l'écosystème automobile — reliant le commerce, la logistique, les opérations de location et la gestion mondiale des salles d'exposition en un système unifié.",
+    "note": "Conçu pour la précision, l'échelle et la confiance opérationnelle à long terme.",
+    "items": {
+      "trading": "Commerce automobile, import et export",
+      "shipping": "Services d'expédition et de logistique",
+      "rental": "Location de voitures avec une flotte complète",
+      "parts": "Fourniture de pièces automobiles d'origine",
+      "showrooms": "Gestion et exploitation de salles d'exposition internationales"
+    }
+  },
+  "contactPage": {
+    "header": "Contactez-nous",
+    "description": "Nous sommes toujours prêts à vous servir et à offrir les meilleures solutions dans le monde de l'automobile. Contactez-nous pour toute demande ou partenariat commercial.",
+    "detailsTitle": "Coordonnées",
+    "chatTitle": "Discutez avec nous",
+    "followTitle": "Suivez-nous",
+    "whatsapp": "WhatsApp"
+  },
+  "privacyPage": {
+    "title": "Politique de confidentialité",
+    "updated": "Dernière mise à jour : {date}",
+    "section1Title": "1. Informations que nous collectons",
+    "section1Body": "Lorsque vous utilisez ce site — par exemple en soumettant un formulaire de demande ou en nous contactant via WhatsApp — nous pouvons collecter votre nom, votre adresse e-mail, votre numéro de téléphone et tout détail de message que vous fournissez.",
+    "section2Title": "2. Comment nous utilisons vos informations",
+    "section2Body": "Nous utilisons les informations que vous fournissez pour répondre aux demandes, partager les détails des véhicules et améliorer nos services. Nous ne vendons pas vos informations personnelles à des tiers.",
+    "section3Title": "3. Cookies",
+    "section3Body": "Ce site peut utiliser des cookies pour améliorer l'expérience de navigation, mémoriser les préférences et comprendre comment les visiteurs utilisent le site. Vous pouvez désactiver les cookies à tout moment via les paramètres de votre navigateur.",
+    "section4Title": "4. Services tiers",
+    "section4Body": "Nous pouvons utiliser des services tiers de confiance (comme des fournisseurs d'analyse ou d'hébergement) qui traitent des données en notre nom. Ces prestataires ne sont autorisés à utiliser vos données que pour nous fournir des services.",
+    "section5Title": "5. Sécurité des données",
+    "section5Body": "Nous prenons des mesures techniques et organisationnelles raisonnables pour protéger vos informations contre tout accès, modification ou divulgation non autorisés. Cependant, aucune méthode de transmission sur Internet n'est totalement sécurisée.",
+    "section6Title": "6. Vos droits",
+    "section6Body": "Vous pouvez demander à tout moment l'accès, la correction ou la suppression de vos informations personnelles en nous contactant aux coordonnées ci-dessous.",
+    "section7Title": "7. Modifications de cette politique",
+    "section7Body": "Nous pouvons mettre à jour cette politique de confidentialité de temps à autre. Toute modification sera publiée sur cette page avec une date de « dernière mise à jour » révisée.",
+    "footerText": "Des questions sur cette politique ? Contactez-nous à {email}"
+  },
+  "termsPage": {
+    "title": "Conditions générales",
+    "updated": "Dernière mise à jour : {date}",
+    "section1Title": "1. Acceptation des conditions",
+    "section1Body": "En accédant à ce site ou en l'utilisant, vous acceptez d'être lié par les présentes conditions générales. Si vous n'acceptez pas une partie de ces conditions, veuillez ne pas utiliser ce site.",
+    "section2Title": "2. Annonces de véhicules",
+    "section2Body": "Nous nous efforçons de garantir l'exactitude et l'actualité des détails, spécifications, kilométrage et prix des véhicules présentés sur ce site. Cependant, les annonces peuvent changer sans préavis, et nous ne garantissons pas que toutes les informations soient exemptes d'erreurs. Veuillez nous contacter pour confirmer les détails avant de prendre une décision d'achat.",
+    "section3Title": "3. Tarification",
+    "section3Body": "Tous les prix sont indiqués en AED sauf indication contraire et peuvent être modifiés sans préavis. Les prix n'incluent pas l'immatriculation, l'assurance ou d'autres frais applicables, sauf indication expresse contraire.",
+    "section4Title": "4. Utilisation du site",
+    "section4Body": "Vous acceptez d'utiliser ce site uniquement à des fins légales et d'une manière qui ne porte pas atteinte aux droits d'un tiers ni ne restreigne ou n'entrave l'utilisation et la jouissance de ce site par un tiers.",
+    "section5Title": "5. Propriété intellectuelle",
+    "section5Body": "Tout le contenu de ce site — y compris les textes, images, logos et la conception — est la propriété de Hussein Ghulam Motors, sauf indication contraire, et ne peut être reproduit sans autorisation écrite préalable.",
+    "section6Title": "6. Limitation de responsabilité",
+    "section6Body": "Hussein Ghulam Motors ne saurait être tenue responsable de tout dommage indirect, accessoire ou consécutif découlant de l'utilisation de ce site ou de la confiance accordée aux informations qu'il contient.",
+    "section7Title": "7. Droit applicable",
+    "section7Body": "Les présentes conditions sont régies et interprétées conformément aux lois des Émirats arabes unis, et tout litige relève de la compétence exclusive des tribunaux de Dubaï.",
+    "section8Title": "8. Modifications des présentes conditions",
+    "section8Body": "Nous pouvons mettre à jour les présentes conditions générales de temps à autre. La poursuite de l'utilisation du site après la publication des modifications constitue une acceptation des conditions révisées.",
+    "footerText": "Des questions sur ces conditions ? Contactez-nous à {email}"
+  },
+  "auth": {
+    "loginTitle": "Connexion",
+    "loginHelp": "Utilisez le compte administrateur de démonstration ou connectez-vous avec un compte créé sur la page d'inscription.",
+    "emailPlaceholder": "E-mail",
+    "passwordPlaceholder": "Mot de passe",
+    "signingIn": "Connexion en cours…",
+    "createAccountText": "Nouveau ici ?",
+    "createAccountLink": "Créer un compte"
+  },
+  "common": {
+    "filterResults": "Filtrer les résultats",
+    "showingResults": "Affichage de {count} véhicules sur {total}",
+    "noCarsMatch": "Aucun véhicule ne correspond à votre recherche",
+    "tryFilters": "Essayez de modifier ou d'effacer les critères de filtrage",
+    "showAllCars": "Afficher tous les véhicules",
+    "removeFilters": "Retirer les filtres"
+  },
+  "registerPage": {
+    "title": "Créer un compte",
+    "description": "Inscrivez-vous pour enregistrer vos véhicules favoris et gérer votre profil.",
+    "namePlaceholder": "Nom complet",
+    "emailPlaceholder": "E-mail",
+    "passwordPlaceholder": "Mot de passe",
+    "errorMissingFields": "Veuillez remplir tous les champs.",
+    "errorCreateAccount": "Impossible de créer le compte",
+    "creatingAccount": "Création du compte…",
+    "createButton": "Créer un compte",
+    "alreadyHaveAccount": "Vous avez déjà un compte ?",
+    "signIn": "Se connecter"
+  },
+  "profile": {
+    "roleAdmin": "Administrateur",
+    "roleCustomer": "Client",
+    "logout": "Se déconnecter",
+    "accountTitle": "Compte",
+    "savedCars": "Véhicules enregistrés",
+    "savedCount": "enregistré(s)"
+  },
+  "profileSaved": {
+    "backToProfile": "Retour au profil",
+    "title": "Véhicules enregistrés",
+    "description": "Vos annonces favorites sont stockées ici pour un accès rapide.",
+    "loading": "Chargement de vos véhicules enregistrés…",
+    "emptyTitle": "Aucun véhicule enregistré pour le moment",
+    "emptyDescription": "Visitez la page de n'importe quel véhicule et enregistrez-le pour le voir apparaître ici.",
+    "browseCars": "Parcourir les véhicules"
+  },
+  "dashboard": {
+    "title": "Tableau de bord",
+    "description": "Aperçu des performances de votre showroom",
+    "quickActionsTitle": "Actions rapides",
+    "recentlyAdded": "Ajoutés récemment",
+    "viewAll": "Voir tout",
+    "stats": {
+      "totalCars": "Total des véhicules",
+      "active": "Actifs",
+      "paused": "En pause",
+      "sold": "Vendus",
+      "fromDubicars": "De Dubicars",
+      "local": "Local"
+    },
+    "quickActions": {
+      "addCar": "Ajouter un véhicule",
+      "addCarDesc": "Ajouter une nouvelle annonce locale",
+      "manageCars": "Gérer les véhicules",
+      "manageCarsDesc": "Consulter et modifier tous les véhicules"
+    }
+  },
+  "dashboardCars": {
+    "title": "Véhicules",
+    "carsLabel": "véhicules",
+    "createCar": "Créer un véhicule",
+    "filters": {
+      "make": "Marque",
+      "makePlaceholder": "Exemple : Toyota",
+      "model": "Modèle",
+      "modelPlaceholder": "Exemple : Camry",
+      "status": "Statut",
+      "allStatuses": "Tous les statuts",
+      "statusActive": "Actif",
+      "statusPaused": "En pause",
+      "statusSold": "Vendu",
+      "statusDeleted": "Supprimé",
+      "source": "Source",
+      "allSources": "Toutes les sources",
+      "sourceLocal": "Local",
+      "sourceDubicars": "DubiCars",
+      "clearFilters": "Effacer les filtres"
+    },
+    "breadcrumb": {
+      "dashboard": "Tableau de bord",
+      "cars": "Véhicules"
+    },
+    "newCarTitle": "Créer un nouveau véhicule",
+    "newCarDescription": "Le véhicule ne sera enregistré que sur votre site",
+    "back": "Retour",
+    "viewOnSite": "Voir sur le site",
+    "backToList": "Retour à la liste",
+    "editTitle": "Modifier le véhicule",
+    "dubicarsNoticeTitle": "Ce véhicule provient de DubiCars",
+    "dubicarsNoticeMessage": "Les véhicules DubiCars ne peuvent pas être modifiés manuellement. Toute modification apportée à votre compte sur DubiCars sera automatiquement répercutée lors de la prochaine synchronisation.",
+    "statusActiveVisible": "Actif — Visible pour les visiteurs",
+    "statusPausedHidden": "En pause — Masqué aux visiteurs",
+    "statusSold": "Vendu",
+    "statusDeleted": "Supprimé"
+  },
+  "dashboardUsers": {
+    "title": "Utilisateurs",
+    "loadingTitle": "Chargement des utilisateurs…",
+    "usersFound": "utilisateurs trouvés",
+    "refresh": "Actualiser",
+    "backToDashboard": "Retour au tableau de bord",
+    "table": {
+      "name": "Nom",
+      "email": "E-mail",
+      "role": "Rôle",
+      "status": "Statut"
+    },
+    "roleAdmin": "Administrateur",
+    "roleUser": "Utilisateur",
+    "statusActive": "Actif",
+    "statusInactive": "Inactif",
+    "errorSignInAgain": "Veuillez vous reconnecter.",
+    "errorLoadUsers": "Impossible de charger les utilisateurs"
+  },
+  "sidebar": {
+    "dashboard": "Tableau de bord",
+    "cars": "Véhicules",
+    "addCar": "Ajouter un véhicule",
+    "headerTitle": "Galerie de véhicules",
+    "headerSubtitle": "Tableau de bord"
+  },
+  "team": {
+    "title": "Structure organisationnelle"
+  },
+  "carForm": {
+    "steps": {
+      "basic": "Informations de base",
+      "specs": "Caractéristiques",
+      "warranty": "Garantie",
+      "description": "Description",
+      "images": "Photos"
+    },
+    "errorMakeModelRequired": "La marque et le modèle sont requis avant de continuer",
+    "errorMakeRequired": "La marque est requise",
+    "errorModelRequired": "Le modèle est requis",
+    "errorYearRange": "L'année doit être comprise entre 1900 et 2100",
+    "errorPricePositive": "Le prix doit être supérieur à 0",
+    "errorImageUploadFailed": "Échec du téléchargement de l'image",
+    "errorSubmit": "Une erreur est survenue",
+    "basic": {
+      "make": "Marque *",
+      "model": "Modèle *",
+      "year": "Année *",
+      "trim": "Finition / Catégorie",
+      "price": "Prix (AED) *",
+      "kmDriven": "Kilométrage",
+      "makePlaceholder": "Toyota",
+      "modelPlaceholder": "Land Cruiser",
+      "trimPlaceholder": "VXR",
+      "pricePlaceholder": "Entrez le prix en AED",
+      "kmPlaceholder": "0 pour un véhicule neuf"
+    },
+    "specs": {
+      "color": "Couleur",
+      "bodyType": "Type de carrosserie",
+      "fuelType": "Type de carburant",
+      "transmission": "Transmission",
+      "regionalSpecs": "Spécifications régionales",
+      "steeringSide": "Position du volant",
+      "features": "Équipements",
+      "featuresHelp": "Séparez les équipements par des virgules.",
+      "selectPlaceholder": "Sélectionner..."
+    },
+    "fuel": {
+      "petrol": "Essence",
+      "diesel": "Diesel",
+      "electric": "Électrique",
+      "hybrid": "Hybride"
+    },
+    "transmission": {
+      "automatic": "Automatique",
+      "manual": "Manuelle"
+    },
+    "steering": {
+      "left": "Gauche",
+      "right": "Droite"
+    },
+    "warranty": {
+      "available": "Garantie disponible",
+      "duration": "Durée de la garantie",
+      "durationPlaceholder": "12 mois"
+    },
+    "description": {
+      "arabic": "Description (arabe)",
+      "english": "Description (anglais)",
+      "arabicPlaceholder": "Description du véhicule en arabe...",
+      "englishPlaceholder": "Description du véhicule en anglais..."
+    },
+    "images": {
+      "uploadPrompt": "Cliquez pour télécharger des photos",
+      "uploading": "Téléchargement des images…",
+      "accept": "JPG, PNG, WEBP ou GIF — 10 Mo maximum chacune",
+      "noImages": "Aucune image pour le moment — au moins 4 photos sont recommandées"
+    },
+    "actions": {
+      "cancel": "Annuler",
+      "back": "Retour",
+      "next": "Suivant",
+      "uploading": "Téléchargement...",
+      "saving": "Enregistrement...",
+      "saveChanges": "Enregistrer les modifications",
+      "addCar": "Ajouter un véhicule"
+    }
+  },
+  "carsTable": {
+    "noCarsFound": "Aucun véhicule trouvé",
+    "addOrSync": "Ajoutez un nouveau véhicule ou synchronisez les données",
+    "images": "Images",
+    "cars": "Véhicules",
+    "year": "Année",
+    "price": "Prix",
+    "kilometers": "Kilomètres",
+    "source": "Source",
+    "status": "Statut",
+    "actions": "Actions",
+    "noImage": "Aucune image",
+    "viewOnSite": "Voir sur le site",
+    "edit": "Modifier",
+    "activate": "Activer",
+    "pause": "Mettre en pause",
+    "markAsSold": "Marquer comme vendu",
+    "delete": "Supprimer",
+    "deleteConfirmTitle": "Confirmer la suppression",
+    "deleteConfirmDescription": "Êtes-vous sûr de vouloir supprimer ce véhicule ? Cette action est irréversible.",
+    "cancel": "Annuler",
+    "deleteButton": "Supprimer",
+    "dubicarsCannotModify": "Ce véhicule provient de DubiCars et ne peut pas être modifié."
+  },
+  "faq": {
+    "title": "Foire aux questions",
+    "answerLabel": "Réponse",
+    "items": {
+      "shipping": {
+        "question": "Proposez-vous l'expédition internationale de véhicules ?",
+        "answer": "Oui. Nous gérons l'ensemble des opérations d'export et d'import, y compris la documentation, la logistique et la coordination de la livraison mondiale."
+      },
+      "rentals": {
+        "question": "Puis-je louer des voitures de luxe pour de courtes périodes ?",
+        "answer": "Oui. Notre flotte comprend des véhicules de luxe, sportifs et économiques, disponibles pour des durées de location flexibles."
+      },
+      "parts": {
+        "question": "Fournissez-vous des pièces détachées d'origine ?",
+        "answer": "Nous ne nous approvisionnons qu'auprès de fournisseurs et fabricants mondiaux certifiés, en pièces d'origine vérifiées."
+      },
+      "showrooms": {
+        "question": "Gérez-vous des salles d'exposition internationales ?",
+        "answer": "Oui. Nous exploitons des systèmes complets de salles d'exposition, incluant les ventes, la logistique et la gestion opérationnelle."
+      }
+    }
+  },
+  "dashboardHome": {
+    "title": "Tableau de bord",
+    "description": "Gérez votre inventaire de véhicules",
+    "syncCars": "Synchroniser les véhicules",
+    "syncing": "Synchronisation...",
+    "createCar": "Créer un véhicule",
+    "manageCars": "Gérer les véhicules",
+    "manageCarsDescription": "Gérez votre inventaire de véhicules",
+    "manageUsers": "Gérer les utilisateurs",
+    "manageUsersDescription": "Gérez les comptes utilisateurs et les autorisations",
+    "errorLoad": "Impossible de charger les statistiques du tableau de bord",
+    "errorSync": "Impossible de synchroniser les véhicules",
+    "stats": {
+      "totalCars": "Total des véhicules",
+      "activeCars": "Véhicules actifs",
+      "pausedCars": "Véhicules en pause",
+      "soldCars": "Véhicules vendus",
+      "deletedCars": "Véhicules supprimés"
+    }
+  }
+}

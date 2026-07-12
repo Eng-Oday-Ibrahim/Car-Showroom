@@ -4,6 +4,7 @@ services:
   client:
     build:
       context: ./client
+      dockerfile: Dockerfile.dev
     container_name: cars-client
     restart: always
     ports:
@@ -13,12 +14,13 @@ services:
     env_file:
       - ./client/.env
     environment:
-      - NEXT_PUBLIC_API_URL=https://cars.com
+      - NEXT_PUBLIC_API_URL=http://localhost:4000/api
       - INTERNAL_API_URL=http://cars-server:4000
 
   server:
     build:
       context: ./server
+      dockerfile: Dockerfile.dev
     container_name: cars-server
     restart: always
     ports:
@@ -28,9 +30,7 @@ services:
     env_file:
       - ./server/.env
     environment:
-      - DATABASE_URL=mongodb://root:${MONGO_PASSWORD}@db:27017/cars?authSource=admin
-      - REDIS_URL=redis://:${REDIS_PASSWORD}@redis:6379
-      - RABBITMQ_URL=amqp://admin:${RABBITMQ_PASSWORD}@rabbitmq:5672
+      - MONGODB_URI=mongodb://root:1234@db:27017/cars?authSource=admin
       - STORAGE_PATH=/server/storage
     volumes:
       - /var/www/cars/storage:/server/storage
@@ -40,7 +40,7 @@ services:
     restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+      MONGO_INITDB_ROOT_PASSWORD: 1234
     volumes:
       - mongo_data:/data/db
 

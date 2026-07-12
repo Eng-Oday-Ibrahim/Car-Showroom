@@ -94,6 +94,29 @@ export class UserRepository {
     return result !== null;
   }
 
+  async getFavoriteCarIds(userId: string): Promise<string[]> {
+    const doc = await UserModel.findById(userId);
+    return doc?.favoriteCarIds ?? [];
+  }
+
+  async toggleFavoriteCar(userId: string, carId: string): Promise<{ favoriteCarIds: string[]; isFavorite: boolean }> {
+    const doc = await UserModel.findById(userId);
+    if (!doc) {
+      throw new Error('User not found');
+    }
+
+    const favoriteCarIds = Array.isArray(doc.favoriteCarIds) ? doc.favoriteCarIds : [];
+    const isFavorite = favoriteCarIds.includes(carId);
+    const nextIds = isFavorite
+      ? favoriteCarIds.filter((id) => id !== carId)
+      : [...favoriteCarIds, carId];
+
+    doc.favoriteCarIds = nextIds;
+    await doc.save();
+
+    return { favoriteCarIds: nextIds, isFavorite: !isFavorite };
+  }
+
   async list(
     filters: ListFilters = {},
     pagination: PaginationOptions = { page: 1, perPage: 20 }

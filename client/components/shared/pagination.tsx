@@ -12,9 +12,12 @@ interface PaginationProps {
 export function Pagination({ page, totalPages, buildHref, onPageChange }: PaginationProps) {
   if (totalPages <= 1) return null;
 
+  const currentPage = Number(page);
+  const pageCount = Number(totalPages);
+
   // نعرض max 5 أرقام حول الصفحة الحالية
-  const range = Array.from({ length: totalPages }, (_, i) => i + 1).filter(
-    p => p === 1 || p === totalPages || Math.abs(p - page) <= 2
+  const range = Array.from({ length: pageCount }, (_, i) => i + 1).filter(
+    p => p === 1 || p === pageCount || Math.abs(p - currentPage) <= 2
   );
 
   // نضيف "..." بين الأرقام غير المتتالية
@@ -31,7 +34,7 @@ export function Pagination({ page, totalPages, buildHref, onPageChange }: Pagina
       return <span className="px-2 text-gray-400 text-sm self-center">...</span>;
     }
 
-    const isActive = p === page;
+    const isActive = p === currentPage;
     const content  = (
       <Button
         variant={isActive ? 'default' : 'outline'}
@@ -52,26 +55,34 @@ export function Pagination({ page, totalPages, buildHref, onPageChange }: Pagina
     <div className="flex items-center justify-center gap-1 pt-4">
       {/* السابق */}
       {onPageChange ? (
-        <Button variant="outline" size="sm" disabled={page === 1} onClick={() => onPageChange(page - 1)}>
-          السابق
+        <Button variant="outline" size="sm" disabled={currentPage === 1} onClick={() => onPageChange(currentPage - 1)}>
+          Previous
         </Button>
       ) : (
-        <Link href={buildHref(page - 1)}>
-          <Button variant="outline" size="sm" disabled={page === 1}>السابق</Button>
-        </Link>
+        currentPage > 1 ? (
+          <Link href={buildHref(currentPage - 1)}>
+            <Button variant="outline" size="sm">Previous</Button>
+          </Link>
+        ) : (
+          <Button variant="outline" size="sm" disabled>Previous</Button>
+        )
       )}
 
       {pages.map((p, i) => <PageBtn key={i} p={p} />)}
 
       {/* التالي */}
       {onPageChange ? (
-        <Button variant="outline" size="sm" disabled={page === totalPages} onClick={() => onPageChange(page + 1)}>
-          التالي
+        <Button variant="outline" size="sm" disabled={currentPage === pageCount} onClick={() => onPageChange(currentPage + 1)}>
+          Next
         </Button>
       ) : (
-        <Link href={buildHref(page + 1)}>
-          <Button variant="outline" size="sm" disabled={page === totalPages}>التالي</Button>
-        </Link>
+        currentPage < pageCount ? (
+          <Link href={buildHref(currentPage + 1)}>
+            <Button variant="outline" size="sm">Next</Button>
+          </Link>
+        ) : (
+          <Button variant="outline" size="sm" disabled>Next</Button>
+        )
       )}
     </div>
   );

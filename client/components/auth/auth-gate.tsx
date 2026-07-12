@@ -22,7 +22,7 @@ export function AuthGate({ children, requireAdmin = false }: AuthGateProps) {
     }
 
     if (requireAdmin && !isAdmin(auth.user)) {
-      router.replace('/dashboard/user');
+      router.replace('/cars');
       return;
     }
 

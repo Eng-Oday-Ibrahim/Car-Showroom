@@ -1,9 +1,11 @@
 import express, { type Application } from 'express';
 import cors                           from 'cors';
+import path                           from 'path';
 import { CarRepository }             from './modules/cars/infrastructure/car.repository';
 import { DubicarsApiClient }         from './modules/cars/infrastructure/external/dubicars-api.client';
 import { CarService }                from './modules/cars/application/car.service';
 import { createCarRouter }           from './modules/cars/interfaces/car.controller';
+import { createUploadRouter, storageRoot } from './modules/uploads/upload.controller';
 import { UserRepository }            from './modules/identity/infrastructure/user.repository';
 import { IdentityService }           from './modules/identity/application/identity.service';
 import { createIdentityRouter }      from './modules/identity/interfaces/identity.controller';
@@ -16,6 +18,7 @@ export async function createApp(): Promise<Application> {
   // ── Middleware ────────────────────────────────────────
   app.use(cors());
   app.use(express.json());
+  app.use('/uploads', express.static(path.resolve(storageRoot)));
 
   // ── Dependency wiring ─────────────────────────────────
   // Client يأخذ الـ credentials مباشرة ويتولى الـ login تلقائياً
@@ -32,6 +35,7 @@ export async function createApp(): Promise<Application> {
   // ── Routes ────────────────────────────────────────────
   app.use('/api/auth', createIdentityRouter(identityService));
   app.use('/api/cars', createCarRouter(carService));
+  app.use('/api/uploads', createUploadRouter());
 
   // Health check
   app.get('/health', (_, res) => res.json({ status: 'ok', timestamp: new Date() }));

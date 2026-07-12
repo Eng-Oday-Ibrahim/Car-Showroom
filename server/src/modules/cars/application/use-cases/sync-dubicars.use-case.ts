@@ -22,6 +22,10 @@ export class SyncFromDubicarsUseCase {
 
     // 1. جلب كل إعلانات المعرض من دبي كار
     const ads = await this.dubicarsClient.getAds();
+    if (!Array.isArray(ads)) {
+      throw new Error('DubiCars API returned invalid ads payload.');
+    }
+
     const activeIds = ads.map(ad => ad.id);
 
     // 2. معالجة كل إعلان

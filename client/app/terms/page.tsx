@@ -1,9 +1,11 @@
+import type { Metadata } from 'next';
+import { TermsContent } from './terms-content';
+
+export const metadata: Metadata = {
+  title: 'Terms & Conditions',
+  description: 'Terms and conditions for using the Hussein Ghulam Motors website.',
+};
 
 export default function TermsPage() {
-    return (
-        <div className="container mx-auto px-4 py-8 flex flex-col items-center">
-            <h1>Terms of Service</h1>
-            <p>This is the terms of service for our website.</p>
-        </div>
-    )
+  return <TermsContent />;
 }

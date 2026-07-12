@@ -74,12 +74,15 @@ export const listCarsSchema = z.object({
   perPage:  z.coerce.number().int().min(1).max(100).optional().default(20),
   status:   z.enum(['active', 'paused', 'sold', 'deleted']).optional(),
   source:   z.enum(['local', 'dubicars']).optional(),
+  sort:     z.enum(['newest', 'price_asc', 'price_desc', 'year_desc']).optional().default('newest'),
   make:     z.string().optional(),
   model:    z.string().optional(),
   minPrice: z.coerce.number().min(0).optional(),
   maxPrice: z.coerce.number().min(0).optional(),
   minYear:  z.coerce.number().int().optional(),
   maxYear:  z.coerce.number().int().optional(),
+  minKm:    z.coerce.number().int().min(0).optional(),
+  maxKm:    z.coerce.number().int().min(0).optional(),
 });
 
 export type ListCarsDto = z.infer<typeof listCarsSchema>;

@@ -32,5 +32,8 @@ export class IdentityService {
   getUser = (...args: Parameters<GetUserUseCase['execute']>) => this.getUserUseCase.execute(...args);
   listUsers = (...args: Parameters<ListUsersUseCase['execute']>) => this.listUsersUseCase.execute(...args);
 
+  getFavoriteCarIds = (userId: string) => this.userRepo.getFavoriteCarIds(userId);
+  toggleFavoriteCar = (userId: string, carId: string) => this.userRepo.toggleFavoriteCar(userId, carId);
+
   findByEmail = (email: string) => this.userRepo.findByEmail(email);
 }

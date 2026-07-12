@@ -47,9 +47,12 @@ export interface DubicarsAd extends DubicarsAdPayload {
 }
 
 interface DubicarsListResponse {
-  status:     string;
-  data:       DubicarsAd[];
-  pagination: { page: number; per_page: number; total: number };
+  status: string;
+  data: {
+    links: unknown;
+    meta: unknown;
+    ads: DubicarsAd[];
+  };
 }
 
 interface DubicarsApiResponse<T = unknown> {
@@ -136,7 +139,13 @@ export class DubicarsApiClient {
   async getAds(page = 1, perPage = 100): Promise<DubicarsAd[]> {
     const res  = await this.#get(`/ads?page=${page}&per_page=${perPage}`);
     const json = await this.#parse<DubicarsListResponse>(res);
-    return json.data.data;
+
+    const ads = json.data?.ads;
+    if (!Array.isArray(ads)) {
+      throw new Error('DubiCars API: unexpected ads response format — expected json.data.ads to be an array.');
+    }
+
+    return ads;
   }
 
   async getAdById(adId: number): Promise<DubicarsAd> {

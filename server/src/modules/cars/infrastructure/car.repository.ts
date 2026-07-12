@@ -7,12 +7,15 @@ import type { CarProps }                from '../domain/car.types';
 export interface CarFilters {
   status?:      string;
   source?:      string;
+  sort?:        string;
   make?:        string;
   model?:       string;
   minPrice?:    number;
   maxPrice?:    number;
   minYear?:     number;
   maxYear?:     number;
+  minKm?:       number;
+  maxKm?:       number;
 }
 
 export interface PaginationOptions {
@@ -75,8 +78,10 @@ export class CarRepository {
     const query = this.#buildQuery(filters);
     const skip  = (pagination.page - 1) * pagination.perPage;
 
+    const sort = this.#buildSort(filters.sort);
+
     const [docs, total] = await Promise.all([
-      CarModel.find(query).skip(skip).limit(pagination.perPage).sort({ createdAt: -1 }),
+      CarModel.find(query).skip(skip).limit(pagination.perPage).sort(sort),
       CarModel.countDocuments(query),
     ]);
 
@@ -224,6 +229,27 @@ export class CarRepository {
       };
     }
 
+    if (filters.minKm != null || filters.maxKm != null) {
+      query['kmDriven'] = {
+        ...(filters.minKm != null ? { $gte: filters.minKm } : {}),
+        ...(filters.maxKm != null ? { $lte: filters.maxKm } : {}),
+      };
+    }
+
     return query;
+  }
+
+  #buildSort(sort?: string): Record<string, 1 | -1> {
+    switch (sort) {
+      case 'price_asc':
+        return { price: 1, createdAt: -1 };
+      case 'price_desc':
+        return { price: -1, createdAt: -1 };
+      case 'year_desc':
+        return { year: -1, createdAt: -1 };
+      case 'newest':
+      default:
+        return { createdAt: -1 };
+    }
   }
 }

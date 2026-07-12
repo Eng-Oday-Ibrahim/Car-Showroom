@@ -56,12 +56,15 @@ export type CarStatusAction = 'activate' | 'pause' | 'sold';
 export interface CarFilters {
   status?:   CarStatus;
   source?:   CarSource;
+  sort?:     'newest' | 'price_asc' | 'price_desc' | 'year_desc';
   make?:     string;
   model?:    string;
   minPrice?: number;
   maxPrice?: number;
   minYear?:  number;
   maxYear?:  number;
+  minKm?:    number;
+  maxKm?:    number;
   page?:     number;
   perPage?:  number;
 }

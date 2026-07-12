@@ -16,28 +16,45 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../ui/select';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
+import { CarImage } from './car-image';
 import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '../ui/card';
+  Car as CarIcon, Settings2, ShieldCheck, FileText, ImageIcon,
+  Upload, X, ArrowLeft, ArrowRight, Check,
+} from 'lucide-react';
+import { useI18n } from '@/lib/i18n';
 
 interface CarFormProps {
-  car?: Car;   // إذا موجود → وضع التعديل
+  car?: Car; // if provided → edit mode
 }
 
 type FormData = Partial<CreateCarInput>;
 
+const STEPS = [
+  { id: 'basic',       label: 'Basic Info',     icon: CarIcon },
+  { id: 'specs',       label: 'Specifications', icon: Settings2 },
+  { id: 'warranty',    label: 'Warranty',       icon: ShieldCheck },
+  { id: 'description', label: 'Description',    icon: FileText },
+  { id: 'images',      label: 'Photos',         icon: ImageIcon },
+] as const;
+
+type StepId = (typeof STEPS)[number]['id'];
+
 export function CarForm({ car }: CarFormProps) {
+  const { t } = useI18n();
   const router  = useRouter();
   const isEdit  = !!car;
+
+  const [step, setStep] = useState<StepId>('basic');
+  const stepIndex   = STEPS.findIndex(s => s.id === step);
+  const isFirstStep = stepIndex === 0;
+  const isLastStep  = stepIndex === STEPS.length - 1;
 
   const [data,    setData]    = useState<FormData>({
     make:          car?.make          ?? '',
     model:         car?.model         ?? '',
     year:          car?.year          ?? new Date().getFullYear(),
-    price:         car?.price         ?? 0,
+    price:         car?.price         ?? undefined,
     kmDriven:      car?.kmDriven      ?? 0,
     trim:          car?.trim          ?? '',
     color:         car?.color         ?? '',
@@ -51,25 +68,75 @@ export function CarForm({ car }: CarFormProps) {
     descriptionEn: car?.descriptionEn ?? '',
     descriptionAr: car?.descriptionAr ?? '',
     images:        car?.images        ?? [],
+    features:      car?.features      ?? [],
   });
 
   const [loading, setLoading] = useState(false);
   const [error,   setError]   = useState<string | null>(null);
-  const [imgInput, setImgInput] = useState('');
+  const [uploadingImages, setUploadingImages] = useState(false);
 
   const set = (key: keyof FormData, value: unknown) =>
     setData(prev => ({ ...prev, [key]: value }));
 
-  const addImage = () => {
-    if (!imgInput.trim()) return;
-    set('images', [...(data.images ?? []), imgInput.trim()]);
-    setImgInput('');
+  const uploadImages = async (files: FileList | null) => {
+    const selectedFiles = Array.from(files ?? []);
+    if (selectedFiles.length === 0) return;
+
+    setUploadingImages(true);
+    setError(null);
+    try {
+      const res = await carsApi.uploadImages(selectedFiles);
+      set('images', [...(data.images ?? []), ...res.data.map(image => image.url)]);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : t('carForm.errorImageUploadFailed'));
+    } finally {
+      setUploadingImages(false);
+    }
   };
 
   const removeImage = (idx: number) =>
     set('images', (data.images ?? []).filter((_, i) => i !== idx));
 
+  const goToStep = (target: StepId) => {
+    setError(null);
+    setStep(target);
+  };
+
+  const goNext = () => {
+    if (isFirstStep && (!data.make?.trim() || !data.model?.trim())) {
+      setError(t('carForm.errorMakeModelRequired'));
+      return;
+    }
+    if (!isLastStep) goToStep(STEPS[stepIndex + 1].id);
+  };
+
+  const goBack = () => {
+    if (!isFirstStep) goToStep(STEPS[stepIndex - 1].id);
+  };
+
   const submit = async () => {
+    // Validation
+    if (!data.make?.trim()) {
+      setError(t('carForm.errorMakeRequired'));
+      goToStep('basic');
+      return;
+    }
+    if (!data.model?.trim()) {
+      setError(t('carForm.errorModelRequired'));
+      goToStep('basic');
+      return;
+    }
+    if (!data.year || data.year < 1900 || data.year > 2100) {
+      setError(t('carForm.errorYearRange'));
+      goToStep('basic');
+      return;
+    }
+    if (data.price === undefined || data.price === null || data.price <= 0) {
+      setError(t('carForm.errorPricePositive'));
+      goToStep('basic');
+      return;
+    }
+
     setLoading(true);
     setError(null);
     try {
@@ -81,7 +148,7 @@ export function CarForm({ car }: CarFormProps) {
       router.push('/dashboard/cars');
       router.refresh();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'حدث خطأ');
+      setError(err instanceof Error ? err.message : t('carForm.errorSubmit'));
     } finally {
       setLoading(false);
     }
@@ -91,197 +158,265 @@ export function CarForm({ car }: CarFormProps) {
     <div className="space-y-6 max-w-3xl mx-auto">
 
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3  text-sm">
           {error}
         </div>
       )}
 
-      {/* ── المعلومات الأساسية ── */}
-      <Card>
-        <CardHeader><CardTitle>المعلومات الأساسية</CardTitle></CardHeader>
-        <CardContent className="grid grid-cols-2 gap-4">
+      <Tabs value={step} onValueChange={v => goToStep(v as StepId)}>
 
-          <div className="space-y-1">
-            <Label>الماركة *</Label>
-            <Input value={data.make} onChange={e => set('make', e.target.value)} placeholder="Toyota" />
+        {/* Step navigation */}
+        <TabsList className="w-full h-auto p-0 bg-transparent border-b border-gray-100 justify-start gap-1">
+          {STEPS.map((s, i) => (
+            <TabsTrigger
+              key={s.id}
+              value={s.id}
+              className="flex items-center gap-2 px-3 py-3 text-sm rounded-none border-b-2 border-transparent data-[state=active]:border-gray-900 data-[state=active]:shadow-none data-[state=active]:bg-transparent text-gray-400 data-[state=active]:text-gray-900 transition-colors"
+            >
+              <span className={`w-5 h-5 flex items-center justify-center  text-xs shrink-0 ${
+                i < stepIndex ? 'bg-gray-900 text-white' : i === stepIndex ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-400'
+              }`}>
+                {i < stepIndex ? <Check className="w-3 h-3" /> : i + 1}
+              </span>
+              <span className="hidden sm:inline">{t(`carForm.steps.${s.id}`)}</span>
+            </TabsTrigger>
+          ))}
+        </TabsList>
+
+        {/* ── Basic Info ── */}
+        <TabsContent value="basic" className="pt-8 space-y-6">
+          <div className="grid grid-cols-2 gap-6">
+
+            <div className="space-y-1.5">
+              <Label>{t('carForm.basic.make')}</Label>
+              <Input value={data.make} onChange={e => set('make', e.target.value)} placeholder={t('carForm.basic.makePlaceholder')} />
+            </div>
+
+            <div className="space-y-1.5">
+              <Label>{t('carForm.basic.model')}</Label>
+              <Input value={data.model} onChange={e => set('model', e.target.value)} placeholder={t('carForm.basic.modelPlaceholder')} />
+            </div>
+
+            <div className="space-y-1.5">
+              <Label>{t('carForm.basic.year')}</Label>
+              <Input type="number" value={data.year} onChange={e => set('year', Number(e.target.value))} />
+            </div>
+
+            <div className="space-y-1.5">
+              <Label>{t('carForm.basic.trim')}</Label>
+              <Input value={data.trim ?? ''} onChange={e => set('trim', e.target.value)} placeholder={t('carForm.basic.trimPlaceholder')} />
+            </div>
+
+            <div className="space-y-1.5">
+              <Label>{t('carForm.basic.price')}</Label>
+              <Input
+                type="number"
+                value={data.price && data.price > 0 ? data.price : ''}
+                onChange={e => set('price', e.target.value ? Number(e.target.value) : undefined)}
+                placeholder={t('carForm.basic.pricePlaceholder')}
+              />
+            </div>
+
+            <div className="space-y-1.5">
+              <Label>{t('carForm.basic.kmDriven')}</Label>
+              <Input
+                type="number"
+                value={data.kmDriven && data.kmDriven > 0 ? data.kmDriven : ''}
+                onChange={e => set('kmDriven', e.target.value ? Number(e.target.value) : 0)}
+                placeholder={t('carForm.basic.kmPlaceholder')}
+              />
+            </div>
+
           </div>
+        </TabsContent>
 
-          <div className="space-y-1">
-            <Label>الموديل *</Label>
-            <Input value={data.model} onChange={e => set('model', e.target.value)} placeholder="Land Cruiser" />
+        {/* ── Specifications ── */}
+        <TabsContent value="specs" className="pt-8 space-y-6">
+          <div className="grid grid-cols-2 gap-6">
+
+            <div className="space-y-1.5">
+              <Label>{t('carForm.specs.color')}</Label>
+              <Input value={data.color ?? ''} onChange={e => set('color', e.target.value)} placeholder="White" />
+            </div>
+
+            <div className="space-y-1.5">
+              <Label>{t('carForm.specs.bodyType')}</Label>
+              <Input value={data.bodyType ?? ''} onChange={e => set('bodyType', e.target.value)} placeholder="SUV" />
+            </div>
+
+            <div className="space-y-1.5">
+              <Label>{t('carForm.specs.fuelType')}</Label>
+              <Select value={data.fuelType ?? ''} onValueChange={v => set('fuelType', v)}>
+                <SelectTrigger><SelectValue placeholder={t('carForm.specs.selectPlaceholder')} /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Petrol">{t('carForm.fuel.petrol')}</SelectItem>
+                  <SelectItem value="Diesel">{t('carForm.fuel.diesel')}</SelectItem>
+                  <SelectItem value="Electric">{t('carForm.fuel.electric')}</SelectItem>
+                  <SelectItem value="Hybrid">{t('carForm.fuel.hybrid')}</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-1.5">
+              <Label>{t('carForm.specs.transmission')}</Label>
+              <Select value={data.transmission ?? ''} onValueChange={v => set('transmission', v)}>
+                <SelectTrigger><SelectValue placeholder={t('carForm.specs.selectPlaceholder')} /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Automatic">{t('carForm.transmission.automatic')}</SelectItem>
+                  <SelectItem value="Manual">{t('carForm.transmission.manual')}</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-1.5">
+              <Label>{t('carForm.specs.regionalSpecs')}</Label>
+              <Input value={data.regionalSpecs ?? ''} onChange={e => set('regionalSpecs', e.target.value)} placeholder="GCC" />
+            </div>
+
+            <div className="space-y-1.5">
+              <Label>{t('carForm.specs.steeringSide')}</Label>
+              <Select value={data.steeringSide} onValueChange={v => set('steeringSide', v)}>
+                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="left">{t('carForm.steering.left')}</SelectItem>
+                  <SelectItem value="right">{t('carForm.steering.right')}</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-1.5 col-span-2">
+              <Label>{t('carForm.specs.features')}</Label>
+              <Input
+                value={(data.features ?? []).join(', ')}
+                onChange={e => {
+                  const parsed = e.target.value
+                    .split(',')
+                    .map(item => item.trim())
+                    .filter(Boolean);
+                  set('features', parsed);
+                }}
+                placeholder="Sunroof, Leather Seats, Navigation"
+              />
+              <p className="text-xs text-gray-400">{t('carForm.specs.featuresHelp')}</p>
+            </div>
+
           </div>
+        </TabsContent>
 
-          <div className="space-y-1">
-            <Label>السنة *</Label>
-            <Input type="number" value={data.year} onChange={e => set('year', Number(e.target.value))} />
-          </div>
-
-          <div className="space-y-1">
-            <Label>الترم / الفئة</Label>
-            <Input value={data.trim ?? ''} onChange={e => set('trim', e.target.value)} placeholder="VXR" />
-          </div>
-
-          <div className="space-y-1">
-            <Label>السعر (AED) *</Label>
-            <Input type="number" value={data.price} onChange={e => set('price', Number(e.target.value))} />
-          </div>
-
-          <div className="space-y-1">
-            <Label>الكيلومترات</Label>
-            <Input type="number" value={data.kmDriven} onChange={e => set('kmDriven', Number(e.target.value))} />
-          </div>
-
-        </CardContent>
-      </Card>
-
-      {/* ── المواصفات ── */}
-      <Card>
-        <CardHeader><CardTitle>المواصفات</CardTitle></CardHeader>
-        <CardContent className="grid grid-cols-2 gap-4">
-
-          <div className="space-y-1">
-            <Label>اللون</Label>
-            <Input value={data.color ?? ''} onChange={e => set('color', e.target.value)} placeholder="أبيض" />
-          </div>
-
-          <div className="space-y-1">
-            <Label>نوع الهيكل</Label>
-            <Input value={data.bodyType ?? ''} onChange={e => set('bodyType', e.target.value)} placeholder="SUV" />
-          </div>
-
-          <div className="space-y-1">
-            <Label>نوع الوقود</Label>
-            <Select value={data.fuelType ?? ''} onValueChange={v => set('fuelType', v)}>
-              <SelectTrigger><SelectValue placeholder="اختر..." /></SelectTrigger>
-              <SelectContent>
-                <SelectItem value="Petrol">بنزين</SelectItem>
-                <SelectItem value="Diesel">ديزل</SelectItem>
-                <SelectItem value="Electric">كهربائي</SelectItem>
-                <SelectItem value="Hybrid">هايبرد</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="space-y-1">
-            <Label>ناقل الحركة</Label>
-            <Select value={data.transmission ?? ''} onValueChange={v => set('transmission', v)}>
-              <SelectTrigger><SelectValue placeholder="اختر..." /></SelectTrigger>
-              <SelectContent>
-                <SelectItem value="Automatic">أوتوماتيك</SelectItem>
-                <SelectItem value="Manual">يدوي</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="space-y-1">
-            <Label>المواصفات الإقليمية</Label>
-            <Input value={data.regionalSpecs ?? ''} onChange={e => set('regionalSpecs', e.target.value)} placeholder="GCC" />
-          </div>
-
-          <div className="space-y-1">
-            <Label>جهة القيادة</Label>
-            <Select value={data.steeringSide} onValueChange={v => set('steeringSide', v)}>
-              <SelectTrigger><SelectValue /></SelectTrigger>
-              <SelectContent>
-                <SelectItem value="left">يسار</SelectItem>
-                <SelectItem value="right">يمين</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-        </CardContent>
-      </Card>
-
-      {/* ── الضمان ── */}
-      <Card>
-        <CardHeader><CardTitle>الضمان</CardTitle></CardHeader>
-        <CardContent className="space-y-4">
+        {/* ── Warranty ── */}
+        <TabsContent value="warranty" className="pt-8 space-y-6">
           <div className="flex items-center gap-3">
             <Switch
               checked={data.warranty}
               onCheckedChange={v => set('warranty', v)}
             />
-            <Label>يوجد ضمان</Label>
+            <Label>{t('carForm.warranty.available')}</Label>
           </div>
           {data.warranty && (
-            <div className="space-y-1">
-              <Label>مدة الضمان</Label>
+            <div className="space-y-1.5 max-w-xs">
+              <Label>{t('carForm.warranty.duration')}</Label>
               <Input
                 value={data.warrantyMonths ?? ''}
                 onChange={e => set('warrantyMonths', e.target.value)}
-                placeholder="12 شهر"
+                placeholder={t('carForm.warranty.durationPlaceholder')}
               />
             </div>
           )}
-        </CardContent>
-      </Card>
+        </TabsContent>
 
-      {/* ── الوصف ── */}
-      <Card>
-        <CardHeader><CardTitle>الوصف</CardTitle></CardHeader>
-        <CardContent className="space-y-4">
-          <div className="space-y-1">
-            <Label>الوصف (عربي)</Label>
+        {/* ── Description ── */}
+        <TabsContent value="description" className="pt-8 space-y-6">
+          <div className="space-y-1.5">
+            <Label>{t('carForm.description.arabic')}</Label>
             <Textarea
               value={data.descriptionAr ?? ''}
               onChange={e => set('descriptionAr', e.target.value)}
-              rows={3}
-              placeholder="وصف السيارة بالعربية..."
+              rows={4}
+              placeholder={t('carForm.description.arabicPlaceholder')}
+              dir="rtl"
             />
           </div>
-          <div className="space-y-1">
-            <Label>الوصف (إنجليزي)</Label>
+          <div className="space-y-1.5">
+            <Label>{t('carForm.description.english')}</Label>
             <Textarea
               value={data.descriptionEn ?? ''}
               onChange={e => set('descriptionEn', e.target.value)}
-              rows={3}
-              placeholder="Car description in English..."
+              rows={4}
+              placeholder={t('carForm.description.englishPlaceholder')}
             />
           </div>
-        </CardContent>
-      </Card>
+        </TabsContent>
 
-      {/* ── الصور ── */}
-      <Card>
-        <CardHeader><CardTitle>الصور</CardTitle></CardHeader>
-        <CardContent className="space-y-3">
-          <div className="flex gap-2">
-            <Input
-              value={imgInput}
-              onChange={e => setImgInput(e.target.value)}
-              placeholder="https://example.com/car.jpg"
-              onKeyDown={e => e.key === 'Enter' && addImage()}
+        {/* ── Images ── */}
+        <TabsContent value="images" className="pt-8 space-y-5">
+
+          <label className="flex flex-col items-center justify-center gap-2 border border-dashed border-gray-200  py-10 text-center cursor-pointer hover:border-gray-400 transition-colors">
+            <Upload className="w-5 h-5 text-gray-300" />
+            <span className="text-sm text-gray-600">
+              {uploadingImages ? t('carForm.images.uploading') : t('carForm.images.uploadPrompt')}
+            </span>
+            <span className="text-xs text-gray-400">{t('carForm.images.accept')}</span>
+            <input
+              type="file"
+              accept="image/jpeg,image/png,image/webp,image/gif"
+              multiple
+              disabled={uploadingImages}
+              className="hidden"
+              onChange={e => {
+                void uploadImages(e.target.files);
+                e.target.value = '';
+              }}
             />
-            <Button type="button" variant="outline" onClick={addImage}>إضافة</Button>
-          </div>
-          {(data.images ?? []).length === 0 && (
-            <p className="text-sm text-gray-400">لا توجد صور — يُنصح بإضافة 4 صور على الأقل</p>
+          </label>
+
+          {(data.images ?? []).length === 0 ? (
+            <p className="text-sm text-gray-400">{t('carForm.images.noImages')}</p>
+          ) : (
+            <div className="space-y-2">
+              {(data.images ?? []).map((url, idx) => (
+                <div key={idx} className="flex items-center gap-3 text-sm bg-gray-50  px-3 py-2">
+                  <div className="h-14 w-20 shrink-0 overflow-hidden bg-gray-100">
+                    <CarImage src={url} alt={`Car image ${idx + 1}`} />
+                  </div>
+                  <span className="flex-1 truncate text-gray-600">{url}</span>
+                  <button
+                    type="button"
+                    onClick={() => removeImage(idx)}
+                    aria-label="Remove image"
+                    className="w-7 h-7 flex items-center justify-center text-gray-400 hover:text-red-600 hover:bg-red-50 transition-colors"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              ))}
+            </div>
           )}
-          <div className="space-y-2">
-            {(data.images ?? []).map((url, idx) => (
-              <div key={idx} className="flex items-center gap-2 text-sm bg-gray-50 rounded px-3 py-2">
-                <span className="flex-1 truncate text-gray-600">{url}</span>
-                <button
-                  type="button"
-                  onClick={() => removeImage(idx)}
-                  className="text-red-400 hover:text-red-600"
-                >
-                  ✕
-                </button>
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+        </TabsContent>
+
+      </Tabs>
 
       {/* ── Actions ── */}
-      <div className="flex gap-3 justify-end">
-        <Button variant="outline" onClick={() => router.back()} disabled={loading}>
-          إلغاء
+      <div className="flex items-center justify-between pt-6 border-t border-gray-100">
+        <Button variant="outline" onClick={() => router.back()} disabled={loading || uploadingImages}>
+          {t('carForm.actions.cancel')}
         </Button>
-        <Button onClick={submit} disabled={loading}>
-          {loading ? 'جاري الحفظ...' : isEdit ? 'حفظ التعديلات' : 'إضافة السيارة'}
-        </Button>
+
+        <div className="flex items-center gap-2">
+          {!isFirstStep && (
+            <Button variant="outline" onClick={goBack} disabled={loading || uploadingImages}>
+              <ArrowLeft className="w-4 h-4" /> {t('carForm.actions.back')}
+            </Button>
+          )}
+          {!isLastStep ? (
+            <Button onClick={goNext} disabled={loading || uploadingImages}>
+              {t('carForm.actions.next')} <ArrowRight className="w-4 h-4" />
+            </Button>
+          ) : (
+            <Button onClick={submit} disabled={loading || uploadingImages}>
+              {uploadingImages ? t('carForm.actions.uploading') : loading ? t('carForm.actions.saving') : isEdit ? t('carForm.actions.saveChanges') : t('carForm.actions.addCar')}
+            </Button>
+          )}
+        </div>
       </div>
 
     </div>

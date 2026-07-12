@@ -2,10 +2,10 @@
 
 import { useState }       from 'react';
 import Link               from 'next/link';
-import Image              from 'next/image';
 import type { Car, CarStatusAction } from '../../types/car.types';
 import { carsApi }        from '../../lib/api/cars.api';
 import { formatPrice, formatKm, STATUS_LABELS, STATUS_COLORS, SOURCE_LABELS, SOURCE_COLORS, cn } from '../../lib/utils';
+import { CarImage }       from './car-image';
 import { Button }         from '../ui/button';
 import { Badge }          from '../ui/badge';
 import {
@@ -43,7 +43,7 @@ export function CarsTable({ cars, onRefresh }: CarsTableProps) {
       await carsApi.setStatus(id, action);
       onRefresh();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'حدث خطأ');
+      setError(err instanceof Error ? err.message : 'Woops! Something went wrong');
     } finally {
       setLoadingId(null);
     }
@@ -58,7 +58,7 @@ export function CarsTable({ cars, onRefresh }: CarsTableProps) {
       setDeleteId(null);
       onRefresh();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'حدث خطأ');
+      setError(err instanceof Error ? err.message : ' Woops! Something went wrong');
     } finally {
       setLoadingId(null);
     }
@@ -67,8 +67,8 @@ export function CarsTable({ cars, onRefresh }: CarsTableProps) {
   if (cars.length === 0) {
     return (
       <div className="text-center py-16 text-gray-400">
-        <p className="text-lg">لا توجد سيارات</p>
-        <p className="text-sm mt-1">أضف سيارة جديدة أو شغّل المزامنة</p>
+        <p className="text-lg">  No Cars Found</p>
+        <p className="text-sm mt-1">Add a new car or sync the data</p>
       </div>
     );
   }
@@ -76,47 +76,49 @@ export function CarsTable({ cars, onRefresh }: CarsTableProps) {
   return (
     <>
       {error && (
-        <div className="mb-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+        <div className="mb-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 text-sm">
           {error}
         </div>
       )}
 
-      <div className="overflow-x-auto rounded-xl border border-gray-200">
+      <div className="overflow-x-auto  border border-gray-200">
         <table className="w-full text-sm">
-          <thead className="bg-gray-50 text-gray-600 text-right">
+          <thead className="bg-gray-50 text-gray-600 text-left">
             <tr>
-              <th className="px-4 py-3 font-medium">السيارة</th>
-              <th className="px-4 py-3 font-medium">السنة</th>
-              <th className="px-4 py-3 font-medium">السعر</th>
-              <th className="px-4 py-3 font-medium">الكيلومترات</th>
-              <th className="px-4 py-3 font-medium">المصدر</th>
-              <th className="px-4 py-3 font-medium">الحالة</th>
-              <th className="px-4 py-3 font-medium">الإجراءات</th>
+              <th className="px-4 py-3 font-medium">Images</th>
+              <th className="px-4 py-3 font-medium">Cars</th>
+              <th className="px-4 py-3 font-medium">Year</th>
+              <th className="px-4 py-3 font-medium">Price</th>
+              <th className="px-4 py-3 font-medium">Kilometers</th>
+              <th className="px-4 py-3 font-medium">Source</th>
+              <th className="px-4 py-3 font-medium">Status</th>
+              <th className="px-4 py-3 font-medium">Actions</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100 bg-white">
-            {cars.map(car => (
-              <tr key={car.id} className="hover:bg-gray-50 transition-colors">
+            {cars.map((car, index) => (
+              <tr key={`${car.id}-${index}`} className="hover:bg-gray-50 transition-colors">
 
                 {/* Car name + thumbnail */}
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-3">
-                    <div className="relative w-14 h-10 rounded-lg overflow-hidden bg-gray-100 shrink-0">
-                      {car.images[0] ? (
-                        <Image src={car.images[0]} alt={car.make} fill className="object-cover" />
+                    <div className="relative w-14 h-10 overflow-hidden bg-gray-100 shrink-0">
+                      {car.images?.length ? (
+                        <CarImage src={car.images[0]} alt={car.make} />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center text-gray-300 text-xs">
-                          لا صورة
+                          No Image 
                         </div>
                       )}
                     </div>
-                    <div>
+                  </div>
+                </td>
+               <td className="px-4 py-3 ">
+                          <div>
                       <p className="font-semibold text-gray-900">{car.make} {car.model}</p>
                       {car.trim && <p className="text-xs text-gray-400">{car.trim}</p>}
                     </div>
-                  </div>
-                </td>
-
+               </td>
                 <td className="px-4 py-3 text-gray-600">{car.year}</td>
                 <td className="px-4 py-3 font-medium text-gray-900">{formatPrice(car.price)}</td>
                 <td className="px-4 py-3 text-gray-600">{formatKm(car.kmDriven)}</td>
@@ -152,37 +154,37 @@ export function CarsTable({ cars, onRefresh }: CarsTableProps) {
                       {/* عرض */}
                       <DropdownMenuItem asChild>
                         <Link href={`/cars/${car.id}`} target="_blank">
-                          عرض في الموقع
+                          View on Site
                         </Link>
                       </DropdownMenuItem>
 
-                      {/* تعديل — محلية فقط */}
+                      {/* Edit — Local only */}
                       {car.source === 'local' && (
                         <DropdownMenuItem asChild>
-                          <Link href={`/dashboard/cars/${car.id}/edit`}>
-                            تعديل
+                          <Link href={`/dashboard/cars/${car.id}`}>
+                            Edit
                           </Link>
                         </DropdownMenuItem>
                       )}
 
                       <DropdownMenuSeparator />
 
-                      {/* تغيير الحالة — محلية فقط */}
+                      {/* Change Status — Local only */}
                       {car.source === 'local' && (
                         <>
                           {car.status !== 'active' && (
                             <DropdownMenuItem onClick={() => handleStatus(car.id, 'activate')}>
-                              تفعيل
+                              Activate
                             </DropdownMenuItem>
                           )}
                           {car.status === 'active' && (
                             <DropdownMenuItem onClick={() => handleStatus(car.id, 'pause')}>
-                              إيقاف مؤقت
+                              Pause
                             </DropdownMenuItem>
                           )}
                           {car.status !== 'sold' && car.status !== 'deleted' && (
                             <DropdownMenuItem onClick={() => handleStatus(car.id, 'sold')}>
-                              تعليم كمباعة
+                              Mark as Sold
                             </DropdownMenuItem>
                           )}
                           <DropdownMenuSeparator />
@@ -190,7 +192,7 @@ export function CarsTable({ cars, onRefresh }: CarsTableProps) {
                             className="text-red-600 focus:text-red-600"
                             onClick={() => setDeleteId(car.id)}
                           >
-                            حذف
+                            Delete
                           </DropdownMenuItem>
                         </>
                       )}
@@ -198,7 +200,7 @@ export function CarsTable({ cars, onRefresh }: CarsTableProps) {
                       {/* دبي كار — للقراءة فقط */}
                       {car.source === 'dubicars' && (
                         <DropdownMenuItem disabled className="text-gray-400 text-xs">
-                          تُدار عبر دبي كار
+                          This car is from DubiCars and cannot be modified.
                         </DropdownMenuItem>
                       )}
 
@@ -216,18 +218,18 @@ export function CarsTable({ cars, onRefresh }: CarsTableProps) {
       <AlertDialog open={!!deleteId} onOpenChange={() => setDeleteId(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>تأكيد الحذف</AlertDialogTitle>
+            <AlertDialogTitle>Confirm Deletion</AlertDialogTitle>
             <AlertDialogDescription>
-              هل أنت متأكد من حذف هذه السيارة؟ لا يمكن التراجع عن هذا الإجراء.
+              Are you sure you want to delete this car? This action cannot be undone.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>إلغاء</AlertDialogCancel>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
               className="bg-red-600 hover:bg-red-700"
               onClick={handleDelete}
             >
-              حذف
+              Delete
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
