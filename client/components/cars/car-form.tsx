@@ -44,6 +44,7 @@ export function CarForm({ car }: CarFormProps) {
   const { t } = useI18n();
   const router  = useRouter();
   const isEdit  = !!car;
+  const initialDescription = car?.descriptionEn ?? car?.descriptionAr ?? '';
 
   const [step, setStep] = useState<StepId>('basic');
   const stepIndex   = STEPS.findIndex(s => s.id === step);
@@ -58,15 +59,25 @@ export function CarForm({ car }: CarFormProps) {
     kmDriven:      car?.kmDriven      ?? 0,
     trim:          car?.trim          ?? '',
     color:         car?.color         ?? '',
+    interiorColor: car?.interiorColor ?? '',
     bodyType:      car?.bodyType      ?? '',
     fuelType:      car?.fuelType      ?? '',
     transmission:  car?.transmission  ?? '',
+    cylinders:     car?.cylinders     ?? null,
+    driveType:     car?.driveType     ?? '',
+    engineSize:    car?.engineSize    ?? '',
+    seats:         car?.seats         ?? null,
+    doors:         car?.doors         ?? null,
+    horsePower:    car?.horsePower    ?? null,
+    wheelSize:     car?.wheelSize     ?? '',
+    mechanicalCondition: car?.mechanicalCondition ?? '',
+    bodyCondition: car?.bodyCondition ?? '',
     regionalSpecs: car?.regionalSpecs ?? '',
     steeringSide:  car?.steeringSide  ?? 'left',
     warranty:      car?.warranty      ?? false,
     warrantyMonths: car?.warrantyMonths ?? '',
-    descriptionEn: car?.descriptionEn ?? '',
-    descriptionAr: car?.descriptionAr ?? '',
+    descriptionEn: initialDescription,
+    descriptionAr: null,
     images:        car?.images        ?? [],
     features:      car?.features      ?? [],
   });
@@ -140,10 +151,11 @@ export function CarForm({ car }: CarFormProps) {
     setLoading(true);
     setError(null);
     try {
+      const payload = { ...data, descriptionAr: null };
       if (isEdit) {
-        await carsApi.update(car.id, data);
+        await carsApi.update(car.id, payload);
       } else {
-        await carsApi.create(data as CreateCarInput);
+        await carsApi.create(payload as CreateCarInput);
       }
       router.push('/dashboard/cars');
       router.refresh();
@@ -235,13 +247,18 @@ export function CarForm({ car }: CarFormProps) {
           <div className="grid grid-cols-2 gap-6">
 
             <div className="space-y-1.5">
-              <Label>{t('carForm.specs.color')}</Label>
+              <Label>{t('carForm.specs.exteriorColor')}</Label>
               <Input value={data.color ?? ''} onChange={e => set('color', e.target.value)} placeholder="White" />
             </div>
 
             <div className="space-y-1.5">
+              <Label>{t('carForm.specs.interiorColor')}</Label>
+              <Input value={data.interiorColor ?? ''} onChange={e => set('interiorColor', e.target.value)} placeholder="Beige" />
+            </div>
+
+            <div className="space-y-1.5">
               <Label>{t('carForm.specs.bodyType')}</Label>
-              <Input value={data.bodyType ?? ''} onChange={e => set('bodyType', e.target.value)} placeholder="SUV" />
+              <Input value={data.bodyType ?? ''} onChange={e => set('bodyType', e.target.value)} placeholder="Sedan" />
             </div>
 
             <div className="space-y-1.5">
@@ -269,6 +286,19 @@ export function CarForm({ car }: CarFormProps) {
             </div>
 
             <div className="space-y-1.5">
+              <Label>{t('carForm.specs.driveType')}</Label>
+              <Select value={data.driveType ?? ''} onValueChange={v => set('driveType', v)}>
+                <SelectTrigger><SelectValue placeholder={t('carForm.specs.selectPlaceholder')} /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Front Wheel Drive">{t('carForm.drive.front')}</SelectItem>
+                  <SelectItem value="Rear Wheel Drive">{t('carForm.drive.rear')}</SelectItem>
+                  <SelectItem value="All Wheel Drive">{t('carForm.drive.all')}</SelectItem>
+                  <SelectItem value="Four Wheel Drive">{t('carForm.drive.four')}</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-1.5">
               <Label>{t('carForm.specs.regionalSpecs')}</Label>
               <Input value={data.regionalSpecs ?? ''} onChange={e => set('regionalSpecs', e.target.value)} placeholder="GCC" />
             </div>
@@ -282,6 +312,61 @@ export function CarForm({ car }: CarFormProps) {
                   <SelectItem value="right">{t('carForm.steering.right')}</SelectItem>
                 </SelectContent>
               </Select>
+            </div>
+
+            <div className="space-y-1.5">
+              <Label>{t('carForm.specs.engineSize')}</Label>
+              <Input value={data.engineSize ?? ''} onChange={e => set('engineSize', e.target.value)} placeholder="2.0L" />
+            </div>
+
+            <div className="space-y-1.5">
+              <Label>{t('carForm.specs.cylinders')}</Label>
+              <Input
+                type="number"
+                value={data.cylinders ?? ''}
+                onChange={e => set('cylinders', e.target.value ? Number(e.target.value) : null)}
+                placeholder="4"
+              />
+            </div>
+
+            <div className="space-y-1.5">
+              <Label>{t('carForm.specs.horsePower')}</Label>
+              <Input
+                type="number"
+                value={data.horsePower ?? ''}
+                onChange={e => set('horsePower', e.target.value ? Number(e.target.value) : null)}
+                placeholder="200"
+              />
+            </div>
+
+            <div className="space-y-1.5">
+              <Label>{t('carForm.specs.seats')}</Label>
+              <Input
+                type="number"
+                value={data.seats ?? ''}
+                onChange={e => set('seats', e.target.value ? Number(e.target.value) : null)}
+                placeholder="5"
+              />
+            </div>
+
+            <div className="space-y-1.5">
+              <Label>{t('carForm.specs.doors')}</Label>
+              <Input
+                type="number"
+                value={data.doors ?? ''}
+                onChange={e => set('doors', e.target.value ? Number(e.target.value) : null)}
+                placeholder="4"
+              />
+            </div>
+
+            <div className="space-y-1.5">
+              <Label>{t('carForm.specs.bodyCondition')}</Label>
+              <Input value={data.bodyCondition ?? ''} onChange={e => set('bodyCondition', e.target.value)} placeholder="Perfect inside and out" />
+            </div>
+
+            <div className="space-y-1.5 col-span-2">
+              <Label>{t('carForm.specs.mechanicalCondition')}</Label>
+              <Input value={data.mechanicalCondition ?? ''} onChange={e => set('mechanicalCondition', e.target.value)} placeholder="Excellent" />
             </div>
 
             <div className="space-y-1.5 col-span-2">
