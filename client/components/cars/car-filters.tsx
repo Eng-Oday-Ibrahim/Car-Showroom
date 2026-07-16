@@ -189,7 +189,7 @@ export function CarFilters() {
   };
 
   return (
-    <div className="flex flex-col gap-4 w-full p-4 bg-white border border-gray-100 shadow-xs">
+    <div className="flex flex-col gap-4 w-full p-4 bg-white border border-gray-100">
       <Select value={filters.make} onValueChange={v => handleSelect('make', v)}>
         <SelectTrigger className="w-full">
           <SelectValue placeholder={`${t('carFilters.all')} ${t('carFilters.make')}`} />

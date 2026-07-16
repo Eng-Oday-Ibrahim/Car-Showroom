@@ -10,6 +10,9 @@ export const metadata: Metadata = {
     template: '%s | Hussein Ghulam Motors',
   },
   description: 'Hussein Ghulam Motors is a car dealership that specializes in selling high-quality vehicles. We offer a wide selection of cars, trucks, and SUVs to meet your needs.',
+ icons:{
+  icon:"./images/logo.jpg",
+ }
 };
 
 export default function PublicLayout({ children }: { children: React.ReactNode }) {

@@ -155,7 +155,7 @@ export function CarDetailsContent({ car }: { car: Car }) {
 
         {/* ── Right: Price card ── */}
         <div className="lg:col-span-1">
-          <div className="sticky top-24 space-y-6 bg-white p-6 border border-gray-100 shadow-xs">
+          <div className="sticky top-24 space-y-6 bg-white p-6 border border-gray-100">
 
             <div className="flex items-start justify-between gap-3">
               <div>
