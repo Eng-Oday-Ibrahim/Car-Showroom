@@ -157,4 +157,49 @@ export class UserRepository {
     const count = await UserModel.countDocuments({ email: email.toLowerCase() });
     return count > 0;
   }
+
+  /**
+   * Set a hashed reset token and expiry for a user.
+   */
+  async setResetToken(userId: string, tokenHash: string, expiry: Date): Promise<void> {
+    await UserModel.findByIdAndUpdate(userId, {
+      resetPasswordToken:  tokenHash,
+      resetPasswordExpiry: expiry,
+    });
+  }
+
+  /**
+   * Find a user by their reset token hash (not expired).
+   */
+  async findByResetToken(tokenHash: string): Promise<User | null> {
+    const doc = await UserModel
+      .findOne({
+        resetPasswordToken:  tokenHash,
+        resetPasswordExpiry: { $gt: new Date() },
+      })
+      .select('+resetPasswordToken +resetPasswordExpiry +password');
+
+    if (!doc) return null;
+    return User.fromPersistence({
+      id:         doc._id.toString(),
+      email:      doc.email,
+      password:   doc.password,
+      name:       doc.name,
+      role:       doc.role,
+      isActive:   doc.isActive,
+      createdAt:  doc.createdAt,
+      updatedAt:  doc.updatedAt,
+    });
+  }
+
+  /**
+   * Update password and clear the reset token.
+   */
+  async updatePasswordAndClearToken(userId: string, hashedPassword: string): Promise<void> {
+    await UserModel.findByIdAndUpdate(userId, {
+      password:            hashedPassword,
+      resetPasswordToken:  undefined,
+      resetPasswordExpiry: undefined,
+    });
+  }
 }

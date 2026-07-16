@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState } from 'react';
 import Link from 'next/link';
@@ -51,6 +51,11 @@ export default function LoginPage() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        <div className="flex justify-end">
+          <Link href="/forgot-password" className="text-xs text-gray-500 hover:text-gray-800 transition-colors">
+            <Translate id="auth.forgotPassword" />
+          </Link>
+        </div>
         {error ? <p className="text-sm text-red-600">{error}</p> : null}
         <button className="w-full rounded bg-gray-900 px-4 py-2 text-white" type="submit" disabled={loading}>
           {loading ? <Translate id="auth.signingIn" /> : <Translate id="auth.loginTitle" />}

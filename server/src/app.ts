@@ -9,6 +9,9 @@ import { createUploadRouter, storageRoot } from './modules/uploads/upload.contro
 import { UserRepository }            from './modules/identity/infrastructure/user.repository';
 import { IdentityService }           from './modules/identity/application/identity.service';
 import { createIdentityRouter }      from './modules/identity/interfaces/identity.controller';
+import { SettingRepository }         from './modules/settings/infrastructure/setting.repository';
+import { SettingsService }           from './modules/settings/application/settings.service';
+import { createSettingsRouter }      from './modules/settings/interfaces/settings.controller';
 import { errorHandler }              from './shared/errors/error-handler.middleware';
 import { startSyncScheduler }        from './shared/scheduler/sync.scheduler';
 
@@ -21,21 +24,25 @@ export async function createApp(): Promise<Application> {
   app.use('/uploads', express.static(path.resolve(storageRoot)));
 
   // ── Dependency wiring ─────────────────────────────────
-  // Client يأخذ الـ credentials مباشرة ويتولى الـ login تلقائياً
-  const dubicarsClient = new DubicarsApiClient({
-    email:    process.env['DUBICARS_EMAIL']    ?? '',
-    password: process.env['DUBICARS_PASSWORD'] ?? '',
-  });
+  const settingRepo    = new SettingRepository();
+  const settingsService = new SettingsService(settingRepo);
 
-  const carRepo    = new CarRepository();
-  const carService = new CarService(carRepo, dubicarsClient);
+  // DubicarsClient uses a credential provider so changes made via the
+  // settings page take effect on the next sync (no server restart required).
+  const dubicarsClient = new DubicarsApiClient(
+    () => settingsService.getDubicarsCredentials()
+  );
+
+  const carRepo      = new CarRepository();
+  const carService   = new CarService(carRepo, dubicarsClient);
   const identityRepo = new UserRepository();
   const identityService = new IdentityService(identityRepo);
 
   // ── Routes ────────────────────────────────────────────
-  app.use('/api/auth', createIdentityRouter(identityService));
-  app.use('/api/cars', createCarRouter(carService));
-  app.use('/api/uploads', createUploadRouter());
+  app.use('/api/auth',     createIdentityRouter(identityService));
+  app.use('/api/cars',     createCarRouter(carService));
+  app.use('/api/uploads',  createUploadRouter());
+  app.use('/api/settings', createSettingsRouter(settingsService));
 
   // Health check
   app.get('/health', (_, res) => res.json({ status: 'ok', timestamp: new Date() }));

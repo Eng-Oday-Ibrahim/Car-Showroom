@@ -25,7 +25,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative bg-black h-screen overflow-hidden w-full rounded">
+    <section className="relative bg-black h-screen overflow-hidden w-full">
       <AnimatePresence mode="wait">
         <motion.div
           key={index}

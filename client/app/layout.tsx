@@ -13,8 +13,9 @@ export const metadata: Metadata = {
 };
 
 export default function PublicLayout({ children }: { children: React.ReactNode }) {
+
   return (
-    <html lang="en">
+    <html lang="en" dir="ltr">
       <body className="min-h-screen bg-gray-50 flex flex-col">
         <I18nProvider>
           <Navbar />

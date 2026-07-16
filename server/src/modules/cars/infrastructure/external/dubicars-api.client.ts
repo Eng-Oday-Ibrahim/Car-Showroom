@@ -46,13 +46,15 @@ export interface DubicarsAd extends DubicarsAdPayload {
   updated_at: string;
 }
 
+interface DubicarsListResponseData {
+  links: unknown;
+  meta:  unknown;
+  ads:   DubicarsAd[];
+}
+
 interface DubicarsListResponse {
   status: string;
-  data: {
-    links: unknown;
-    meta: unknown;
-    ads: DubicarsAd[];
-  };
+  data:   DubicarsListResponseData;
 }
 
 interface DubicarsApiResponse<T = unknown> {
@@ -65,20 +67,28 @@ interface DubicarsApiResponse<T = unknown> {
 
 // ── Client ────────────────────────────────────────────────
 
+export type DubicarsCredentialProvider = () => Promise<DubicarsCredentials>;
+
 export class DubicarsApiClient {
-  readonly #baseUrl:     string;
-  readonly #credentials: DubicarsCredentials;
+  readonly #baseUrl:            string;
+  readonly #credentialProvider: DubicarsCredentialProvider;
 
   #token:     string | null = null;
   #expiresAt: number        = 0;           // timestamp ms
   #loginPromise: Promise<void> | null = null; // يمنع login متعدد في نفس الوقت
 
   constructor(
-    credentials: DubicarsCredentials,
+    credentialsOrProvider: DubicarsCredentials | DubicarsCredentialProvider,
     baseUrl = 'https://www.controlauto.net/integration/v1/api',
   ) {
-    this.#credentials = credentials;
-    this.#baseUrl     = baseUrl;
+    // Accept either static credentials object or an async provider function
+    if (typeof credentialsOrProvider === 'function') {
+      this.#credentialProvider = credentialsOrProvider;
+    } else {
+      const creds = credentialsOrProvider;
+      this.#credentialProvider = async () => creds;
+    }
+    this.#baseUrl = baseUrl;
   }
 
   // ── Auth ─────────────────────────────────────────────────
@@ -106,9 +116,12 @@ export class DubicarsApiClient {
   }
 
   async #doLogin(): Promise<void> {
+    // Fetch latest credentials (from DB or static) right before login
+    const credentials = await this.#credentialProvider();
+
     const body = new URLSearchParams({
-      email:    this.#credentials.email,
-      password: this.#credentials.password,
+      email:    credentials.email,
+      password: credentials.password,
     });
 
     const res = await fetch(`${this.#baseUrl}/login`, {
@@ -138,14 +151,51 @@ export class DubicarsApiClient {
 
   async getAds(page = 1, perPage = 100): Promise<DubicarsAd[]> {
     const res  = await this.#get(`/ads?page=${page}&per_page=${perPage}`);
-    const json = await this.#parse<DubicarsListResponse>(res);
+    const json = await this.#parse<any>(res);
 
-    const ads = json.data?.ads;
-    if (!Array.isArray(ads)) {
-      throw new Error('DubiCars API: unexpected ads response format — expected json.data.ads to be an array.');
+    const payload = json.data;
+
+    // 1. إذا كان json.data نفسه مصفوفة مباشرة
+    if (Array.isArray(payload)) {
+      return payload as DubicarsAd[];
     }
 
-    return ads;
+    // 2. إذا كان json.data كائنًا يحتوي على ads أو data أو items أو results
+    if (payload && typeof payload === 'object') {
+      if (Array.isArray(payload.ads)) {
+        return payload.ads as DubicarsAd[];
+      }
+      if (Array.isArray(payload.data)) {
+        return payload.data as DubicarsAd[];
+      }
+      if (Array.isArray(payload.items)) {
+        return payload.items as DubicarsAd[];
+      }
+      if (Array.isArray(payload.results)) {
+        return payload.results as DubicarsAd[];
+      }
+    }
+
+    // 3. تحقق في الجذر json مباشرة
+    if (json && typeof json === 'object') {
+      if (Array.isArray((json as any).ads)) {
+        return (json as any).ads as DubicarsAd[];
+      }
+      if (Array.isArray((json as any).items)) {
+        return (json as any).items as DubicarsAd[];
+      }
+    }
+    if (Array.isArray(json)) {
+      return json as unknown as DubicarsAd[];
+    }
+
+    // 4. إذا كان الاستعلام فارغًا
+    if (payload === null || payload === undefined || (typeof payload === 'object' && Object.keys(payload).length === 0)) {
+      return [];
+    }
+
+    console.error('[DubiCars] ❌ أُرجع تنسيق استجابة غير متوقع لـ Ads:', JSON.stringify(json).slice(0, 1000));
+    throw new Error('DubiCars API: unexpected ads response format — expected json.data (or json.data.ads) to be an array.');
   }
 
   async getAdById(adId: number): Promise<DubicarsAd> {
@@ -205,7 +255,7 @@ export class DubicarsApiClient {
       this.#token     = null;
       this.#expiresAt = 0;
       await this.#ensureAuthenticated();
-      return this.#request(method, path, body, false); // retry = false لمنع حلقة لا نهائية
+      return this.#request(method, path, body, false); // retry=false لمنع حلقة لا نهائية
     }
 
     return res;

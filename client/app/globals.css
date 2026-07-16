@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap');
+
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -143,5 +145,8 @@
   }
   html {
     @apply font-sans;
+  }
+  :root:is([lang="ar"]) body {
+    font-family: 'Cairo', sans-serif;
   }
 }

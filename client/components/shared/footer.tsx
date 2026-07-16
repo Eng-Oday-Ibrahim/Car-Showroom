@@ -11,11 +11,11 @@ const QuickLinks = [
 ];
 
 const Brands = [
-  'brands.names.toyota',
-  'brands.names.nissan',
-  'brands.names.honda',
-  'brands.names.tata',
-  'brands.names.hyundai',
+  { nameKey: 'brands.names.toyota',  make: 'Toyota'  },
+  { nameKey: 'brands.names.nissan',  make: 'Nissan'  },
+  { nameKey: 'brands.names.honda',   make: 'Honda'   },
+  { nameKey: 'brands.names.tata',    make: 'Tata'    },
+  { nameKey: 'brands.names.hyundai', make: 'Hyundai' },
 ];
 
 const policies = [
@@ -57,20 +57,22 @@ export function Footer() {
             </ul>
           </div>
 
-          <div>
-            <h3 className="text-white text-lg font-medium mb-5">{t('footer.ourBrands')}</h3>
-            <ul className="space-y-3 text-sm">
-              {Brands.map((brandKey, i) => (
-                <li key={i}>
-                  <a className="group inline-block relative hover:text-white transition duration-200">
-                    {t(brandKey)}
-                    <span className="absolute left-0 -bottom-1 w-0 h-[1px] bg-[#C8A24A] group-hover:w-full transition-all duration-200" />
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
+         <div>
+  <h3 className="text-white text-lg font-medium mb-5">{t('footer.ourBrands')}</h3>
+  <ul className="space-y-3 text-sm">
+    {Brands.map((brand, i) => (
+      <li key={i}>
+        <a
+          href={`/cars?make=${encodeURIComponent(brand.make)}&page=1&perPage=12`}
+          className="group inline-block relative hover:text-white transition duration-200"
+        >
+          {t(brand.nameKey)}
+          <span className="absolute left-0 -bottom-1 w-0 h-[1px] bg-[#C8A24A] group-hover:w-full transition-all duration-200" />
+        </a>
+      </li>
+    ))}
+  </ul>
+</div>
           <div>
             <h3 className="text-white text-lg font-medium mb-5">{t('footer.connectionTitle')}</h3>
             <ul className="space-y-3 text-sm text-neutral-400">

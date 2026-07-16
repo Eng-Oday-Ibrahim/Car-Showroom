@@ -24,9 +24,9 @@ export function AnimatedCarGrid({ cars }: { cars: Car[] }) {
   animate="show"
   className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-6 gap-y-10"
 >
-      {cars.map(car => (
+      {cars.map((car, index) => (
         <motion.div key={car.id} variants={item}>
-          <CarCard car={car} />
+          <CarCard car={car} priority={index < 6} />
         </motion.div>
       ))}
     </motion.div>

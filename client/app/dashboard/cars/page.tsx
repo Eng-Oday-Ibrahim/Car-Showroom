@@ -43,8 +43,58 @@ export default function DashboardCarsPage() {
 
   useEffect(() => { load(); }, [load]);
 
+  const [allCars,    setAllCars]    = useState<{ make: string; model: string }[]>([]);
+
+  useEffect(() => {
+    let mounted = true;
+    (async () => {
+      try {
+        let res;
+        try {
+          res = await carsApi.listAll({ perPage: 500 });
+        } catch {
+          res = await carsApi.listAll({ perPage: 100 });
+        }
+        if (!mounted || !res?.data) return;
+        setAllCars(
+          res.data
+            .filter(c => Boolean(c.make && c.model))
+            .map(c => ({ make: c.make, model: c.model }))
+        );
+      } catch { /* fail silently */ }
+    })();
+    return () => { mounted = false; };
+  }, []);
+
+  const availableMakes = Array.from(
+    new Set(
+      (filters.model && filters.model !== 'all'
+        ? allCars.filter(c => c.model === filters.model)
+        : allCars
+      ).map(c => c.make)
+    )
+  ).sort();
+
+  const availableModels = Array.from(
+    new Set(
+      (filters.make && filters.make !== 'all'
+        ? allCars.filter(c => c.make === filters.make)
+        : allCars
+      ).map(c => c.model)
+    )
+  ).sort();
+
   const setFilter = (key: keyof CarFilters, value: string) => {
-    setFilters(prev => ({ ...prev, [key]: value === 'all' ? undefined : value }));
+    setFilters(prev => {
+      const updated: CarFilters = { ...prev, [key]: value === 'all' ? undefined : value };
+      if (key === 'make' && value !== 'all') {
+        const modelsForMake = allCars.filter(c => c.make === value).map(c => c.model);
+        if (updated.model && !modelsForMake.includes(updated.model)) {
+          updated.model = undefined;
+        }
+      }
+      return updated;
+    });
     setPage(1);
   };
 
@@ -69,30 +119,49 @@ export default function DashboardCarsPage() {
         <Link href="/dashboard/cars/new">
           <Button>{t('dashboardCars.createCar')} <Plus /></Button>
         </Link>
+        <Link href="/dashboard" className="text-sm text-gray-600 hover:text-gray-900">
+              {t('dashboardUsers.backToDashboard')}
+        </Link>
       </div>
 
       {/* Filters bar */}
-      <div className="bg-white border border-gray-200 rounded p-4">
+      <div className="bg-white border border-gray-200 p-4">
         <div className="flex flex-wrap gap-3 items-end">
 
           <div className="space-y-1">
             <p className="text-xs text-gray-400">{t('dashboardCars.filters.make')}</p>
-            <Input
-              placeholder={t('dashboardCars.filters.makePlaceholder')}
-              className="w-36 h-9 text-sm"
-              value={(filters.make as string) ?? ''}
-              onChange={e => setFilter('make', e.target.value)}
-            />
+            <Select
+              value={(filters.make as string) ?? 'all'}
+              onValueChange={v => setFilter('make', v)}
+            >
+              <SelectTrigger className="w-36 h-9 text-sm">
+                <SelectValue placeholder={t('carFilters.all')} />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">{t('carFilters.all')}</SelectItem>
+                {availableMakes.map(m => (
+                  <SelectItem key={m} value={m}>{m}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
 
           <div className="space-y-1">
             <p className="text-xs text-gray-400">{t('dashboardCars.filters.model')}</p>
-            <Input
-              placeholder={t('dashboardCars.filters.modelPlaceholder')}
-              className="w-36 h-9 text-sm"
-              value={(filters.model as string) ?? ''}
-              onChange={e => setFilter('model', e.target.value)}
-            />
+            <Select
+              value={(filters.model as string) ?? 'all'}
+              onValueChange={v => setFilter('model', v)}
+            >
+              <SelectTrigger className="w-36 h-9 text-sm">
+                <SelectValue placeholder={t('carFilters.all')} />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">{t('carFilters.all')}</SelectItem>
+                {availableModels.map(m => (
+                  <SelectItem key={m} value={m}>{m}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
 
           <div className="space-y-1">

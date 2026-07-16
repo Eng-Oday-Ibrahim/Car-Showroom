@@ -70,6 +70,9 @@ export function CarForm({ car }: CarFormProps) {
     doors:         car?.doors         ?? null,
     horsePower:    car?.horsePower    ?? null,
     wheelSize:     car?.wheelSize     ?? '',
+    adReference:   car?.adReference   ?? '',
+    additionalInfoEn: car?.additionalInfoEn ?? '',
+    additionalInfoAr: car?.additionalInfoAr ?? '',
     mechanicalCondition: car?.mechanicalCondition ?? '',
     bodyCondition: car?.bodyCondition ?? '',
     regionalSpecs: car?.regionalSpecs ?? '',
@@ -77,7 +80,7 @@ export function CarForm({ car }: CarFormProps) {
     warranty:      car?.warranty      ?? false,
     warrantyMonths: car?.warrantyMonths ?? '',
     descriptionEn: initialDescription,
-    descriptionAr: null,
+    descriptionAr: car?.descriptionAr ?? '',
     images:        car?.images        ?? [],
     features:      car?.features      ?? [],
   });
@@ -85,6 +88,7 @@ export function CarForm({ car }: CarFormProps) {
   const [loading, setLoading] = useState(false);
   const [error,   setError]   = useState<string | null>(null);
   const [uploadingImages, setUploadingImages] = useState(false);
+  const [featuresText, setFeaturesText] = useState((car?.features ?? []).join(', '));
 
   const set = (key: keyof FormData, value: unknown) =>
     setData(prev => ({ ...prev, [key]: value }));
@@ -151,7 +155,7 @@ export function CarForm({ car }: CarFormProps) {
     setLoading(true);
     setError(null);
     try {
-      const payload = { ...data, descriptionAr: null };
+      const payload = { ...data };
       if (isEdit) {
         await carsApi.update(car.id, payload);
       } else {
@@ -360,6 +364,16 @@ export function CarForm({ car }: CarFormProps) {
             </div>
 
             <div className="space-y-1.5">
+              <Label>{t('carForm.specs.wheelSize')}</Label>
+              <Input value={data.wheelSize ?? ''} onChange={e => set('wheelSize', e.target.value)} placeholder="20 inch" />
+            </div>
+
+            <div className="space-y-1.5">
+              <Label>{t('carForm.specs.adReference')}</Label>
+              <Input value={data.adReference ?? ''} onChange={e => set('adReference', e.target.value)} placeholder="REF-1002" />
+            </div>
+
+            <div className="space-y-1.5">
               <Label>{t('carForm.specs.bodyCondition')}</Label>
               <Input value={data.bodyCondition ?? ''} onChange={e => set('bodyCondition', e.target.value)} placeholder="Perfect inside and out" />
             </div>
@@ -372,10 +386,12 @@ export function CarForm({ car }: CarFormProps) {
             <div className="space-y-1.5 col-span-2">
               <Label>{t('carForm.specs.features')}</Label>
               <Input
-                value={(data.features ?? []).join(', ')}
+                value={featuresText}
                 onChange={e => {
-                  const parsed = e.target.value
-                    .split(',')
+                  const val = e.target.value;
+                  setFeaturesText(val);
+                  const parsed = val
+                    .split(/[,،\n]/)
                     .map(item => item.trim())
                     .filter(Boolean);
                   set('features', parsed);
@@ -412,30 +428,34 @@ export function CarForm({ car }: CarFormProps) {
         {/* ── Description ── */}
         <TabsContent value="description" className="pt-8 space-y-6">
           <div className="space-y-1.5">
-            <Label>{t('carForm.description.arabic')}</Label>
+            <Label>{t('carForm.description.label')}</Label>
             <Textarea
-              value={data.descriptionAr ?? ''}
-              onChange={e => set('descriptionAr', e.target.value)}
-              rows={4}
-              placeholder={t('carForm.description.arabicPlaceholder')}
-              dir="rtl"
+              value={data.descriptionEn ?? data.descriptionAr ?? ''}
+              onChange={e => {
+                set('descriptionEn', e.target.value);
+                set('descriptionAr', e.target.value);
+              }}
+              rows={6}
+              placeholder={t('carForm.description.placeholder')}
             />
           </div>
           <div className="space-y-1.5">
-            <Label>{t('carForm.description.english')}</Label>
+            <Label>{t('carForm.specs.additionalInfo')}</Label>
             <Textarea
-              value={data.descriptionEn ?? ''}
-              onChange={e => set('descriptionEn', e.target.value)}
+              value={data.additionalInfoEn ?? data.additionalInfoAr ?? ''}
+              onChange={e => {
+                set('additionalInfoEn', e.target.value);
+                set('additionalInfoAr', e.target.value);
+              }}
               rows={4}
-              placeholder={t('carForm.description.englishPlaceholder')}
+              placeholder={t('carForm.specs.additionalInfoPlaceholder')}
             />
           </div>
         </TabsContent>
 
         {/* ── Images ── */}
         <TabsContent value="images" className="pt-8 space-y-5">
-
-          <label className="flex flex-col items-center justify-center gap-2 border border-dashed border-gray-200  py-10 text-center cursor-pointer hover:border-gray-400 transition-colors">
+          <label className="flex flex-col items-center justify-center gap-2 border border-dashed border-gray-200 py-10 text-center cursor-pointer hover:border-gray-400 transition-colors">
             <Upload className="w-5 h-5 text-gray-300" />
             <span className="text-sm text-gray-600">
               {uploadingImages ? t('carForm.images.uploading') : t('carForm.images.uploadPrompt')}
@@ -457,27 +477,29 @@ export function CarForm({ car }: CarFormProps) {
           {(data.images ?? []).length === 0 ? (
             <p className="text-sm text-gray-400">{t('carForm.images.noImages')}</p>
           ) : (
-            <div className="space-y-2">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 max-h-[380px] overflow-y-auto p-2 border border-gray-100 bg-gray-50/50">
               {(data.images ?? []).map((url, idx) => (
-                <div key={idx} className="flex items-center gap-3 text-sm bg-gray-50  px-3 py-2">
-                  <div className="h-14 w-20 shrink-0 overflow-hidden bg-gray-100">
-                    <CarImage src={url} alt={`Car image ${idx + 1}`} />
-                  </div>
-                  <span className="flex-1 truncate text-gray-600">{url}</span>
+                <div key={idx} className="relative group border border-gray-200 overflow-hidden bg-white aspect-video">
+                  <CarImage src={url} alt={`Car image ${idx + 1}`} className="w-full h-full object-cover" />
+                  <span className="absolute top-1.5 left-1.5 bg-black/70 text-white text-[11px] font-medium px-1.5 py-0.5 shadow-sm">
+                    {idx + 1}
+                  </span>
                   <button
                     type="button"
                     onClick={() => removeImage(idx)}
                     aria-label="Remove image"
-                    className="w-7 h-7 flex items-center justify-center text-gray-400 hover:text-red-600 hover:bg-red-50 transition-colors"
+                    className="absolute top-1.5 right-1.5 w-6 h-6 bg-red-600/90 hover:bg-red-600 text-white flex items-center justify-center opacity-90 hover:opacity-100 transition-opacity shadow-sm"
                   >
                     <X className="w-3.5 h-3.5" />
                   </button>
+                  <div className="absolute bottom-0 inset-x-0 bg-black/60 text-[10px] text-white px-1.5 py-0.5 truncate opacity-0 group-hover:opacity-100 transition-opacity">
+                    {url.split('/').pop()}
+                  </div>
                 </div>
               ))}
             </div>
           )}
         </TabsContent>
-
       </Tabs>
 
       {/* ── Actions ── */}

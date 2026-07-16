@@ -24,3 +24,12 @@ export const listUsersSchema = z.object({
   role: z.string().optional(),
   isActive: z.string().optional().transform(v => v === undefined ? undefined : v === 'true'),
 });
+
+export const forgotPasswordSchema = z.object({
+  email: z.string().email('Invalid email').toLowerCase(),
+});
+
+export const resetPasswordSchema = z.object({
+  token:    z.string().min(1, 'Token is required'),
+  password: z.string().min(6, 'Password must be at least 6 characters'),
+});

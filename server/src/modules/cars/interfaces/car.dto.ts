@@ -71,7 +71,7 @@ export type ChangeStatusDto = z.infer<typeof changeStatusSchema>;
 
 export const listCarsSchema = z.object({
   page:     z.coerce.number().int().min(1).optional().default(1),
-  perPage:  z.coerce.number().int().min(1).max(100).optional().default(20),
+  perPage:  z.coerce.number().int().min(1).max(1000).optional().default(20),
   status:   z.enum(['active', 'paused', 'sold', 'deleted']).optional(),
   source:   z.enum(['local', 'dubicars']).optional(),
   sort:     z.enum(['newest', 'price_asc', 'price_desc', 'year_desc']).optional().default('newest'),

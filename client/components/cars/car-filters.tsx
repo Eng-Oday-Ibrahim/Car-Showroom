@@ -1,10 +1,11 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useEffect, useState } from 'react';
-import { Input }                       from '../ui/input';
-import { Button }                      from '../ui/button';
-import { carsApi }                     from '../../lib/api/cars.api';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { Input } from '../ui/input';
+import { Button } from '../ui/button';
+import { carsApi } from '../../lib/api/cars.api';
+import { useI18n } from '../../lib/i18n';
 import {
   Select,
   SelectContent,
@@ -15,158 +16,239 @@ import {
 
 type Condition = 'all' | 'new' | 'used';
 
+interface CarOption {
+  make: string;
+  model: string;
+}
+
 export function CarFilters() {
-  const router     = useRouter();
-  const params     = useSearchParams();
-  const [makes, setMakes] = useState<string[]>([]);
+  const router = useRouter();
+  const params = useSearchParams();
+  const { t } = useI18n();
+
+  const [allCars, setAllCars] = useState<CarOption[]>([]);
   const [filters, setFilters] = useState({
     make: params.get('make') ?? 'all',
-    model: params.get('model') ?? '',
+    model: params.get('model') ?? 'all',
     minPrice: params.get('minPrice') ?? '',
     maxPrice: params.get('maxPrice') ?? '',
     year: params.get('minYear') ?? params.get('maxYear') ?? '',
-    condition: params.get('maxKm') === '0' ? 'new' : params.get('minKm') === '1' ? 'used' : 'all',
+    condition: (params.get('maxKm') === '0'
+      ? 'new'
+      : params.get('minKm') === '1'
+      ? 'used'
+      : 'all') as Condition,
   });
+
+  const filtersRef = useRef(filters);
+  useEffect(() => { filtersRef.current = filters; }, [filters]);
+
+  useEffect(() => {
+    setFilters({
+      make: params.get('make') ?? 'all',
+      model: params.get('model') ?? 'all',
+      minPrice: params.get('minPrice') ?? '',
+      maxPrice: params.get('maxPrice') ?? '',
+      year: params.get('minYear') ?? params.get('maxYear') ?? '',
+      condition: (params.get('maxKm') === '0'
+        ? 'new'
+        : params.get('minKm') === '1'
+        ? 'used'
+        : 'all') as Condition,
+    });
+  }, [params]);
+
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     let mounted = true;
     (async () => {
       try {
-        const res = await carsApi.list({ perPage: 100 });
-        if (!mounted) return;
-        const uniq = Array.from(new Set(res.data.map(c => c.make).filter(Boolean))).sort();
-        setMakes(uniq);
-      } catch {
-        // fail silently
-      }
+        let res;
+        try {
+          res = await carsApi.list({ perPage: 500 });
+        } catch {
+          res = await carsApi.list({ perPage: 100 });
+        }
+        if (!mounted || !res?.data) return;
+        setAllCars(
+          res.data
+            .filter(c => Boolean(c.make && c.model))
+            .map(c => ({ make: c.make, model: c.model }))
+        );
+      } catch { /* fail silently */ }
     })();
     return () => { mounted = false; };
   }, []);
 
-  const updateField = useCallback((key: keyof typeof filters, value: string) => {
-    setFilters(prev => ({ ...prev, [key]: value }));
-  }, []);
+  const availableMakes = Array.from(
+    new Set(
+      (filters.model && filters.model !== 'all'
+        ? allCars.filter(c => c.model === filters.model)
+        : allCars
+      ).map(c => c.make)
+    )
+  ).sort();
 
-  const updateCondition = useCallback((value: Condition) => {
-    setFilters(prev => ({ ...prev, condition: value }));
-  }, []);
+  const availableModels = Array.from(
+    new Set(
+      (filters.make && filters.make !== 'all'
+        ? allCars.filter(c => c.make === filters.make)
+        : allCars
+      ).map(c => c.model)
+    )
+  ).sort();
 
-  const applyFilters = useCallback(() => {
-    const p = new URLSearchParams();
-    if (filters.make && filters.make !== 'all') p.set('make', filters.make);
-    if (filters.model) p.set('model', filters.model);
-    if (filters.minPrice) p.set('minPrice', filters.minPrice);
-    if (filters.maxPrice) p.set('maxPrice', filters.maxPrice);
-    if (filters.year) {
-      p.set('minYear', filters.year);
-      p.set('maxYear', filters.year);
+  const sanitizePrice = (val: string): string => {
+    const n = Number(val);
+    if (val === '' || isNaN(n) || n < 0) return '';
+    return String(Math.floor(n));
+  };
+
+  const pushUrl = useCallback((updated: typeof filters) => {
+    const p = new URLSearchParams(params.toString());
+    if (updated.make && updated.make !== 'all') p.set('make', updated.make);
+    else p.delete('make');
+
+    if (updated.model && updated.model !== 'all') p.set('model', updated.model);
+    else p.delete('model');
+
+    const minPrice = sanitizePrice(updated.minPrice);
+    const maxPrice = sanitizePrice(updated.maxPrice);
+    if (minPrice) p.set('minPrice', minPrice); else p.delete('minPrice');
+    if (maxPrice) p.set('maxPrice', maxPrice); else p.delete('maxPrice');
+
+    if (updated.year) {
+      const y = Number(updated.year);
+      if (!isNaN(y) && y >= 1980 && y <= new Date().getFullYear() + 1) {
+        p.set('minYear', updated.year);
+        p.set('maxYear', updated.year);
+      } else {
+        p.delete('minYear');
+        p.delete('maxYear');
+      }
+    } else {
+      p.delete('minYear');
+      p.delete('maxYear');
     }
 
-    if (filters.condition === 'new') {
-      // brand new car → 0 km driven
+    if (updated.condition === 'new') {
       p.set('maxKm', '0');
-    } else if (filters.condition === 'used') {
-      // used → at least 1 km on the clock
+      p.delete('minKm');
+    } else if (updated.condition === 'used') {
       p.set('minKm', '1');
+      p.delete('maxKm');
+    } else {
+      p.delete('minKm');
+      p.delete('maxKm');
     }
-    // condition === 'all' → no km constraint at all
 
     p.set('page', '1');
-    p.set('perPage', params.get('perPage') ?? '12');
+    if (!p.get('perPage')) p.set('perPage', '24');
 
-    router.push(`?${p.toString()}`);
-  }, [filters, params, router]);
+    router.replace(`?${p.toString()}`, { scroll: false });
+  }, [params, router]);
+
+  const handleSelect = useCallback((key: keyof typeof filters, value: string) => {
+    const updated = { ...filtersRef.current, [key]: value };
+
+    if (key === 'make' && value !== 'all') {
+      const modelsForMake = allCars.filter(c => c.make === value).map(c => c.model);
+      if (updated.model !== 'all' && !modelsForMake.includes(updated.model)) {
+        updated.model = 'all';
+      }
+    }
+    if (key === 'model' && value !== 'all') {
+      const makesForModel = allCars.filter(c => c.model === value).map(c => c.make);
+      if (updated.make !== 'all' && !makesForModel.includes(updated.make)) {
+        updated.make = 'all';
+      }
+    }
+
+    setFilters(updated);
+    pushUrl(updated);
+  }, [allCars, pushUrl]);
+
+  const handleInput = useCallback((key: keyof typeof filters, value: string) => {
+    setFilters(prev => ({ ...prev, [key]: value }));
+
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(() => {
+      pushUrl({ ...filtersRef.current, [key]: value });
+    }, 600);
+  }, [pushUrl]);
 
   const reset = () => {
-    setFilters({
-      make: 'all',
-      model: '',
-      minPrice: '',
-      maxPrice: '',
-      year: '',
-      condition: 'all',
-    });
-    router.push('?');
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    const p = new URLSearchParams();
+    const currentSort = params.get('sort');
+    if (currentSort && currentSort !== 'newest') p.set('sort', currentSort);
+    const perPage = params.get('perPage');
+    if (perPage) p.set('perPage', perPage);
+    router.replace(p.toString() ? `?${p.toString()}` : '?', { scroll: false });
   };
 
   return (
-    <div className="flex flex-wrap gap-3 w-full p-4 items-center bg-white">
-
-      {/* Make / Brand */}
-      <Select
-        value={filters.make}
-        onValueChange={v => updateField('make', v)}
-      >
+    <div className="flex flex-col gap-4 w-full p-4 bg-white border border-gray-100 shadow-xs">
+      <Select value={filters.make} onValueChange={v => handleSelect('make', v)}>
         <SelectTrigger className="w-full">
-          <SelectValue placeholder="Brand" />
+          <SelectValue placeholder={`${t('carFilters.all')} ${t('carFilters.make')}`} />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="all">All Makes</SelectItem>
-          {makes.map(m => (
-            <SelectItem key={m} value={m}>{m}</SelectItem>
-          ))}
+          <SelectItem value="all">{`${t('carFilters.all')} ${t('carFilters.make')}`}</SelectItem>
+          {availableMakes.map(m => <SelectItem key={m} value={m}>{m}</SelectItem>)}
         </SelectContent>
       </Select>
 
-      {/* Model */}
-      <Input
-        placeholder="Model"
-        value={filters.model}
-        className="w-full"
-        onChange={e => updateField('model', e.target.value)}
-      />
+      <Select value={filters.model} onValueChange={v => handleSelect('model', v)}>
+        <SelectTrigger className="w-full">
+          <SelectValue placeholder={`${t('carFilters.all')} ${t('carFilters.model')}`} />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="all">{`${t('carFilters.all')} ${t('carFilters.model')}`}</SelectItem>
+          {availableModels.map(m => <SelectItem key={m} value={m}>{m}</SelectItem>)}
+        </SelectContent>
+      </Select>
 
-      <div className="flex grid-cols-2 gap-3 w-full">
-        {/* Min price */}
+      <div className="flex gap-3">
         <Input
           type="number"
-          placeholder="Min Price"
+          placeholder={t('carFilters.minPrice')}
           value={filters.minPrice}
-          className="w-auto"
-          onChange={e => updateField('minPrice', e.target.value)}
+          min={0}
+          onChange={e => handleInput('minPrice', e.target.value)}
         />
-
-        {/* Max price */}
         <Input
           type="number"
-          placeholder="Max Price"
+          placeholder={t('carFilters.maxPrice')}
           value={filters.maxPrice}
-          className="w-auto"
-          onChange={e => updateField('maxPrice', e.target.value)}
+          min={0}
+          onChange={e => handleInput('maxPrice', e.target.value)}
         />
       </div>
 
-      {/* Year — plain input instead of dropdown */}
       <Input
         type="number"
-        placeholder="Year (e.g. 2022)"
+        placeholder={t('carFilters.yearRange')}
         value={filters.year}
-        className="w-full"
         min={1980}
         max={new Date().getFullYear() + 1}
-        onChange={e => updateField('year', e.target.value)}
+        onChange={e => handleInput('year', e.target.value)}
       />
 
-      {/* Condition */}
-      <Select
-        value={filters.condition}
-        onValueChange={v => updateCondition(v as Condition)}
-      >
+      <Select value={filters.condition} onValueChange={v => handleSelect('condition', v as Condition)}>
         <SelectTrigger className="w-full">
-          <SelectValue placeholder="Condition" />
+          <SelectValue placeholder={t('carFilters.condition')} />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="all">All</SelectItem>
-          <SelectItem value="new">New</SelectItem>
-          <SelectItem value="used">Used</SelectItem>
+          <SelectItem value="all">{t('carFilters.all')}</SelectItem>
+          <SelectItem value="new">{t('carFilters.new')}</SelectItem>
+          <SelectItem value="used">{t('carFilters.used')}</SelectItem>
         </SelectContent>
       </Select>
 
-      <Button variant="default" size="lg" className="w-full" onClick={applyFilters}>
-        Search
-      </Button>
-      <Button variant="outline" size="sm" className="w-full" onClick={reset}>
-        Reset Filters
+      <Button variant="outline" size="sm" className="w-full font-medium cursor-pointer" onClick={reset}>
+        {t('carFilters.reset')}
       </Button>
     </div>
   );

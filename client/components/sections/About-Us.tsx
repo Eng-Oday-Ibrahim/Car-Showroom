@@ -21,7 +21,7 @@ export default function About() {
   const { t } = useI18n();
 
   return (
-    <section className="container mx-auto bg-white py-32" id="about">
+    <section className="container mx-auto py-32" id="about">
       <div className="px-6">
         <div className="text-center mb-28">
           <h2 className="text-5xl font-light text-neutral-900">

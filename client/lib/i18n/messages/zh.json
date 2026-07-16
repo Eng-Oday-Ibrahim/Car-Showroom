@@ -237,7 +237,34 @@
     "passwordPlaceholder": "密码",
     "signingIn": "正在登录…",
     "createAccountText": "首次使用？",
-    "createAccountLink": "创建账户"
+    "createAccountLink": "创建账户",
+    "forgotPassword": "忘记密码？"
+  },
+  "forgotPassword": {
+    "title": "忘记密码",
+    "description": "请输入您的电子邮箱地址，我们将向您发送重置密码的链接。",
+    "emailPlaceholder": "您的电子邮箱地址",
+    "submitButton": "发送重置链接",
+    "sending": "正在发送…",
+    "successTitle": "请查收您的邮件",
+    "successMessage": "如果该邮箱地址已有账户，您将收到重置密码的链接。",
+    "backToLogin": "返回登录",
+    "errorGeneric": "出错了，请再试。"
+  },
+  "resetPassword": {
+    "title": "重置密码",
+    "description": "在下方输入您的新密码。",
+    "newPasswordPlaceholder": "新密码",
+    "confirmPasswordPlaceholder": "确认新密码",
+    "submitButton": "重置密码",
+    "resetting": "重置中…",
+    "successTitle": "密码已重置！",
+    "successMessage": "您的密码已成功重置，现在可以使用新密码登录。",
+    "goToLogin": "前往登录",
+    "errorMismatch": "密码不匹配。",
+    "errorShort": "密码至少6个字符。",
+    "errorInvalidToken": "重置链接无效或已过期，请重新申请。",
+    "errorGeneric": "出错了，请再试。"
   },
   "common": {
     "filterResults": "筛选结果",
@@ -359,6 +386,8 @@
     "dashboard": "控制面板",
     "cars": "车辆",
     "addCar": "添加车辆",
+    "users": "用户",
+    "settings": "设置",
     "headerTitle": "汽车展廊",
     "headerSubtitle": "控制面板"
   },
@@ -395,11 +424,27 @@
     },
     "specs": {
       "color": "颜色",
+      "exteriorColor": "外观颜色",
+      "interiorColor": "内饰颜色",
       "bodyType": "车身类型",
       "fuelType": "燃料类型",
       "transmission": "变速箱",
+      "driveType": "驱动方式",
+      "engineSize": "排量",
+      "cylinders": "气缸数",
+      "horsePower": "马力",
+      "seats": "座位数",
+      "doors": "车门数",
+      "bodyCondition": "车身状况",
+      "mechanicalCondition": "机械状况",
       "regionalSpecs": "地区规格",
       "steeringSide": "方向盘位置",
+      "wheelSize": "轮辋尺寸",
+      "adReference": "广告 / 库存编号",
+      "additionalInfo": "额外信息",
+      "additionalInfoPlaceholder": "请输入额外信息...",
+      "additionalInfoEn": "额外信息 (英文)",
+      "additionalInfoAr": "额外信息 (阿拉伯文)",
       "features": "配置特点",
       "featuresHelp": "多个特点请用逗号分隔。",
       "selectPlaceholder": "请选择..."
@@ -418,12 +463,20 @@
       "left": "左驾",
       "right": "右驾"
     },
+    "drive": {
+      "front": "前轮驱动 (FWD)",
+      "rear": "后轮驱动 (RWD)",
+      "all": "全轮驱动 (AWD)",
+      "four": "四轮驱动 (4WD)"
+    },
     "warranty": {
       "available": "提供质保",
       "duration": "质保期限",
       "durationPlaceholder": "12 个月"
     },
     "description": {
+      "label": "车辆描述",
+      "placeholder": "请输入车辆描述...",
       "arabic": "描述（阿拉伯语）",
       "english": "描述（英语）",
       "arabicPlaceholder": "车辆的阿拉伯语描述...",
@@ -509,6 +562,81 @@
       "pausedCars": "已暂停车辆",
       "soldCars": "已售出车辆",
       "deletedCars": "已删除车辆"
+    }
+  },
+  "settings": {
+    "title": "设置",
+    "description": "管理集成凭证和系统设置",
+    "dubicarsSection": "DubiCars 集成",
+    "dubicarsDescription": "更新用于从 DubiCars 同步车辆的凭证。",
+    "emailLabel": "DubiCars 邮筱",
+    "passwordLabel": "DubiCars 密码",
+    "passwordPlaceholder": "输入新密码",
+    "saveButton": "保存凭证",
+    "saving": "保存中…",
+    "successMessage": "DubiCars 凭证已成功更新！",
+    "errorLoad": "无法加载设置",
+    "errorSave": "无法保存设置",
+    "note": "凭证安全地存储在数据库中。"
+  },
+  "carFilters": {
+    "title": "筛选车辆",
+    "make": "品牌",
+    "model": "型号",
+    "condition": "车况",
+    "all": "全部",
+    "new": "全新",
+    "used": "二手",
+    "priceRange": "价格范围",
+    "minPrice": "最低价",
+    "maxPrice": "最高价",
+    "yearRange": "年份范围",
+    "minYear": "最早年份",
+    "maxYear": "最晚年份",
+    "reset": "重置筛选"
+  },
+  "carSort": {
+    "title": "排序方式",
+    "newest": "最新发布",
+    "priceAsc": "价格：从低到高",
+    "priceDesc": "价格：从高到低",
+    "yearDesc": "年份：最新的优先"
+  },
+  "carDetails": {
+    "new": "全新",
+    "warrantyIncluded": "包含保修",
+    "specifications": "规格参数",
+    "features": "车辆配置与功能",
+    "description": "车辆描述",
+    "adNumber": "广告编号: {ref}",
+    "contactUs": "联系我们",
+    "whatsapp": "WhatsApp咨询",
+    "guarantee": "保修服务",
+    "backToList": "返回车辆列表",
+    "left": "左驾",
+    "right": "右驾",
+    "yes": "是",
+    "no": "否",
+    "specs": {
+      "year": "生产年份",
+      "kilometers": "行驶里程",
+      "bodyType": "车身类型",
+      "fuelType": "燃料类型",
+      "transmission": "变速箱",
+      "cylinders": "气缸数",
+      "driveType": "驱动方式",
+      "engineSize": "排量",
+      "horsePower": "马力",
+      "seats": "座位数",
+      "doors": "车门数",
+      "exteriorColor": "外观颜色",
+      "interiorColor": "内饰颜色",
+      "steeringSide": "方向盘位置",
+      "regionalSpecs": "区域规格",
+      "bodyCondition": "车身状况",
+      "mechanicalCondition": "机械状况",
+      "warranty": "保修情况",
+      "wheelSize": "轮辋尺寸"
     }
   }
 }

@@ -1,15 +1,17 @@
 'use client';
 
-import Link     from 'next/link';
+import Link           from 'next/link';
 import { usePathname } from 'next/navigation';
-import { cn }   from '../../lib/utils';
-import { Layout, Plus, Car } from 'lucide-react';
-import { useI18n } from '@/lib/i18n';
+import { cn }          from '../../lib/utils';
+import { Layout, Plus, Car, Settings2, Users } from 'lucide-react';
+import { useI18n }     from '@/lib/i18n';
 
 const links = [
-  { href: '/dashboard',           label: 'Dashboard',   icon: Layout, labelKey: 'sidebar.dashboard' },
-  { href: '/dashboard/cars',      label: 'Cars',   icon: Car,      labelKey: 'sidebar.cars' },
-  { href: '/dashboard/cars/new',  label: 'Add Car', icon: Plus,     labelKey: 'sidebar.addCar' },
+  { href: '/dashboard',           icon: Layout,   labelKey: 'sidebar.dashboard' },
+  { href: '/dashboard/cars',      icon: Car,      labelKey: 'sidebar.cars' },
+  { href: '/dashboard/cars/new',  icon: Plus,     labelKey: 'sidebar.addCar' },
+  { href: '/dashboard/users',     icon: Users,    labelKey: 'sidebar.users' },
+  { href: '/dashboard/settings',  icon: Settings2,labelKey: 'sidebar.settings' },
 ];
 
 export function Sidebar() {

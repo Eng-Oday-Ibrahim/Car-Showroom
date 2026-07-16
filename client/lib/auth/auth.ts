@@ -155,3 +155,36 @@ export async function getCurrentUser() {
   const payload = (await response.json()) as { data?: AuthUser };
   return payload.data ?? null;
 }
+
+/**
+ * Request a password reset email for the given email address.
+ * Always resolves (never throws) — the server doesn't reveal if the email exists.
+ */
+export async function forgotPassword(email: string): Promise<void> {
+  const response = await fetch(`${API_BASE_URL}/auth/forgot-password`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email }),
+  });
+
+  const payload = (await response.json()) as { success?: boolean; message?: string };
+  if (!response.ok || !payload.success) {
+    throw new Error(payload.message ?? 'Request failed');
+  }
+}
+
+/**
+ * Reset the password using a token from the reset email.
+ */
+export async function resetPassword(token: string, password: string): Promise<void> {
+  const response = await fetch(`${API_BASE_URL}/auth/reset-password`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ token, password }),
+  });
+
+  const payload = (await response.json()) as { success?: boolean; message?: string };
+  if (!response.ok || !payload.success) {
+    throw new Error(payload.message ?? 'Reset failed');
+  }
+}

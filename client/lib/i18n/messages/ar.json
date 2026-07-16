@@ -235,9 +235,36 @@
     "loginHelp": "استخدم حساب المسؤول التجريبي أو سجّل الدخول بحساب تم إنشاؤه في صفحة التسجيل.",
     "emailPlaceholder": "البريد الإلكتروني",
     "passwordPlaceholder": "كلمة المرور",
-    "signingIn": "جارٍ تسجيل الدخول…",
+    "signingIn": "جارِيي تسجيل الدخول…",
     "createAccountText": "جديد هنا؟",
-    "createAccountLink": "إنشاء حساب"
+    "createAccountLink": "إنشاء حساب",
+    "forgotPassword": "نسيت كلمة المرور؟"
+  },
+  "forgotPassword": {
+    "title": "نسيت كلمة المرور",
+    "description": "أدخل عنوان بريدك الإلكتروني وسنرسل لك رابطاً لإعادة تعيين كلمة المرور.",
+    "emailPlaceholder": "عنوان بريدك الإلكتروني",
+    "submitButton": "إرسال رابط إعادة التعيين",
+    "sending": "جارِيي الإرسال…",
+    "successTitle": "تحقق من بريدك الإلكتروني",
+    "successMessage": "إذا كان هناك حساب بهذا البريد الإلكتروني، ستتلقى رابط إعادة تعيين كلمة المرور قريباً.",
+    "backToLogin": "العودة إلى تسجيل الدخول",
+    "errorGeneric": "حدث خطأ ما. حاول مرة أخرى."
+  },
+  "resetPassword": {
+    "title": "إعادة تعيين كلمة المرور",
+    "description": "أدخل كلمة المرور الجديدة أدناه.",
+    "newPasswordPlaceholder": "كلمة المرور الجديدة",
+    "confirmPasswordPlaceholder": "تأكيد كلمة المرور الجديدة",
+    "submitButton": "إعادة تعيين كلمة المرور",
+    "resetting": "جارِيي الإعادة…",
+    "successTitle": "تمت إعادة تعيين كلمة المرور!",
+    "successMessage": "تمت إعادة تعيين كلمة مرورك بنجاح. يمكنك الآن تسجيل الدخول بكلمة المرور الجديدة.",
+    "goToLogin": "الذهاب إلى تسجيل الدخول",
+    "errorMismatch": "كلمتا المرور غير متطابقتين.",
+    "errorShort": "يجب أن تتكون كلمة المرور من 6 أحرف على الأقل.",
+    "errorInvalidToken": "رابط إعادة التعيين غير صالح أو منتهي الصلاحية. يرجى طلب رابط جديد.",
+    "errorGeneric": "حدث خطأ ما. حاول مرة أخرى."
   },
   "common": {
     "filterResults": "تصفية النتائج",
@@ -359,6 +386,8 @@
     "dashboard": "لوحة التحكم",
     "cars": "السيارات",
     "addCar": "إضافة سيارة",
+    "users": "المستخدمون",
+    "settings": "الإعدادات",
     "headerTitle": "معرض السيارات",
     "headerSubtitle": "لوحة التحكم"
   },
@@ -395,11 +424,27 @@
     },
     "specs": {
       "color": "اللون",
+      "exteriorColor": "اللون الخارجي",
+      "interiorColor": "اللون الداخلي",
       "bodyType": "نوع الهيكل",
       "fuelType": "نوع الوقود",
       "transmission": "ناقل الحركة",
+      "driveType": "نظام الدفع",
+      "engineSize": "حجم المحرك",
+      "cylinders": "عدد الأسطوانات",
+      "horsePower": "القوة الحصانية",
+      "seats": "عدد المقاعد",
+      "doors": "عدد الأبواب",
+      "bodyCondition": "حالة الهيكل",
+      "mechanicalCondition": "الحالة الميكانيكية",
       "regionalSpecs": "المواصفات الإقليمية",
       "steeringSide": "جهة المقود",
+      "wheelSize": "حجم العجلات",
+      "adReference": "رقم الإعلان / المخزون",
+      "additionalInfo": "معلومات إضافية",
+      "additionalInfoPlaceholder": "أدخل معلومات إضافية...",
+      "additionalInfoEn": "معلومات إضافية (إنجليزي)",
+      "additionalInfoAr": "معلومات إضافية (عربي)",
       "features": "المميزات",
       "featuresHelp": "افصل بين المميزات بفواصل.",
       "selectPlaceholder": "اختر..."
@@ -418,12 +463,20 @@
       "left": "يسار",
       "right": "يمين"
     },
+    "drive": {
+      "front": "دفع أمامي",
+      "rear": "دفع خلفي",
+      "all": "دفع كلي",
+      "four": "دفع رباعي"
+    },
     "warranty": {
       "available": "الضمان متوفر",
       "duration": "مدة الضمان",
       "durationPlaceholder": "12 شهرًا"
     },
     "description": {
+      "label": "الوصف",
+      "placeholder": "أدخل وصف السيارة...",
       "arabic": "الوصف (بالعربية)",
       "english": "الوصف (بالإنجليزية)",
       "arabicPlaceholder": "وصف السيارة بالعربية...",
@@ -509,6 +562,81 @@
       "pausedCars": "السيارات المتوقفة مؤقتًا",
       "soldCars": "السيارات المباعة",
       "deletedCars": "السيارات المحذوفة"
+    }
+  },
+  "settings": {
+    "title": "الإعدادات",
+    "description": "إدارة بيانات اعتماد التكامل وإعدادات النظام",
+    "dubicarsSection": "تكامل دوبي كارز",
+    "dubicarsDescription": "تحديث بيانات الاعتماد المستخدمة لمزامنة السيارات من دوبي كارز.",
+    "emailLabel": "بريد دوبي كارز",
+    "passwordLabel": "كلمة مرور دوبي كارز",
+    "passwordPlaceholder": "أدخل كلمة مرور جديدة",
+    "saveButton": "حفظ بيانات الاعتماد",
+    "saving": "جارِيي الحفظ…",
+    "successMessage": "تم تحديث بيانات اعتماد دوبي كارز بنجاح!",
+    "errorLoad": "تعذّر تحميل الإعدادات",
+    "errorSave": "تعذّر حفظ الإعدادات",
+    "note": "يتم تخزين بيانات الاعتماد بشكل آمن في قاعدة البيانات."
+  },
+  "carFilters": {
+    "title": "تصفية السيارات",
+    "make": "الشركة المصنعة",
+    "model": "الموديل",
+    "condition": "الحالة",
+    "all": "الكل",
+    "new": "جديدة",
+    "used": "مستعملة",
+    "priceRange": "نطاق السعر",
+    "minPrice": "الأدنى",
+    "maxPrice": "الأقصى",
+    "yearRange": "نطاق سنة الصنع",
+    "minYear": "الأدنى",
+    "maxYear": "الأقصى",
+    "reset": "إعادة ضبط التصفية"
+  },
+  "carSort": {
+    "title": "ترتيب حسب",
+    "newest": "الأحدث",
+    "priceAsc": "السعر:  الأقل ",
+    "priceDesc": "السعر:  الأعلى ",
+    "yearDesc": "سنة الصنع: الأحدث"
+  },
+  "carDetails": {
+    "new": "جديدة",
+    "warrantyIncluded": "الضمان مشمول",
+    "specifications": "المواصفات",
+    "features": "المميزات والإضافات",
+    "description": "الوصف",
+    "adNumber": "رقم الإعلان: {ref}",
+    "contactUs": "اتصل بنا",
+    "whatsapp": "واتساب",
+    "guarantee": "الضمان",
+    "backToList": "العودة لقائمة السيارات",
+    "left": "يسار",
+    "right": "يمين",
+    "yes": "نعم",
+    "no": "لا",
+    "specs": {
+      "year": "سنة الصنع",
+      "kilometers": "المسافة المقطوعة",
+      "bodyType": "نوع الهيكل",
+      "fuelType": "نوع الوقود",
+      "transmission": "ناقل الحركة",
+      "cylinders": "عدد الأسطوانات",
+      "driveType": "نظام الدفع",
+      "engineSize": "حجم المحرك",
+      "horsePower": "القوة الحصانية",
+      "seats": "المقاعد",
+      "doors": "الأبواب",
+      "exteriorColor": "اللون الخارجي",
+      "interiorColor": "اللون الداخلي",
+      "steeringSide": "جهة المقود",
+      "regionalSpecs": "المواصفات الإقليمية",
+      "bodyCondition": "حالة الهيكل",
+      "mechanicalCondition": "الحالة الميكانيكية",
+      "warranty": "الضمان",
+      "wheelSize": "حجم العجلات"
     }
   }
 }

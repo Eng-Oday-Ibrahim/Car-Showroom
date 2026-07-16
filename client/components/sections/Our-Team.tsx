@@ -56,7 +56,7 @@ function Person({ p, level = "staff" }: any) {
       className="text-center group"
     >
       <div
-        className={`relative bg-gray-50 p-4 mx-auto ${size} rounded-full flex items-center justify-center overflow-hidden border-0.5 border-[#C8A24A] group-hover:bg-gray-100 transition duration-200`}
+        className={`relative bg-gradient-to-br from-gray-200 to-gray-300  p-4 mx-auto ${size} rounded-full flex items-center justify-center overflow-hidden border-0.5 border-[#C8A24A] transition duration-200`}
       >
         <User className="w-full h-full text-neutral-900"/>
 
@@ -75,7 +75,7 @@ function Person({ p, level = "staff" }: any) {
 
 export default function OurTeam() {
   return (
-   <section className="container mx-auto bg-white py-32">
+   <section className="py-28">
   <div className="px-6">
 
     {/* HEADER */}

@@ -237,7 +237,34 @@
     "passwordPlaceholder": "Пароль",
     "signingIn": "Выполняется вход…",
     "createAccountText": "Впервые здесь?",
-    "createAccountLink": "Создать аккаунт"
+    "createAccountLink": "Создать аккаунт",
+    "forgotPassword": "Забыли пароль?"
+  },
+  "forgotPassword": {
+    "title": "Забыли пароль",
+    "description": "Введите адрес электронной почты, и мы отправим вам ссылку для сброса пароля.",
+    "emailPlaceholder": "Ваш адрес электронной почты",
+    "submitButton": "Отправить ссылку",
+    "sending": "Отправка…",
+    "successTitle": "Проверьте вашу почту",
+    "successMessage": "Если аккаунт с таким адресом существует, вы получите ссылку для сброса пароля в ближайшее время.",
+    "backToLogin": "Назад к входу",
+    "errorGeneric": "Что-то пошло не так. Попробуйте ещё раз."
+  },
+  "resetPassword": {
+    "title": "Сброс пароля",
+    "description": "Введите новый пароль ниже.",
+    "newPasswordPlaceholder": "Новый пароль",
+    "confirmPasswordPlaceholder": "Подтвердите новый пароль",
+    "submitButton": "Сбросить пароль",
+    "resetting": "Сброс…",
+    "successTitle": "Пароль сброшен!",
+    "successMessage": "Ваш пароль успешно сброшен. Теперь вы можете войти с новым паролем.",
+    "goToLogin": "Перейти к входу",
+    "errorMismatch": "Пароли не совпадают.",
+    "errorShort": "Пароль должен содержать не менее 6 символов.",
+    "errorInvalidToken": "Ссылка недействительна или истекла. Запросите новую.",
+    "errorGeneric": "Что-то пошло не так. Попробуйте ещё раз."
   },
   "common": {
     "filterResults": "Фильтр результатов",
@@ -359,6 +386,8 @@
     "dashboard": "Панель управления",
     "cars": "Автомобили",
     "addCar": "Добавить автомобиль",
+    "users": "Пользователи",
+    "settings": "Настройки",
     "headerTitle": "Галерея автомобилей",
     "headerSubtitle": "Панель управления"
   },
@@ -395,11 +424,27 @@
     },
     "specs": {
       "color": "Цвет",
+      "exteriorColor": "Цвет кузова",
+      "interiorColor": "Цвет салона",
       "bodyType": "Тип кузова",
       "fuelType": "Тип топлива",
       "transmission": "Коробка передач",
+      "driveType": "Привод",
+      "engineSize": "Объем двигателя",
+      "cylinders": "Цилиндры",
+      "horsePower": "Мощность (л.с.)",
+      "seats": "Мест",
+      "doors": "Дверей",
+      "bodyCondition": "Состояние кузова",
+      "mechanicalCondition": "Техническое состояние",
       "regionalSpecs": "Региональные характеристики",
       "steeringSide": "Расположение руля",
+      "wheelSize": "Размер дисков",
+      "adReference": "Номер объявления / стока",
+      "additionalInfo": "Дополнительная информация",
+      "additionalInfoPlaceholder": "Введите дополнительную информацию...",
+      "additionalInfoEn": "Дополнительная информация (Англ)",
+      "additionalInfoAr": "Дополнительная информация (Араб)",
       "features": "Особенности",
       "featuresHelp": "Разделяйте особенности запятыми.",
       "selectPlaceholder": "Выбрать..."
@@ -418,12 +463,20 @@
       "left": "Левый",
       "right": "Правый"
     },
+    "drive": {
+      "front": "Передний привод",
+      "rear": "Задний привод",
+      "all": "Полный привод (AWD)",
+      "four": "Полный привод (4WD)"
+    },
     "warranty": {
       "available": "Гарантия доступна",
       "duration": "Срок гарантии",
       "durationPlaceholder": "12 месяцев"
     },
     "description": {
+      "label": "Описание",
+      "placeholder": "Введите описание автомобиля...",
       "arabic": "Описание (на арабском)",
       "english": "Описание (на английском)",
       "arabicPlaceholder": "Описание автомобиля на арабском...",
@@ -509,6 +562,81 @@
       "pausedCars": "Приостановленные автомобили",
       "soldCars": "Проданные автомобили",
       "deletedCars": "Удалённые автомобили"
+    }
+  },
+  "settings": {
+    "title": "Настройки",
+    "description": "Управление учётными данными интеграции",
+    "dubicarsSection": "Интеграция DubiCars",
+    "dubicarsDescription": "Обновите учётные данные для синхронизации автомобилей из DubiCars.",
+    "emailLabel": "Email DubiCars",
+    "passwordLabel": "Пароль DubiCars",
+    "passwordPlaceholder": "Введите новый пароль",
+    "saveButton": "Сохранить",
+    "saving": "Сохранение…",
+    "successMessage": "Учётные данные DubiCars успешно обновлены!",
+    "errorLoad": "Не удалось загрузить настройки",
+    "errorSave": "Не удалось сохранить настройки",
+    "note": "Учётные данные хранятся в базе данных."
+  },
+  "carFilters": {
+    "title": "Фильтр автомобилей",
+    "make": "Марка",
+    "model": "Модель",
+    "condition": "Состояние",
+    "all": "Все",
+    "new": "Новый",
+    "used": "С пробегом",
+    "priceRange": "Диапазон цен",
+    "minPrice": "Мин. цена",
+    "maxPrice": "Макс. цена",
+    "yearRange": "Год выпуска",
+    "minYear": "Мин. год",
+    "maxYear": "Макс. год",
+    "reset": "Сбросить фильтры"
+  },
+  "carSort": {
+    "title": "Сортировать по",
+    "newest": "Сначала новые",
+    "priceAsc": "Цена: по возрастанию",
+    "priceDesc": "Цена: по убыванию",
+    "yearDesc": "Год: сначала свежие"
+  },
+  "carDetails": {
+    "new": "Новый",
+    "warrantyIncluded": "Гарантия включена",
+    "specifications": "Характеристики",
+    "features": "Опции и комплектация",
+    "description": "Описание",
+    "adNumber": "Номер объявления: {ref}",
+    "contactUs": "Связаться с нами",
+    "whatsapp": "WhatsApp",
+    "guarantee": "Гарантия",
+    "backToList": "Назад к списку",
+    "left": "Слева",
+    "right": "Справа",
+    "yes": "Да",
+    "no": "Нет",
+    "specs": {
+      "year": "Год",
+      "kilometers": "Пробег",
+      "bodyType": "Тип кузова",
+      "fuelType": "Топливо",
+      "transmission": "Коробка передач",
+      "cylinders": "Цилиндры",
+      "driveType": "Привод",
+      "engineSize": "Объем двигателя",
+      "horsePower": "Мощность (л.с.)",
+      "seats": "Мест",
+      "doors": "Дверей",
+      "exteriorColor": "Цвет кузова",
+      "interiorColor": "Цвет салона",
+      "steeringSide": "Руль",
+      "regionalSpecs": "Спецификация",
+      "bodyCondition": "Состояние кузова",
+      "mechanicalCondition": "Техническое состояние",
+      "warranty": "Гарантия",
+      "wheelSize": "Размер дисков"
     }
   }
 }

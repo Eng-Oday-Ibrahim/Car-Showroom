@@ -165,7 +165,7 @@ export default function DashboardHomePage() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: i * 0.05, ease: 'easeOut' }}
-              className="bg-white border border-gray-200 p-5"
+              className="bg-white border border-gray-100 p-5"
             >
               <div className={`inline-flex p-2 ${card.accent}`}>
                 <Icon className="w-4 h-4" />
@@ -190,7 +190,7 @@ export default function DashboardHomePage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Link
           href="/dashboard/cars"
-          className="flex items-center justify-between bg-white border border-gray-200 p-5 hover:border-gray-300 hover:shadow-sm transition-all group"
+          className="flex items-center justify-between bg-white border border-gray-100 p-5 hover:border-gray-200 hover:bg-gray-100 transition-all group"
         >
           <div>
             <p className="font-semibold text-gray-900">{t('dashboardHome.manageCars')}</p>
@@ -201,7 +201,7 @@ export default function DashboardHomePage() {
 
         <Link
           href="/dashboard/users"
-          className="flex items-center justify-between bg-white border border-gray-200 p-5 hover:border-gray-300 hover:shadow-sm transition-all group"
+          className="flex items-center justify-between bg-white border border-gray-100 p-5 hover:border-gray-200 hover:bg-gray-100 transition-all group"
         >
           <div>
             <p className="font-semibold text-gray-900">{t('dashboardHome.manageUsers')}</p>

@@ -237,7 +237,34 @@
     "passwordPlaceholder": "Password",
     "signingIn": "Signing in…",
     "createAccountText": "New here?",
-    "createAccountLink": "Create an account"
+    "createAccountLink": "Create an account",
+    "forgotPassword": "Forgot password?"
+  },
+  "forgotPassword": {
+    "title": "Forgot Password",
+    "description": "Enter your email address and we will send you a link to reset your password.",
+    "emailPlaceholder": "Your email address",
+    "submitButton": "Send Reset Link",
+    "sending": "Sending…",
+    "successTitle": "Check your email",
+    "successMessage": "If an account with that email exists, you will receive a password reset link shortly.",
+    "backToLogin": "Back to login",
+    "errorGeneric": "Something went wrong. Please try again."
+  },
+  "resetPassword": {
+    "title": "Reset Password",
+    "description": "Enter your new password below.",
+    "newPasswordPlaceholder": "New password",
+    "confirmPasswordPlaceholder": "Confirm new password",
+    "submitButton": "Reset Password",
+    "resetting": "Resetting…",
+    "successTitle": "Password reset!",
+    "successMessage": "Your password has been reset successfully. You can now log in with your new password.",
+    "goToLogin": "Go to login",
+    "errorMismatch": "Passwords do not match.",
+    "errorShort": "Password must be at least 6 characters.",
+    "errorInvalidToken": "This reset link is invalid or has expired. Please request a new one.",
+    "errorGeneric": "Something went wrong. Please try again."
   },
   "common": {
     "filterResults": "Filter Results",
@@ -359,6 +386,8 @@
     "dashboard": "Dashboard",
     "cars": "Cars",
     "addCar": "Add Car",
+    "users": "Users",
+    "settings": "Settings",
     "headerTitle": "Cars Gallery",
     "headerSubtitle": "Dashboard"
   },
@@ -395,11 +424,27 @@
     },
     "specs": {
       "color": "Color",
+      "exteriorColor": "Exterior Color",
+      "interiorColor": "Interior Color",
       "bodyType": "Body Type",
       "fuelType": "Fuel Type",
       "transmission": "Transmission",
+      "driveType": "Drive Type",
+      "engineSize": "Engine Size",
+      "cylinders": "Cylinders",
+      "horsePower": "Horsepower (HP)",
+      "seats": "Seats",
+      "doors": "Doors",
+      "bodyCondition": "Body Condition",
+      "mechanicalCondition": "Mechanical Condition",
       "regionalSpecs": "Regional Specifications",
       "steeringSide": "Steering Side",
+      "wheelSize": "Wheel Size",
+      "adReference": "Ad / Stock Number",
+      "additionalInfo": "Additional Info",
+      "additionalInfoPlaceholder": "Enter additional info...",
+      "additionalInfoEn": "Additional Info (English)",
+      "additionalInfoAr": "Additional Info (Arabic)",
       "features": "Features",
       "featuresHelp": "Separate features with commas.",
       "selectPlaceholder": "Select..."
@@ -418,12 +463,20 @@
       "left": "Left",
       "right": "Right"
     },
+    "drive": {
+      "front": "Front Wheel Drive",
+      "rear": "Rear Wheel Drive",
+      "all": "All Wheel Drive",
+      "four": "Four Wheel Drive"
+    },
     "warranty": {
       "available": "Warranty Available",
       "duration": "Warranty Duration",
       "durationPlaceholder": "12 months"
     },
     "description": {
+      "label": "Description",
+      "placeholder": "Enter vehicle description...",
       "arabic": "Description (Arabic)",
       "english": "Description (English)",
       "arabicPlaceholder": "Car description in Arabic...",
@@ -509,6 +562,81 @@
       "pausedCars": "Paused Cars",
       "soldCars": "Sold Cars",
       "deletedCars": "Deleted Cars"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "description": "Manage integration credentials and system settings",
+    "dubicarsSection": "DubiCars Integration",
+    "dubicarsDescription": "Update the credentials used to sync cars from DubiCars. Changes take effect on the next sync.",
+    "emailLabel": "DubiCars Email",
+    "passwordLabel": "DubiCars Password",
+    "passwordPlaceholder": "Enter new password to update",
+    "saveButton": "Save Credentials",
+    "saving": "Saving…",
+    "successMessage": "DubiCars credentials updated successfully! Changes take effect on the next sync.",
+    "errorLoad": "Failed to load settings",
+    "errorSave": "Failed to save settings",
+    "note": "Credentials are stored securely in the database. The environment variable fallback is only used when no DB credentials have been set yet."
+  },
+  "carFilters": {
+    "title": "Filter Cars",
+    "make": "Make",
+    "model": "Model",
+    "condition": "Condition",
+    "all": "All",
+    "new": "New",
+    "used": "Used",
+    "priceRange": "Price Range",
+    "minPrice": "Min Price",
+    "maxPrice": "Max Price",
+    "yearRange": "Year Range",
+    "minYear": "Min Year",
+    "maxYear": "Max Year",
+    "reset": "Reset Filters"
+  },
+  "carSort": {
+    "title": "Sort by",
+    "newest": "Newest",
+    "priceAsc": "Price: Lowest",
+    "priceDesc": "Price: Highest",
+    "yearDesc": "Year: Latest"
+  },
+  "carDetails": {
+    "new": "New",
+    "warrantyIncluded": "Warranty included",
+    "specifications": "Specifications",
+    "features": "Features & Additions",
+    "description": "Description",
+    "adNumber": "Ad Number: {ref}",
+    "contactUs": "Contact Us",
+    "whatsapp": "WhatsApp",
+    "guarantee": "Guarantee",
+    "backToList": "Back to Car List",
+    "left": "Left",
+    "right": "Right",
+    "yes": "Yes",
+    "no": "No",
+    "specs": {
+      "year": "Year",
+      "kilometers": "Kilometers",
+      "bodyType": "Body Type",
+      "fuelType": "Fuel Type",
+      "transmission": "Transmission",
+      "cylinders": "Cylinders",
+      "driveType": "Drive System",
+      "engineSize": "Engine Size",
+      "horsePower": "Horsepower",
+      "seats": "Seats",
+      "doors": "Doors",
+      "exteriorColor": "Exterior Color",
+      "interiorColor": "Interior Color",
+      "steeringSide": "Steering Side",
+      "regionalSpecs": "Regional Specs",
+      "bodyCondition": "Body Condition",
+      "mechanicalCondition": "Mechanical Condition",
+      "warranty": "Warranty",
+      "wheelSize": "Wheel Size"
     }
   }
 }

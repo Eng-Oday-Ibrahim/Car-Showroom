@@ -7,10 +7,10 @@ export default function CTA() {
   const { t } = useI18n();
 
   return (
-    <section className="relative bg-white py-8 my-16 overflow-hidden container mx-auto">
+    <section className="relative py-8 my-16 bg-white overflow-hidden max-w-5xl mx-auto">
       <div className="absolute inset-0">
-        <div className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-[#C8A24A]/20 rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] bg-neutral-200 rounded-full blur-3xl" />
+        <div className="absolute -top-40 -right-40 w-[40%] h-[40%] bg-[#C8A24A]/50 rounded-full blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 w-[40%] h-[40%] bg-neutral-200 rounded-full blur-3xl" />
       </div>
 
       <div className="relative px-6 text-center w-full">

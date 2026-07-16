@@ -8,6 +8,8 @@ export interface IUserDocument extends Document {
   role: UserRoleType;
   isActive: boolean;
   favoriteCarIds: string[];
+  resetPasswordToken:  string | undefined;
+  resetPasswordExpiry: Date    | undefined;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -46,6 +48,14 @@ const userSchema = new Schema<IUserDocument>(
     favoriteCarIds: {
       type: [String],
       default: [],
+    },
+    resetPasswordToken: {
+      type: String,
+      select: false,
+    },
+    resetPasswordExpiry: {
+      type: Date,
+      select: false,
     },
   },
   {

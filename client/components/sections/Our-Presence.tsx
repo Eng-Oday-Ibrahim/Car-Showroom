@@ -16,7 +16,7 @@ export default function OurPresence() {
   const { t } = useI18n();
 
   return (
-    <section className="bg-gradient-to-b from-gray-100 via-gray-50 to-gray-100 rounded-md container mx-auto py-32">
+    <section className="container mx-auto py-32">
       <div className="px-6">
         <div className="mb-24">
           <p className="text-xs tracking-[0.35em] text-neutral-400 uppercase">{t('presence.tagline')}</p>

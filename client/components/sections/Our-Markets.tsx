@@ -26,7 +26,7 @@ export default function OurMarkets() {
   const { t } = useI18n();
 
   return (
-    <section className="bg-white py-32">
+    <section className="bg-white py-28">
       <div className="max-w-6xl mx-auto px-6">
         <div className="mb-24">
           <p className="text-xs tracking-[0.35em] text-neutral-400 uppercase">{t('markets.tagline')}</p>

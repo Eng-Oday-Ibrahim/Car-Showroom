@@ -13,7 +13,7 @@ import OurServices from '@/components/sections/Our-Services';
 import { SlidersHorizontal, SearchX, X } from 'lucide-react';
 import { Translate } from '@/lib/i18n';
 
-export const metadata: Metadata = { title: 'available cars' };
+export const metadata: Metadata = { title: 'Hussein Ghulam Motors' };
 
 interface PageProps {
   searchParams: Promise<Record<string, string>>;
@@ -90,7 +90,7 @@ export default async function HomePage({ searchParams }: PageProps) {
                   </p>
                   <a
                     href="/"
-                    className="inline-block mt-2 px-6 py-2.5 bg-gray-900 text-white rounded text-sm hover:bg-gray-700 transition-colors"
+                    className="inline-block mt-2 px-6 py-2.5 bg-[#050505] text-white text-sm hover:bg-[#050505]/80 transition-colors"
                   >
                     <Translate id="common.showAllCars" />
                   </a>

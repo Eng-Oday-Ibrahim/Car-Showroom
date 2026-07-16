@@ -8,6 +8,8 @@ import {
   loginSchema,
   updateUserSchema,
   listUsersSchema,
+  forgotPasswordSchema,
+  resetPasswordSchema,
 } from './identity.dto';
 
 export interface AuthRequest extends Request {
@@ -194,6 +196,36 @@ export function createIdentityRouter(identityService: IdentityService): Router {
       await identityService.deleteUser(userId);
       res.json({ success: true, message: 'User deleted' });
     } catch (err) {
+      next(err);
+    }
+  });
+
+  /**
+   * POST /auth/forgot-password
+   * Request a password reset email.
+   */
+  router.post('/forgot-password', validate(forgotPasswordSchema, 'body'), async (req: AuthRequest, res: Response, next: NextFunction) => {
+    try {
+      // Always return 200 regardless of whether the email exists (prevents enumeration)
+      await identityService.forgotPassword(req.body.email);
+      res.json({ success: true, message: 'If an account with that email exists, a reset link has been sent.' });
+    } catch (err) {
+      next(err);
+    }
+  });
+
+  /**
+   * POST /auth/reset-password
+   * Reset password using a token from the reset email.
+   */
+  router.post('/reset-password', validate(resetPasswordSchema, 'body'), async (req: AuthRequest, res: Response, next: NextFunction) => {
+    try {
+      await identityService.resetPassword(req.body.token, req.body.password);
+      res.json({ success: true, message: 'Password reset successfully.' });
+    } catch (err: any) {
+      if (err?.message === 'INVALID_TOKEN') {
+        return res.status(400).json({ success: false, message: 'Invalid or expired reset token.' });
+      }
       next(err);
     }
   });

@@ -55,11 +55,11 @@ export function CarGallery({ images, title }: CarGalleryProps) {
 
         {images.length > 1 && (
           <>
-            <CarouselPrevious className="left-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-            <CarouselNext className="right-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+            <CarouselPrevious className="start-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+            <CarouselNext className="end-3 opacity-0 group-hover:opacity-100 transition-opacity" />
 
             {/* Counter */}
-            <div className="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-black/50 text-white text-xs font-medium">
+            <div className="absolute top-3 end-3 px-2 py-0.5 rounded-full bg-black/50 text-white text-xs font-medium">
               {active + 1} / {images.length}
             </div>
 

@@ -237,7 +237,34 @@
     "passwordPlaceholder": "Mot de passe",
     "signingIn": "Connexion en cours…",
     "createAccountText": "Nouveau ici ?",
-    "createAccountLink": "Créer un compte"
+    "createAccountLink": "Créer un compte",
+    "forgotPassword": "Mot de passe oublié ?"
+  },
+  "forgotPassword": {
+    "title": "Mot de passe oublié",
+    "description": "Entrez votre adresse e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe.",
+    "emailPlaceholder": "Votre adresse e-mail",
+    "submitButton": "Envoyer le lien",
+    "sending": "Envoi en cours…",
+    "successTitle": "Vérifiez votre e-mail",
+    "successMessage": "Si un compte avec cet e-mail existe, vous recevrez un lien de réinitialisation sous peu.",
+    "backToLogin": "Retour à la connexion",
+    "errorGeneric": "Une erreur s'est produite. Veuillez réessayer."
+  },
+  "resetPassword": {
+    "title": "Réinitialiser le mot de passe",
+    "description": "Entrez votre nouveau mot de passe ci-dessous.",
+    "newPasswordPlaceholder": "Nouveau mot de passe",
+    "confirmPasswordPlaceholder": "Confirmer le nouveau mot de passe",
+    "submitButton": "Réinitialiser le mot de passe",
+    "resetting": "Réinitialisation…",
+    "successTitle": "Mot de passe réinitialisé !",
+    "successMessage": "Votre mot de passe a été réinitialisé avec succès.",
+    "goToLogin": "Aller à la connexion",
+    "errorMismatch": "Les mots de passe ne correspondent pas.",
+    "errorShort": "Le mot de passe doit contenir au moins 6 caractères.",
+    "errorInvalidToken": "Ce lien est invalide ou a expiré. Veuillez en demander un nouveau.",
+    "errorGeneric": "Une erreur s'est produite. Veuillez réessayer."
   },
   "common": {
     "filterResults": "Filtrer les résultats",
@@ -359,6 +386,8 @@
     "dashboard": "Tableau de bord",
     "cars": "Véhicules",
     "addCar": "Ajouter un véhicule",
+    "users": "Utilisateurs",
+    "settings": "Paramètres",
     "headerTitle": "Galerie de véhicules",
     "headerSubtitle": "Tableau de bord"
   },
@@ -395,11 +424,27 @@
     },
     "specs": {
       "color": "Couleur",
+      "exteriorColor": "Couleur extérieure",
+      "interiorColor": "Couleur intérieure",
       "bodyType": "Type de carrosserie",
       "fuelType": "Type de carburant",
       "transmission": "Transmission",
+      "driveType": "Transmission motrice",
+      "engineSize": "Cylindrée",
+      "cylinders": "Cylindres",
+      "horsePower": "Puissance (CH)",
+      "seats": "Places",
+      "doors": "Portes",
+      "bodyCondition": "État de la carrosserie",
+      "mechanicalCondition": "État mécanique",
       "regionalSpecs": "Spécifications régionales",
       "steeringSide": "Position du volant",
+      "wheelSize": "Taille des jantes",
+      "adReference": "Numéro d'annonce / Stock",
+      "additionalInfo": "Informations supplémentaires",
+      "additionalInfoPlaceholder": "Entrez les informations supplémentaires...",
+      "additionalInfoEn": "Informations supplémentaires (Anglais)",
+      "additionalInfoAr": "Informations supplémentaires (Arabe)",
       "features": "Équipements",
       "featuresHelp": "Séparez les équipements par des virgules.",
       "selectPlaceholder": "Sélectionner..."
@@ -418,12 +463,20 @@
       "left": "Gauche",
       "right": "Droite"
     },
+    "drive": {
+      "front": "Traction avant",
+      "rear": "Propulsion arrière",
+      "all": "Traction intégrale (AWD)",
+      "four": "4 roues motrices (4WD)"
+    },
     "warranty": {
       "available": "Garantie disponible",
       "duration": "Durée de la garantie",
       "durationPlaceholder": "12 mois"
     },
     "description": {
+      "label": "Description",
+      "placeholder": "Entrez la description du véhicule...",
       "arabic": "Description (arabe)",
       "english": "Description (anglais)",
       "arabicPlaceholder": "Description du véhicule en arabe...",
@@ -509,6 +562,81 @@
       "pausedCars": "Véhicules en pause",
       "soldCars": "Véhicules vendus",
       "deletedCars": "Véhicules supprimés"
+    }
+  },
+  "settings": {
+    "title": "Paramètres",
+    "description": "Gérer les identifiants d'intégration et les paramètres système",
+    "dubicarsSection": "Intégration DubiCars",
+    "dubicarsDescription": "Mettre à jour les identifiants utilisés pour synchroniser les véhicules depuis DubiCars.",
+    "emailLabel": "E-mail DubiCars",
+    "passwordLabel": "Mot de passe DubiCars",
+    "passwordPlaceholder": "Entrez un nouveau mot de passe",
+    "saveButton": "Enregistrer les identifiants",
+    "saving": "Enregistrement…",
+    "successMessage": "Identifiants DubiCars mis à jour avec succès !",
+    "errorLoad": "Impossible de charger les paramètres",
+    "errorSave": "Impossible d'enregistrer les paramètres",
+    "note": "Les identifiants sont stockés de manière sécurisée dans la base de données."
+  },
+  "carFilters": {
+    "title": "Filtrer les voitures",
+    "make": "Marque",
+    "model": "Modèle",
+    "condition": "État",
+    "all": "Tous",
+    "new": "Neuf",
+    "used": "Occasion",
+    "priceRange": "Gamme de prix",
+    "minPrice": "Prix min",
+    "maxPrice": "Prix max",
+    "yearRange": "Année de fabrication",
+    "minYear": "Année min",
+    "maxYear": "Année max",
+    "reset": "Réinitialiser les filtres"
+  },
+  "carSort": {
+    "title": "Trier par",
+    "newest": "Le plus récent",
+    "priceAsc": "Prix : du plus bas",
+    "priceDesc": "Prix : du plus élevé",
+    "yearDesc": "Année : la plus récente"
+  },
+  "carDetails": {
+    "new": "Neuf",
+    "warrantyIncluded": "Garantie incluse",
+    "specifications": "Caractéristiques",
+    "features": "Équipements et options",
+    "description": "Description",
+    "adNumber": "Numéro d'annonce : {ref}",
+    "contactUs": "Contactez-nous",
+    "whatsapp": "WhatsApp",
+    "guarantee": "Garantie",
+    "backToList": "Retour à la liste des voitures",
+    "left": "Gauche",
+    "right": "Droite",
+    "yes": "Oui",
+    "no": "Non",
+    "specs": {
+      "year": "Année",
+      "kilometers": "Kilométrage",
+      "bodyType": "Carrosserie",
+      "fuelType": "Carburant",
+      "transmission": "Boîte de vitesses",
+      "cylinders": "Cylindres",
+      "driveType": "Transmission",
+      "engineSize": "Cylindrée",
+      "horsePower": "Puissance (CH)",
+      "seats": "Places",
+      "doors": "Portes",
+      "exteriorColor": "Couleur extérieure",
+      "interiorColor": "Couleur intérieure",
+      "steeringSide": "Volant",
+      "regionalSpecs": "Spécifications régionales",
+      "bodyCondition": "État de la carrosserie",
+      "mechanicalCondition": "État mécanique",
+      "warranty": "Garantie",
+      "wheelSize": "Taille des jantes"
     }
   }
 }
